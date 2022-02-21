@@ -24,12 +24,14 @@ char	*ft_strdup(const char *src)
 	size_t	len;
 	size_t	i;
 
+	if (!src)
+		return (NULL);
 	len = ft_strlen(src);
-	new = (char *)malloc(sizeof(char) * (len + 1));
+	new = (char *) malloc(sizeof(char) * (len + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
-	while (i <= len)
+	while (i < len)
 	{
 		new[i] = src[i];
 		i++;

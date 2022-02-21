@@ -3,8 +3,9 @@ CC = gcc
 LIBFT_PATH=libft/
 LIBFT_NAME=libft.a
 LIBFT  = $(addprefix $(LIBFT_PATH), $(LIBFT_NAME))
+SRC_PATH = src/
 CFLAGS = -Wall -Werror -Wextra -lreadline
-SRCS = minishell.c
+SRCS = minishell.c $(SRC_PATH)parsing.c $(SRC_PATH)struct_utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
