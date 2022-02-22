@@ -41,6 +41,11 @@ SRC		=	$(addsuffix .c,				\
 			debug_aux					\
 			debug_coffee				\
 			debug_int					\
+			dbg_ar						\
+			)							\
+			$(addprefix file/,			\
+			ft_filename					\
+			ft_is_extension				\
 			)							\
 			$(addprefix lst/,			\
 			ft_lstadd_back				\
@@ -99,8 +104,11 @@ SRC		=	$(addsuffix .c,				\
 			ft_stack_swap_top			\
 			)							\
 			$(addprefix str/,			\
+			ft_arfree					\
 			ft_split					\
 			ft_strchr					\
+			ft_strcmp					\
+			ft_strcpy					\
 	  		ft_strdup					\
 	  		ft_striteri					\
 	  		ft_strjoin					\

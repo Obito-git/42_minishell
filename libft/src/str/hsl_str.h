@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sloquet <sloquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 12:16:57 by zsheep            #+#    #+#             */
-/*   Updated: 2022/02/01 12:16:57 by sloquet          ###   ########.fr       */
+/*   Created: 2022/02/22 12:01:42 by zsheep            #+#    #+#             */
+/*   Updated: 2022/02/22 12:01:42 by sloquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include <unistd.h>
 
 /**
+ *		ft_arfree.c
+ */
+int		ft_arfree(char **array);
+
+/**
  *		ft_split.c
  */
 char	**ft_split(const char *s, char c);
@@ -25,6 +30,16 @@ char	**ft_split(const char *s, char c);
  *		ft_strchr.c
  */
 char	*ft_strchr(const char *s, int c);
+
+/**
+ *		ft_strcmp.c
+ */
+int		ft_strcmp(char *s1, char *s2);
+
+/**
+ *		ft_strcpy.c
+ */
+char	*ft_strcpy(char *dest, const char *src);
 
 /**
  *		ft_strdup.c

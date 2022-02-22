@@ -6,7 +6,7 @@
 /*   By: sloquet <sloquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 14:04:09 by sloquet           #+#    #+#             */
-/*   Updated: 2022/01/29 15:08:47 by sloquet          ###   ########.fr       */
+/*   Updated: 2022/02/22 11:39:07 by sloquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,18 @@
  * a duplicate of the string s.  Memory for the new string is
  * obtained with malloc(3), and can be freed with free(3).
  */
-
 char	*ft_strdup(const char *src)
 {
 	char	*new;
-	size_t	len;
-	size_t	i;
 
 	if (!src)
 		return (NULL);
-	len = ft_strlen(src);
-	new = (char *) malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		new[i] = src[i];
-		i++;
-	}
-	new[i] = 0;
-	return (new);
-}
-/*
-static char	*ft_strcpy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
-}
-
-test char	*ft_strdup(const char *src)
-{
-	char	*new;
-
 	new = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (!new)
 		return (NULL);
-	return (ft_strcpy(new, src));
-}*/
+	ft_strcpy(new, src);
+	return (new);
+}
 /*
 #include <stdlib.h>
 #include <stdio.h>
@@ -77,6 +43,9 @@ static int	ft_test(const char *string)
 	std_str = strdup(string);
 	ft_str = ft_strdup(string);
 	result = strcmp(std_str, ft_str);
+	printf("in :%s\n", string);
+	printf("std_str :%s\n", std_str);
+	printf("ft_str :%s\n", ft_str);
 	free(std_str);
 	free(ft_str);
 	return (result);
@@ -85,11 +54,15 @@ static int	ft_test(const char *string)
 int	main(void)
 {
 	if (ft_test("Unbreakable")
-		|| ft_test(""))
+		|| ft_test("") || ft_test("a"))
 	{
-		ft_printf("KO: ft_strdup");
+		printf("KO: ft_strdup");
 		return (1);
 	}
-	ft_printf("OK: ft_strdup");
+	printf("OK: ft_strdup");
+	// char *test= "0wf9rer908098";
+	char *test = NULL; // ! standard strdup() segfault on NULL
+	ft_test(test);
+	// free(test);
 }
 */

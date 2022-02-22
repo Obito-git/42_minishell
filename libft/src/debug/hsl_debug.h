@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sloquet <sloquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 12:17:02 by zsheep            #+#    #+#             */
-/*   Updated: 2022/02/01 12:17:02 by sloquet          ###   ########.fr       */
+/*   Created: 2022/02/22 11:56:26 by zsheep            #+#    #+#             */
+/*   Updated: 2022/02/22 11:56:47 by sloquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 #  undef LN 
 #  define LN __LINE__
 # endif
+
+/**
+ *		dbg_ar.c
+ */
+void	dbg_ar(const char **array, const char *name);
 
 /**
  *		debug_aux.c
