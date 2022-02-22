@@ -7,8 +7,14 @@ SRC_PATH = src/
 CFLAGS = -Wall -Werror -Wextra -lreadline
 SRCS = minishell.c $(SRC_PATH)parsing.c $(SRC_PATH)struct_utils.c
 OBJS = $(SRCS:.c=.o)
+UNAME_S := $(shell uname -s)
 
-all: $(NAME)
+all: check_os $(NAME)
+
+check_os:
+ifeq ($(UNAME_S),Darwin)
+CFLAGS = -Wall -Werror -Wextra -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar/readline/8.1.2/include
+endif
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
