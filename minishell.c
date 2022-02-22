@@ -17,23 +17,25 @@ void command_print(t_command *c)
 
 int main(void)
 {
-    char        *user_input;
-    t_command   *com;
+	char        *user_input;
+	t_command   *com;
 
 	while (1)
-    {
-        user_input = readline("minishell$ ");
-        if (!user_input)
-        {
-            printf("exit\n");
-            rl_clear_history();
-            break;
-        }
-        add_history(user_input);
-        com = parse(user_input);
-        command_print(com);
-        free_command(com);
-        free(user_input);
-    }
+	{
+		user_input = readline("minishell$ ");
+		if (!user_input)
+		{
+			printf("exit\n");
+			rl_clear_history();
+			break;
+		}
+		add_history(user_input);
+		if (ft_strncmp("clear", user_input, 5))
+			rl_clear_history();
+		com = parse(user_input);
+		command_print(com);
+		free_command(com);
+		free(user_input);
+	}
 	return (0);
 }

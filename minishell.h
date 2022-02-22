@@ -14,15 +14,18 @@
 typedef struct s_command
 {
 	char	*command;
+	char	**args;
 	t_bool	pipe;
 	char	in_mode;
 	char	out_mode;
+	struct s_command *next;
 }	t_command;
 
 //TESTING
 void command_print(t_command *c);
 //STRUCT_UTILS
-t_command	*command_init(char *c, t_bool p, char in, char out);
+//t_command	*command_init(char *c, t_bool p, char in, char out);
+t_command	*command_init();
 void	free_command(t_command *c);
 //PARSING
 t_command *parse(char *com);
