@@ -20,7 +20,7 @@ endif
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): lib $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT) $(CFLAGS)
+	$(CC) -o $(NAME) $(OBJS) $(LIBFT) $(CFLAGS) -fsanitize=leak
 
 lib:
 	$(MAKE) -C $(LIBFT_PATH)

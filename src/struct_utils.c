@@ -41,8 +41,15 @@ t_command	*command_init()
 
 void	free_command(t_command *c)
 {
+	t_command *tmp;
+
 	if (!c)
 		return ;
-	free(c->command);
-	free(c);
+	while (c)
+	{
+		free(c->command);
+		tmp = c->next;
+		free(c);
+		c = tmp;
+	}
 }

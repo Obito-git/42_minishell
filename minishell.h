@@ -22,6 +22,7 @@ typedef struct s_command
 }	t_command;
 
 //TESTING
+void	set_quotes(char c, t_bool *q, t_bool *dq);
 void command_print(t_command *c);
 //STRUCT_UTILS
 //t_command	*command_init(char *c, t_bool p, char in, char out);
