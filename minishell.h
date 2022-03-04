@@ -22,12 +22,21 @@ typedef struct s_command
 }	t_command;
 
 //TESTING
-void	set_quotes(char c, t_bool *q, t_bool *dq);
-void command_print(t_command *c);
+
+void command_print(t_command **c);
 //STRUCT_UTILS
-//t_command	*command_init(char *c, t_bool p, char in, char out);
-t_command	*command_init();
+t_command	*command_init(char *c, t_bool p, char in, char out);
 void	free_command(t_command *c);
+
 //PARSING
-t_command *parse(char *com);
+//	parsing.c
+t_command **parse(char *com);
+void	set_quotes(char c, t_bool *q, t_bool *dq);
+t_bool is_pipe_redir(char c);
+void	set_command_redir(t_command *c, char *s);
+//	str_to_com.c
+char    *cut_command(char *s, int *start, int *end);
+char    **cut_all_commands(char *s, int *i);
+t_command **get_commands_arr(char **c);
+//end parsing
 #endif
