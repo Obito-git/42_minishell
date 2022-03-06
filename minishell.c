@@ -7,14 +7,14 @@ void command_print(t_command **c)
 		printf("Command is null\n");
 	else
 	{
-		while (c[y])
+		while (c && c[y])
 		{
 			int i = 0;
 			printf("Command: %s\n", c[y]->command);
 			printf("Args: ");
 			if (!c[y]->args)
 				printf("Args null");
-			if (c[y]->args && !c[y]->args[i])
+			if (!c[y]->args[i])
 				printf("No args");
 			while (c[y]->args && c[y]->args[i])
 			{

@@ -69,7 +69,8 @@ char	**parse_command_args(char *command)
 	i = 0;
 	while (res && res[i])
 	{
-		tmp = ft_strtrim(res[i], " \"\'");
+		//tmp = ft_strtrim(res[i], " \"\'");
+		tmp = ft_strtrim(res[i], " ");
 		free(res[i]);
 		res[i] = tmp;
 		i++;
@@ -127,8 +128,12 @@ t_command **get_commands_arr(char **c)
 		res[i]->command[y] = 0;
 		set_command_args(res[i], c[i], y);
 		if (!res[i]->args)
+		{
 			res[i]->args = (char **) malloc(sizeof(char *)); //MALLOC PROT
+			res[i]->args[0] = NULL;
+		}
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
