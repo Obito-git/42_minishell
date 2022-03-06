@@ -1,4 +1,30 @@
 #include "../../minishell.h"
+char **ft_strtrim_array(char **s, char *set)
+{
+	char	*tmp;
+	int		i;
+	int		y;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i])
+	{
+		tmp = ft_strtrim(s[i], set);
+		if (!tmp)
+		{
+			y = 0;
+			while (s[y++])
+				free(s[y]);
+			free(s);
+			return (NULL);
+		}
+		free(s[i]);
+		s[i] = tmp;
+		i++;
+	}
+	return (s);
+}
 
 t_bool is_pipe_redir(char c)
 {
@@ -49,12 +75,9 @@ t_command	**parse(char *com)
 	i = 0;
 	if (!commands)
 		printf("Commands == NULL\n"); //FIXME
-//	while (commands && commands[i])
-//	{
-//		printf("res[%s]\n", commands[i]);
-//		i++;
-//	}
-//	i = 0;
+	commands = ft_strtrim_array(commands, " ");
+	if (!commands)
+		printf("Trim == NULL\n"); //FIXME
 	res = get_commands_arr(commands);
 	while (commands && commands[i])
 		free(commands[i++]);

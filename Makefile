@@ -10,7 +10,8 @@ PARSING_DIR=parsing/
 PARSING=$(addprefix $(SRC_PATH), $(PARSING_DIR))
 
 CFLAGS = -Wall -Werror -Wextra -lreadline -g
-SRCS = minishell.c $(PARSING)parsing.c $(PARSING)str_to_com.c $(SRC_PATH)struct_utils.c
+SRCS = minishell.c $(PARSING)parsing.c $(PARSING)str_to_struct.c \
+		$(PARSING)input_to_str.c	$(SRC_PATH)struct_utils.c
 OBJS = $(SRCS:.c=.o)
 UNAME_S := $(shell uname -s)
 
