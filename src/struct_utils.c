@@ -17,6 +17,7 @@ t_command	*command_init(char *c, t_bool p, char in, char out)
 		free(res);
 		return (NULL);
 	}
+	res->args = NULL;
 	res->pipe = p;
 	res->in_mode = in;
 	res->out_mode = out;

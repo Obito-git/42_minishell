@@ -32,11 +32,17 @@ void command_print(t_command **c)
 	}
 }
 
-int main(void)
+int main(int ac, char **av)
 {
 	char        *user_input;
 	t_command	**com;
 
+	if (ac != 1)
+	{
+		printf("You can't have args\n");
+		(void) av;
+		return (1);
+	}
 	while (1)
 	{
 		user_input = readline("minishell$ ");

@@ -106,29 +106,29 @@ void	set_command_args(t_command *c, char *s, int i)
 //takes an array of strings and parse them in an array of structures
 t_command **get_commands_arr(char **c)
 {
-        int                     i;
-        int                     y;
-        t_command       **res;
+	int                     i;
+	int                     y;
+	t_command       **res;
 
-        i = 0;
-        while (c[i])
-                i++;
-        res = (t_command **) malloc(sizeof(t_command *) * (i + 1));
-        i = 0;
-        while (c[i])
-        {
-                y = 0;
-				if (ft_strlen(c[i]) == 0)
-					break ;
-                res[i] = command_init(c[i], 0, 0, 0); //MALLOC PROTECT
-                while (res[i]->command[y] && res[i]->command[y] != ' '
-                                && !is_pipe_redir(res[i]->command[y]))
-                                y++;
-                res[i]->command[y] = 0;
-				set_command_args(res[i], c[i], y);
-				if (!res[i]->args)
-					res[i]->args = (char **) malloc(sizeof(char *)); //MALLOC PROT
-                i++;
-        }
-        return (res);
+	i = 0;
+	while (c[i])
+		i++;
+	res = (t_command **) malloc(sizeof(t_command *) * (i + 1));
+	i = 0;
+	while (c[i])
+	{
+		y = 0;
+		if (ft_strlen(c[i]) == 0)
+			break ;
+		res[i] = command_init(c[i], 0, 0, 0); //MALLOC PROTECT
+		while (res[i]->command[y] && res[i]->command[y] != ' '
+				&& !is_pipe_redir(res[i]->command[y]))
+			y++;
+		res[i]->command[y] = 0;
+		set_command_args(res[i], c[i], y);
+		if (!res[i]->args)
+			res[i]->args = (char **) malloc(sizeof(char *)); //MALLOC PROT
+		i++;
+	}
+	return (res);
 }
