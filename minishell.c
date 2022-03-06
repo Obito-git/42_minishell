@@ -25,7 +25,7 @@ void command_print(t_command **c)
 			if (c[y]->out_mode)
 				printf("OUT: %s", c[y]->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
 			if (c[y]->in_mode)
-				printf("IN: %s", c[y]->out_mode == 1 ? "SOLO\n" : "MULTU\n");
+				printf("IN: %s", c[y]->in_mode == 1 ? "SOLO\n" : "MULTU\n");
 			printf("------------------\n");
 			y++;
 		}

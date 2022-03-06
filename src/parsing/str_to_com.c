@@ -118,6 +118,8 @@ t_command **get_commands_arr(char **c)
         while (c[i])
         {
                 y = 0;
+				if (ft_strlen(c[i]) == 0)
+					break ;
                 res[i] = command_init(c[i], 0, 0, 0); //MALLOC PROTECT
                 while (res[i]->command[y] && res[i]->command[y] != ' '
                                 && !is_pipe_redir(res[i]->command[y]))
