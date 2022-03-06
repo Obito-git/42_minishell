@@ -1,30 +1,5 @@
 #include "../../minishell.h"
-char **ft_strtrim_array(char **s, char *set)
-{
-	char	*tmp;
-	int		i;
-	int		y;
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-	{
-		tmp = ft_strtrim(s[i], set);
-		if (!tmp)
-		{
-			y = 0;
-			while (s[y++])
-				free(s[y]);
-			free(s);
-			return (NULL);
-		}
-		free(s[i]);
-		s[i] = tmp;
-		i++;
-	}
-	return (s);
-}
 
 t_bool is_pipe_redir(char c)
 {

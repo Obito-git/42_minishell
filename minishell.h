@@ -39,5 +39,7 @@ char    *cut_command(char *s, int *start, int *end);
 char    **cut_all_commands(char *s, int *i);
 t_command **get_commands_arr(char **c);
 char	**parse_command_args(char *command);
+void free_strarray(char **s);
+char	**ft_strtrim_array(char **s, char *set);
 //end parsing
 #endif

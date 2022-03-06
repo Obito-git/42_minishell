@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-//returns malloced substring with command. (USED with cut_all_command func)
+//returns malloced substring with command, args and pipe/redirection
 char    *cut_command(char *s, int *start, int *end)
 {
         char    *res;
@@ -45,16 +45,19 @@ char    **cut_all_commands(char *s, int *i)
 			res[com_count++] = cut_command(s, &start, i);
 		*i += 1;
 	}
-	res[com_count++] = cut_command(s, &start, i);
-	res[com_count] = NULL;
+	if (res)
+	{
+		res[com_count++] = cut_command(s, &start, i);
+		res[com_count] = NULL;
+	}
 	return (res);
 }
 
+//returns args deleting multiple spaces and external quotes
 char	**parse_command_args(char *command)
 {
 	int		i;
 	char	**res;
-	char	*tmp;
 
 	i = 0;
 	while (command[i] && command[i] != '\'' && command[i] != '\"')
@@ -65,14 +68,6 @@ char	**parse_command_args(char *command)
 		res = ft_split(command, '\'');
 	else
 		res = ft_split(command, '\"');
-	i = 0;
-	while (res && res[i])
-	{
-		//tmp = ft_strtrim(res[i], " \"\'");
-		tmp = ft_strtrim(res[i], " ");
-		free(res[i]);
-		res[i] = tmp;
-		i++;
-	}
+	res = ft_strtrim_array(res, " ");
 	return (res);
 }
