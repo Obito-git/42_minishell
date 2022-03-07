@@ -1,33 +1,32 @@
 #include "minishell.h"
 
-void command_print(t_command **c)
+void command_print(t_command *c)
 {
-	int y = 0;
 	if (!c)
 		printf("Command is null\n");
 	else
 	{
-		while (c && c[y])
+		while (c)
 		{
 			int i = 0;
-			printf("Command: %s\n", c[y]->command);
+			printf("Command: %s\n", c->command);
 			printf("Args: ");
-			if (!c[y]->args)
+			if (!c->args)
 				printf("Args null");
-			if (!c[y]->args[i])
+			if (!c->args[i])
 				printf("No args");
-			while (c[y]->args && c[y]->args[i])
+			while (c->args && c->args[i])
 			{
-				printf(" [%s] ", c[y]->args[i]);
+				printf(" [%s] ", c->args[i]);
 				i++;
 			}
-			printf("\nPipe: %s", c[y]->pipe ? "YES\n" : "NO\n");
-			if (c[y]->out_mode)
-				printf("OUT: %s", c[y]->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
-			if (c[y]->in_mode)
-				printf("IN: %s", c[y]->in_mode == 1 ? "SOLO\n" : "MULTU\n");
+			printf("\nPipe: %s", c->pipe ? "YES\n" : "NO\n");
+			if (c->out_mode)
+				printf("OUT: %s", c->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
+			if (c->in_mode)
+				printf("IN: %s", c->in_mode == 1 ? "SOLO\n" : "MULTU\n");
 			printf("------------------\n");
-			y++;
+			c = c->next;
 		}
 	}
 }
@@ -35,7 +34,7 @@ void command_print(t_command **c)
 int main(int ac, char **av)
 {
 	char        *user_input;
-	t_command	**com;
+	t_command	*head;
 
 	if (ac != 1)
 	{
@@ -54,10 +53,10 @@ int main(int ac, char **av)
 		if (ft_strlen(user_input))
 		{
 			add_history(user_input);
-			com = parse(user_input);
+			head = parse(user_input);
 		}
 		free(user_input);
-		command_print(com);
+		command_print(head);
 	}
 	return (0);
 }

@@ -40,10 +40,10 @@ void	set_quotes(char c, t_bool *q, t_bool *dq)
 }
 
 //main parsing function
-t_command	**parse(char *com)
+t_command	*parse(char *com)
 {
 	char **commands;
-	t_command **res;
+	t_command *head;
 	int i = 0;
 
 	commands = cut_all_commands(com, &i);
@@ -53,9 +53,9 @@ t_command	**parse(char *com)
 	commands = ft_strtrim_array(commands, " ");
 	if (!commands)
 		printf("Trim == NULL\n"); //FIXME
-	res = get_commands_arr(commands);
+	head = get_commands_list(commands);
 	while (commands && commands[i])
 		free(commands[i++]);
 	free(commands);
-	return (res);
+	return (head);
 }

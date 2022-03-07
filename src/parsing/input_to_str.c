@@ -53,21 +53,3 @@ char    **cut_all_commands(char *s, int *i)
 	return (res);
 }
 
-//returns args deleting multiple spaces and external quotes
-char	**parse_command_args(char *command)
-{
-	int		i;
-	char	**res;
-
-	i = 0;
-	while (command[i] && command[i] != '\'' && command[i] != '\"')
-		i++;
-	if (!command[i])
-		return (ft_split(command, ' '));
-	if (command[i] == '\'')
-		res = ft_split(command, '\'');
-	else
-		res = ft_split(command, '\"');
-	res = ft_strtrim_array(res, " ");
-	return (res);
-}

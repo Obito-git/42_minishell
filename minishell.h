@@ -21,23 +21,20 @@ typedef struct s_command
 	struct s_command *next;
 }	t_command;
 
-//TESTING
-
-void command_print(t_command **c);
 //STRUCT_UTILS
 t_command	*command_init(char *c, t_bool p, char in, char out);
 void	free_command(t_command *c);
 
 //PARSING
 //	parsing.c
-t_command **parse(char *com);
+t_command *parse(char *com);
 void	set_quotes(char c, t_bool *q, t_bool *dq);
 t_bool is_pipe_redir(char c);
 void	set_command_redir(t_command *c, char *s);
 //	str_to_com.c
 char    *cut_command(char *s, int *start, int *end);
 char    **cut_all_commands(char *s, int *i);
-t_command **get_commands_arr(char **c);
+t_command *get_commands_list(char **c);
 char	**parse_command_args(char *command);
 void free_strarray(char **s);
 char	**ft_strtrim_array(char **s, char *set);

@@ -9,7 +9,7 @@ char	**ft_strtrim_array(char **s, char *set)
 	int		y;
 
 	i = 0;
-	if (!s)
+	if (!s || !set)
 		return (NULL);
 	while (s[i])
 	{
