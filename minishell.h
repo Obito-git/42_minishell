@@ -23,7 +23,7 @@ typedef struct s_command
 
 //STRUCT_UTILS
 t_command	*command_init(char *c, t_bool p, char in, char out);
-void	free_command(t_command *c);
+void	free_commands(t_command *c);
 
 //PARSING
 //	parsing.c
@@ -36,7 +36,7 @@ char    *cut_command(char *s, int *start, int *end);
 char    **cut_all_commands(char *s, int *i);
 t_command *get_commands_list(char **c);
 char	**parse_command_args(char *command);
-void free_strarray(char **s);
+char	**free_strarray(char **s);
 char	**ft_strtrim_array(char **s, char *set);
 //end parsing
 #endif

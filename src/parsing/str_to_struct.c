@@ -1,12 +1,48 @@
 #include "../../minishell.h"
 
+//working like split but not touching the content inside quotes;
+//need delete 2 lines for norminette, args z and i used also for the economize lines
+char	**ft_minishell_split(char **res, char *s, int z, int i)
+{
+	int		y;
+	t_bool	q;
+	t_bool	dq;
+
+	res = (char **) malloc(sizeof(char *) * (z + 1));
+	q = FALSE;
+	dq= FALSE;
+	z = 0;
+	i = 0;
+	y = 0;
+	while (res && s[i])
+	{
+		set_quotes(s[i], &q, &dq);
+		if ((s[i] == ' ' && !q && !dq) || !s[i + 1])
+		{
+			res[y++] = ft_substr(s, z, i - z + 1);
+			if (!res[y - 1])
+				return (free_strarray(res));
+			while (s[i] && s[i + 1] && s[i + 1] == ' ')
+				i++;
+			z = i;
+		}
+		res[y] = NULL;
+		i++;
+	}
+	res = ft_strtrim_array(res, " \"\'");
+	return (res);
+}
+
 //returns args deleting multiple spaces and external quotes
 char	**parse_command_args(char *command)
 {
-	int		i;
 	char	**res;
+	int		i;
+	int		size;
 
 	i = 0;
+	size = 1;
+	res = NULL;
 	if (!command)
 		return (NULL);
 	if (!command[0])
@@ -17,18 +53,18 @@ char	**parse_command_args(char *command)
 		res[0] = NULL;
 		return (res);
 	}
-	while (command[i] && command[i] != '\'' && command[i] != '\"')
+	while (command[i]) // try to put iteration of i inside if condition
+	{
+		if (i > 0 && command[i] == ' ' && command[i - 1] != ' ')
+			size++;
 		i++;
-	if (!command[i])
-		return (ft_split(command, ' '));
-	if (command[i] == '\'')
-		res = ft_split(command, '\'');
-	else
-		res = ft_split(command, '\"');
-	res = ft_strtrim_array(res, " ");
+	}
+	res = ft_minishell_split(res, command, size, i);
 	return (res);
 }
 
+//set redir/pipe value inside struct and delete it with main command to prepare "clear" args to send
+//it in char	**parse_command_args(char *command);
 t_bool	set_command_args(t_command *c, char *s, int i, int y)
 {
 	t_bool	inside_quotes;

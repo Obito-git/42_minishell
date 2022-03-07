@@ -25,15 +25,23 @@ t_command	*command_init(char *c, t_bool p, char in, char out)
 	return (res);
 }
 
-void	free_command(t_command *c)
+void	free_commands(t_command *c)
 {
-	t_command *tmp;
+	t_command 	*tmp;
+	int			i;
 
 	if (!c)
 		return ;
 	while (c)
 	{
+		i = 0;
 		free(c->command);
+		while (c->args[i])
+		{
+			free(c->args[i]);
+			i++;
+		}
+		free(c->args);
 		tmp = c->next;
 		free(c);
 		c = tmp;

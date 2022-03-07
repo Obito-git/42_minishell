@@ -30,17 +30,18 @@ char	**ft_strtrim_array(char **s, char *set)
 }
 
 //applies free on every string of the array
-void free_strarray(char **s)
+char	**free_strarray(char **s)
 {
 	int	i;
 
 	i = 0;
 	if (!s)
-		return ;
+		return (NULL);
 	while (s[i])
 	{
 		free(s[i]);
 		i++;
 	}
 	free(s);
+	return (NULL);
 }

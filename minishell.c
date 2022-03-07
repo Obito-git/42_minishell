@@ -57,6 +57,7 @@ int main(int ac, char **av)
 		}
 		free(user_input);
 		command_print(head);
+		free_commands(head);
 	}
 	return (0);
 }
