@@ -31,11 +31,12 @@ void command_print(t_command *c)
 	}
 }
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
 	char        *user_input;
 	t_command	*head;
 
+	(void) envp;
 	if (ac != 1)
 	{
 		printf("You can't have args\n");
@@ -53,11 +54,11 @@ int main(int ac, char **av)
 		if (ft_strlen(user_input))
 		{
 			add_history(user_input);
-			head = parse(user_input);
+			head = parse(user_input); //!NULL check
 		}
 		free(user_input);
 		command_print(head);
 		free_commands(head);
-	}
+	} 
 	return (0);
 }

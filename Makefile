@@ -9,9 +9,13 @@ SRC_PATH = src/
 PARSING_DIR=parsing/
 PARSING=$(addprefix $(SRC_PATH), $(PARSING_DIR))
 
+PIPEX_DIR=pipex/
+PIPEX=$(addprefix $(SRC_PATH), $(PIPEX_DIR))
+
 CFLAGS = -Wall -Werror -Wextra -lreadline -g
 SRCS = minishell.c $(PARSING)parsing.c $(PARSING)str_to_struct.c \
-		$(PARSING)input_to_str.c $(SRC_PATH)struct_utils.c $(SRC_PATH)utils.c
+		$(PARSING)input_to_str.c $(SRC_PATH)struct_utils.c $(SRC_PATH)utils.c \
+		$(PIPEX)pipex.c
 OBJS = $(SRCS:.c=.o)
 UNAME_S := $(shell uname -s)
 

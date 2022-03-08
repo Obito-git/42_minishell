@@ -23,33 +23,33 @@ char    *cut_command(char *s, int *start, int *end)
 }
 
 //returns malloced array of string with commands/pipes/redirections.
-//the contents of the quotes will be ignored
-char    **cut_all_commands(char *s, int *i)
+//all '>' '<' '|' ">>" "<<" in quotes will be ignored
+char    **cut_all_commands(char **com, char *s, int *i)
 {
-	t_bool inside_quotes;
-	t_bool inside_double_quotes;
-	char    **res;
+	t_bool quotes;
+	t_bool d_quotes;
 	int             start;
 	int             com_count;
 
-	inside_quotes = FALSE;
-	inside_double_quotes = FALSE;
+	quotes = FALSE;
+	d_quotes = FALSE;
 	start = 0;
-	res = (char **) malloc(sizeof(char *) * (ft_strlen(s) + 1)); //malloc prot
 	com_count = 0;
-    while(res && s && s[*i])
+    while(s && s[*i])
 	{
-		set_quotes(s[*i], &inside_quotes, &inside_double_quotes);
-		if (is_pipe_redir(s[*i])
-			&& (!inside_quotes && !inside_double_quotes))
-			res[com_count++] = cut_command(s, &start, i);
+		set_quotes(s[*i], &quotes, &d_quotes);
+		if (is_pipe_redir(s[*i]) && (!quotes && !d_quotes))
+		{
+			com[com_count++] = cut_command(s, &start, i);
+			if (!com[com_count - 1])
+				return (free_strarray(com));
+		}
 		*i += 1;
 	}
-	if (res)
-	{
-		res[com_count++] = cut_command(s, &start, i);
-		res[com_count] = NULL;
-	}
-	return (res);
+	com[com_count++] = cut_command(s, &start, i);
+	if (!com[com_count - 1])
+		return (NULL);
+	com[com_count] = NULL;
+	return (com);
 }
 

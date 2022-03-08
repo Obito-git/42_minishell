@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-//returns args deleting multiple spaces and external quotes
+//returns args (array of strings) deleting multiple spaces and external quotes
 char	**parse_command_args(char *command)
 {
 	char	**res;
@@ -10,8 +10,6 @@ char	**parse_command_args(char *command)
 	i = 0;
 	size = 1;
 	res = NULL;
-	if (!command)
-		return (NULL);
 	if (!command[0])
 	{
 		res = (char **) malloc(sizeof(char *));
@@ -20,7 +18,7 @@ char	**parse_command_args(char *command)
 		res[0] = NULL;
 		return (res);
 	}
-	while (command[i]) // try to put iteration of i inside if condition
+	while (command[i])
 	{
 		if (i > 0 && command[i] == ' ' && command[i - 1] != ' ')
 			size++;
@@ -30,9 +28,10 @@ char	**parse_command_args(char *command)
 	return (res);
 }
 
-//set redir/pipe value inside struct and delete it with main command to prepare "clear" args to send
-//it in char	**parse_command_args(char *command);
-t_bool	set_command_args(t_command *c, char *s, int i, int y)
+//set redir/pipe value inside struct and delete character from the string
+// we need it for send substring without command and redir/pipe to have only args
+//to send it in char	**parse_command_args(char *command);
+void	set_command_args(t_command *c, char *s, int i, int y)
 {
 	t_bool	inside_quotes;
 	t_bool	inside_double_quotes;
@@ -41,7 +40,7 @@ t_bool	set_command_args(t_command *c, char *s, int i, int y)
 	inside_quotes = FALSE;
 	inside_double_quotes = FALSE;
 	if (!c || !s)
-		return (FALSE);
+		return ;
 	while(s[y])
 	{
 		set_quotes(s[y], &inside_quotes, &inside_double_quotes);
@@ -52,10 +51,9 @@ t_bool	set_command_args(t_command *c, char *s, int i, int y)
 	set_command_redir(c, &s[y]);
 	tmp = ft_strtrim(&s[i], " ");
 	if (!tmp)
-		return (FALSE);
+		return ;
 	c->args = parse_command_args(tmp);
 	free(tmp);
-	return (TRUE);
 }
 
 //return parsed struct
@@ -71,10 +69,12 @@ t_command *get_command(char *c)
 	while (res->command[y] && res->command[y] != ' '
 			&& !is_pipe_redir(res->command[y]))
 		y++;
-	res->command[y] = 0;
-	if (!set_command_args(res, c, y, y) || !res->args)
+	res->command[y] = '\0';
+	set_command_args(res, c, y, y);
+	if (!res->args)
 	{
-		return (NULL); //free all and return null
+		free_commands(res);
+		return (NULL);
 	}
 	return (res);
 }
@@ -97,7 +97,8 @@ t_command *get_commands_list(char **c)
 		tmp = get_command(c[i]);
 		if (!tmp)
 		{
-			return (NULL); //free all
+			free_commands(head);
+			return (NULL);
 		}
 		current->next = tmp;
 		current = tmp;

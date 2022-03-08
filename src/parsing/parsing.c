@@ -40,22 +40,23 @@ void	set_quotes(char c, t_bool *q, t_bool *dq)
 }
 
 //main parsing function
-t_command	*parse(char *com)
+t_command	*parse(char *user_input)
 {
-	char **commands;
+	char **com;
 	t_command *head;
 	int i = 0;
 
-	commands = cut_all_commands(com, &i);
+	com = (char **) malloc(sizeof(char *) * (ft_strlen(user_input) + 1)); //FIX SIZE
+	if (!com)
+		return (NULL);
+	com = cut_all_commands(com, user_input, &i);
+	com = ft_strtrim_array(com, " ");
+	if (!com)
+		return (NULL);
+	head = get_commands_list(com);
 	i = 0;
-	if (!commands)
-		printf("Commands == NULL\n"); //FIXME
-	commands = ft_strtrim_array(commands, " ");
-	if (!commands)
-		printf("Trim == NULL\n"); //FIXME
-	head = get_commands_list(commands);
-	while (commands && commands[i])
-		free(commands[i++]);
-	free(commands);
+	while (com && com[i])
+		free(com[i++]);
+	free(com);
 	return (head);
 }

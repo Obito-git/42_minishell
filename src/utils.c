@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-//working like split but not touching the content inside quotes;
+//returns next argument. working with ft_minishell_split
 char	*get_next_arg(char *s, int *i, int *z)
 {
 	char	*res;
@@ -30,6 +30,8 @@ char	*get_next_arg(char *s, int *i, int *z)
 }
 
 //working like split but not touching the content inside quotes;
+//used for not touch delimiter (space) inside quotes
+//also deleting all external quotes for execev (it takes args without ""'')
 char	**ft_minishell_split(char **res, char *s, int z, int i)
 {
 	int		y;
@@ -38,7 +40,7 @@ char	**ft_minishell_split(char **res, char *s, int z, int i)
 
 	res = (char **) malloc(sizeof(char *) * (z + 1));
 	q = FALSE;
-	dq= FALSE;
+	dq = FALSE;
 	z = 0;
 	i = 0;
 	y = 0;
