@@ -1,38 +1,5 @@
 #include "../../minishell.h"
 
-//working like split but not touching the content inside quotes;
-//need delete 2 lines for norminette, args z and i used also for the economize lines
-char	**ft_minishell_split(char **res, char *s, int z, int i)
-{
-	int		y;
-	t_bool	q;
-	t_bool	dq;
-
-	res = (char **) malloc(sizeof(char *) * (z + 1));
-	q = FALSE;
-	dq= FALSE;
-	z = 0;
-	i = 0;
-	y = 0;
-	while (res && s[i])
-	{
-		set_quotes(s[i], &q, &dq);
-		if ((s[i] == ' ' && !q && !dq) || !s[i + 1])
-		{
-			res[y++] = ft_substr(s, z, i - z + 1);
-			if (!res[y - 1])
-				return (free_strarray(res));
-			while (s[i] && s[i + 1] && s[i + 1] == ' ')
-				i++;
-			z = i;
-		}
-		res[y] = NULL;
-		i++;
-	}
-	res = ft_strtrim_array(res, " \"\'");
-	return (res);
-}
-
 //returns args deleting multiple spaces and external quotes
 char	**parse_command_args(char *command)
 {

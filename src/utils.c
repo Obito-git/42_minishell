@@ -1,5 +1,63 @@
 #include "../minishell.h"
 
+//working like split but not touching the content inside quotes;
+char	*get_next_arg(char *s, int *i, int *z)
+{
+	char	*res;
+	char	*tmp;
+
+	tmp = ft_substr(s, *z, *i - *z + 1);
+	if (!tmp)
+		return (NULL);
+	while (s[*i] && s[*i + 1] && s[*i + 1] == ' ')
+		*i += 1;
+	res = ft_strtrim(tmp, " ");
+	free(tmp);
+	while (res && ft_strlen(res) > 0
+			&& ((res[0] == '\"' && res[ft_strlen(res) - 1] == '\"')
+			|| (res[0] == '\'' && res[ft_strlen(res) - 1] == '\'')))
+	{
+		if (res[0] == '\"')
+			tmp = ft_strtrim(res, "\"");
+		else
+			tmp = ft_strtrim(res, "\'");
+		free(res);
+		if (!tmp)
+			return (NULL);
+		res = tmp;
+	}
+	return (res);
+}
+
+//working like split but not touching the content inside quotes;
+char	**ft_minishell_split(char **res, char *s, int z, int i)
+{
+	int		y;
+	t_bool	q;
+	t_bool	dq;
+
+	res = (char **) malloc(sizeof(char *) * (z + 1));
+	q = FALSE;
+	dq= FALSE;
+	z = 0;
+	i = 0;
+	y = 0;
+	while (res && s[i])
+	{
+		set_quotes(s[i], &q, &dq);
+		if ((s[i] == ' ' && !q && !dq) || !s[i + 1])
+		{
+			res[y++] = get_next_arg(s, &i, &z);
+			if (!res[y - 1])
+				return (free_strarray(res));
+			z = i;
+		}
+		res[y] = NULL;
+		i++;
+	}
+	return (res);
+}
+
 //applies ft_strtrim on every string of the array
 //if malloc error, all memory will be freed
 char	**ft_strtrim_array(char **s, char *set)
@@ -17,8 +75,8 @@ char	**ft_strtrim_array(char **s, char *set)
 		if (!tmp)
 		{
 			y = 0;
-			while (s[y++])
-				free(s[y]);
+			while (s[y])
+				free(s[y++]);
 			free(s);
 			return (NULL);
 		}
@@ -30,6 +88,7 @@ char	**ft_strtrim_array(char **s, char *set)
 }
 
 //applies free on every string of the array
+//return NULL for save some lines for the normes
 char	**free_strarray(char **s)
 {
 	int	i;

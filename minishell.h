@@ -38,5 +38,6 @@ t_command *get_commands_list(char **c);
 char	**parse_command_args(char *command);
 char	**free_strarray(char **s);
 char	**ft_strtrim_array(char **s, char *set);
+char	**ft_minishell_split(char **res, char *s, int z, int i);
 //end parsing
 #endif
