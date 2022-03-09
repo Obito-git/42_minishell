@@ -31,7 +31,7 @@ char	**parse_command_args(char *command)
 //set redir/pipe value inside struct and delete character from the string
 // we need it for send substring without command and redir/pipe to have only args
 //to send it in char	**parse_command_args(char *command);
-void	set_command_args(t_command *c, char *s, int i, int y)
+void	set_command_args(t_command *c, char *s, int y)
 {
 	t_bool	inside_quotes;
 	t_bool	inside_double_quotes;
@@ -49,7 +49,7 @@ void	set_command_args(t_command *c, char *s, int i, int y)
 		y++;
 	}
 	set_command_redir(c, &s[y]);
-	tmp = ft_strtrim(&s[i], " ");
+	tmp = ft_strtrim(s, " ");
 	if (!tmp)
 		return ;
 	c->args = parse_command_args(tmp);
@@ -70,13 +70,36 @@ t_command *get_command(char *c)
 			&& !is_pipe_redir(res->command[y]))
 		y++;
 	res->command[y] = '\0';
-	set_command_args(res, c, y, y);
+	set_command_args(res, c, y);
 	if (!res->args)
 	{
 		free_commands(res);
 		return (NULL);
 	}
 	return (res);
+}
+
+t_command	*set_command_list_tube(t_command *head)
+{
+	int			*tube;
+	t_command	*tmp;
+
+	if (!head)
+		return (NULL);
+	tube = (int *) malloc(sizeof(int) * 2);
+	if (!tube || pipe(tube) != 0)
+	{
+		free_commands(head);
+		printf("HELLO\n");
+		return (NULL);
+	}
+	tmp = head;
+	while (tmp)
+	{
+		tmp->tube = tube;
+		tmp = tmp->next;
+	}
+	return (head);
 }
 
 //takes an array of strings and parse them in an array of structures
@@ -104,5 +127,6 @@ t_command *get_commands_list(char **c)
 		current = tmp;
 		i++;
 	}
+	head = set_command_list_tube(head);
 	return (head);
 }

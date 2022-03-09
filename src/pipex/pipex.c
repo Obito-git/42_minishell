@@ -25,34 +25,64 @@ char	*find_command(char **envp, t_command *c)
 	return (test_path);
 }
 /*
-int	command1_child(int pid1, t_command *c)
+* tube[0] → contiendra le fichier descripteur de l'extrémité de lecture
+* tube[1] → contiendra le fichier descripteur de l'extrémité d'écriture
+*/
+int	set_tube_path(t_command *c)
 {
-	if (pid1 < 0)
-		return (0);
-	if (pid1 == 0)
+	int	fd;
+
+	fd = -1;
+	if (c->out_mode)
 	{
-		dup2(c->tube[1], STDOUT_FILENO);
-		dup2(c->infile_fd, STDIN_FILENO);
-		close(c->tube[0]);
-		close(c->tube[1]);
-		execve(c->cmd1, c->cmd1_args, NULL);
+		if (c->out_mode == OUT_APPEND)
+			fd = open(c->next->command, O_WRONLY | O_APPEND | O_CREAT, 0664);
+		if (c->out_mode == OUT_REWRITE)
+			fd = open(c->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			perror(c->next->command);
+			return (-1);
+		}
+		dup2(fd, STDOUT_FILENO);
 	}
+	return (fd);
+}
+
+int	exec_com(t_command *c, char **envp)
+{
+	char	*path;
+	int		fd;
+
+	path = NULL;
+	if (c->pid < 0)
+		return (0);
+	if (c->pid == 0)
+	{
+		path = find_command(envp, c);
+		if (!path)
+		{
+			printf("Unknown command %s\n", c->command);
+			return (0);
+		}
+		fd = set_tube_path(c);
+		execve(path, c->args, NULL);
+		close(fd);
+	}
+	free(path);
 	return (1);
 }
 
-int	pipex(t_command *c)
+t_bool	execute(t_command *c, char **envp)
 {
-	int	pid;
-
-	pid = fork();
-	if (!command1_child(pid1, c))
-		return (0);
-	pid2 = fork();
-	if (!command2_child(pid2, c))
-		return (0);
-	close(c->tube[0]);
-	close(c->tube[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	c->pid = fork();
+	if (c->pid == -1)
+	{
+		perror("Fork: ");
+		return (FALSE);
+	}
+	if (!exec_com(c, envp))
+		return (FALSE);
+	waitpid(c->pid, NULL, 0);
 	return (1);
-} */
+}

@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <fcntl.h>
 #define TRUE 1
 #define FALSE 0
 #define OUT_REWRITE 1
@@ -19,6 +22,7 @@ typedef struct s_command
 	char	in_mode;
 	char	out_mode;
 	int		*tube;
+	int		pid;
 	struct s_command *next;
 }	t_command;
 
@@ -43,4 +47,5 @@ char	**ft_minishell_split(char **res, char *s, int z, int i);
 
 //pipex
 char	*find_command(char **envp, t_command *c); //need to rename to find_path
+t_bool	execute(t_command *c, char **envp);
 #endif

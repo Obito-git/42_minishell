@@ -25,6 +25,8 @@ void command_print(t_command *c)
 				printf("OUT: %s", c->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
 			if (c->in_mode)
 				printf("IN: %s", c->in_mode == 1 ? "SOLO\n" : "MULTU\n");
+			printf("tube 0 = %d\n", c->tube[0]);
+			printf("tube 1 = %d\n", c->tube[1]);
 			printf("------------------\n");
 			c = c->next;
 		}
@@ -33,16 +35,17 @@ void command_print(t_command *c)
 
 int main(int ac, char **av, char **envp)
 {
+	(void) envp;
 	char        *user_input;
 	t_command	*head;
 
-	(void) envp;
 	if (ac != 1)
 	{
 		printf("You can't have args\n");
 		(void) av;
 		return (1);
 	}
+
 	while (1)
 	{
 		user_input = readline("minishell$ ");
@@ -55,9 +58,10 @@ int main(int ac, char **av, char **envp)
 		{
 			add_history(user_input);
 			head = parse(user_input); //!NULL check
+			execute(head, envp);
 		}
 		free(user_input);
-		command_print(head);
+		//command_print(head);
 		free_commands(head);
 	} 
 	return (0);
