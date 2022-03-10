@@ -59,11 +59,11 @@ int main(int ac, char **av, char **envp)
 			add_history(user_input);
 			head = parse(user_input); //!NULL check
 			free(user_input);
-//			execute(head, envp);
+			execute(head, envp);
 		}
 		else
 			free(user_input);
-		command_print(head);
+		//command_print(head);
 		free_commands(head);
 	} 
 	return (0);

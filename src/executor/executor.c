@@ -1,4 +1,16 @@
 #include "../../minishell.h"
+void	close_extra_tubes(t_command *head, t_command *current)
+{
+	while (head)
+	{
+		if (head != current && head->pipe)
+		{
+			close(head->tube[0]);
+			close(head->tube[1]);
+		}
+		head = head->next;
+	}
+}
 
 char	*find_command(char **envp, t_command *c)
 {
@@ -26,7 +38,7 @@ char	*find_command(char **envp, t_command *c)
 }
 
 
-void	exec_com(int pid, t_command *c, char **envp)
+void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
@@ -44,7 +56,7 @@ void	exec_com(int pid, t_command *c, char **envp)
 			return ;
 		}
 		out_fd = set_out_path(c);
-		set_tubes_path(c);
+		set_tubes_path(head, c);
 		if (path && (!c->prev || !c->prev->out_mode))
 			execve(path, c->args, NULL);
 		if (out_fd != -1)
@@ -54,13 +66,13 @@ void	exec_com(int pid, t_command *c, char **envp)
 	(void) in_fd;
 }
 
-void	execute(t_command *c, char **envp)
+void	execute(t_command *head, char **envp)
 {
 	t_command	*tmp;
 	int			pid;
 
 	pid = -1;
-	tmp = c;
+	tmp = head;
 	while (pid != 0 && tmp)
 	{
 		pid = fork();
@@ -69,18 +81,17 @@ void	execute(t_command *c, char **envp)
 			perror("Fork: ");
 			return ;
 		}
-		exec_com(pid, tmp, envp);
+		exec_com(pid, head, tmp, envp);
 		tmp = tmp->next;
 	}
-	close(c->tube[0]);
-	close(c->tube[1]);
+	close_extra_tubes(head, NULL);
+	//close(c->tube[0]);
+	//close(c->tube[1]);
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
 	if (pid == 0)
 	{
-		free_commands(c);
+		free_commands(head);
 		exit(0);
 	}
-
-	//	waitpid(c->pid, NULL, 0); //err prot
 }

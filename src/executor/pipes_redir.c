@@ -25,18 +25,17 @@ int	set_out_path(t_command *c)
 * tube[0] → contiendra le fichier descripteur de l'extrémité de lecture
 * tube[1] → contiendra le fichier descripteur de l'extrémité d'écriture
 */
-void    set_tubes_path(t_command *c)
+void    set_tubes_path(t_command *head, t_command *c)
 {
     if (c->pipe)
     {
-        printf("out\n");
+        //printf("out\n");
         dup2(c->tube[1], STDOUT_FILENO);
     }
     if (c->prev && c->prev->pipe)
     {
-        printf("in\n");
-        dup2(c->tube[0], STDIN_FILENO);
+        //printf("in\n");
+        dup2(c->prev->tube[0], STDIN_FILENO);
     }
-    close(c->tube[0]);
-    close(c->tube[1]);
+    close_extra_tubes(head, c);
 }

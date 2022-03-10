@@ -84,19 +84,19 @@ t_command	*set_command_list_tube(t_command *head)
 	int			*tube;
 	t_command	*tmp;
 
-	if (!head)
-		return (NULL);
-	tube = (int *) malloc(sizeof(int) * 2);
-	if (!tube || pipe(tube) != 0)
-	{
-		free_commands(head);
-		printf("HELLO\n");
-		return (NULL);
-	}
 	tmp = head;
 	while (tmp)
 	{
-		tmp->tube = tube;
+		if (tmp->pipe)
+		{
+			tube = (int *) malloc(sizeof(int) * 2);
+			if (!tube || pipe(tube) != 0)
+			{
+				free_commands(head);
+				return (NULL);
+			}
+			tmp->tube = tube;
+		}
 		tmp = tmp->next;
 	}
 	return (head);
