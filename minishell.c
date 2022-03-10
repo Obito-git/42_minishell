@@ -45,23 +45,25 @@ int main(int ac, char **av, char **envp)
 		(void) av;
 		return (1);
 	}
-
 	while (1)
 	{
+		head = NULL;
 		user_input = readline("minishell$ ");
 		if (!user_input)
 		{
 			printf("exit\n");
-			break;
+			return (0);
 		}
-		if (ft_strlen(user_input))
+		if (ft_strlen(user_input) && ft_strcmp(user_input, "\n") != 0)
 		{
 			add_history(user_input);
 			head = parse(user_input); //!NULL check
-			execute(head, envp);
+			free(user_input);
+//			execute(head, envp);
 		}
-		free(user_input);
-		//command_print(head);
+		else
+			free(user_input);
+		command_print(head);
 		free_commands(head);
 	} 
 	return (0);

@@ -18,7 +18,7 @@ t_command	*command_init(char *c, t_bool p, char in, char out)
 	res->in_mode = in;
 	res->out_mode = out;
 	res->next = NULL;
-	res->pid = -2;
+	res->prev = NULL;
 	if (!res->command)
 	{
 		free_commands(res);

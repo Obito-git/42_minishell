@@ -123,6 +123,7 @@ t_command *get_commands_list(char **c)
 			free_commands(head);
 			return (NULL);
 		}
+		tmp->prev = current;
 		current->next = tmp;
 		current = tmp;
 		i++;
