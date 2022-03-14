@@ -3,61 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sloquet <sloquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amyroshn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 22:17:29 by kodpe             #+#    #+#             */
-/*   Updated: 2022/02/22 12:22:58 by sloquet          ###   ########.fr       */
+/*   Created: 2021/11/23 11:02:42 by amyroshn          #+#    #+#             */
+/*   Updated: 2022/01/24 11:49:59 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-/**
- 	Last update
-	Tue 22 Feb 2022 12:22:59 PM CET
+# include <unistd.h>
+# include <stdlib.h>
+# include "constants.h"
+# define TRUE 1
+# define FALSE 0
 
-	new file:   src/debug/dbg_ar.c
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
-	new file:   src/file/ft_filename.c
-	new file:   src/file/ft_is_extension.c
+typedef int	t_bool;
 
-	new file:   src/str/ft_arfree.c
-	new file:   src/str/ft_strcmp.c
-	new file:   src/str/ft_strcpy.c
+/* char/ */
+t_bool	ft_isalpha(int c);
+t_bool	ft_isdigit(int c);
+t_bool	ft_isalnum(int c);
+t_bool	ft_isascii(int c);
+t_bool	ft_isprint(int c);
+t_bool	ft_isspace(char c);
+int		ft_toupper(int c);
+int		ft_tolower(int c);
+/* mem/ */
+void	*ft_memset(void *destination, int c, size_t n);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	*ft_memmove(void *destination, const void *source, size_t size);
+int		ft_memcmp(const void *str1, const void *str2, size_t n);
+void	*ft_memchr(const void *str, int c, size_t n);
+/* print/ */
+void	ft_putchar(char c);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr(char *s);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putendl(char *s);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putnbr(long n);
+void	ft_putnbr_fd(long n, int fd);
+void	ft_putnbr_base(int nbr, char *base);
+int		ft_printf(const char *s, ...);
+/* string/ */
+char	*ft_strchr(const char *str, int c);
+char	*ft_strrchr(const char *str, int c);
+char	*ft_strdup(const char *src);
+char	*ft_strrev(char *str);	
+size_t	ft_strlen(const char *str);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlcat(char	*dest, const char	*src, size_t	size);
+char	*ft_strcpy(char *dest, const char *src);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strnstr(const char	*str, const char	*to_find, size_t len);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_str_threejoin(char const *s1, char const *s2, char const *s3);
+char	*ft_strtrim(char const *s1, char const *set);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+/* utils/ */
+int		ft_atoi( const char *s);
+long	ft_atol_sample(char *numb);
+char	*get_next_line(int fd);
+size_t	ft_numblen(long numb);
+char	*ft_itoa(long n);
+char	*ft_convert_base(unsigned long nbr, char *base);
+/* math/ */
+long	ft_pow(long nb, int power);
+/* lists/ */
+t_list	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+int		ft_lstsize(t_list *lst);
+void	ft_lstadd_back(t_list **alst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+//UTILS
+char	*get_next_line(int fd);
 
-	modified:   src/str/ft_strdup.c
-*/
-
-/** # include "src/box/hsl_box.h" */
-
-# include "src/char/hsl_char.h"
-
-/** # include "src/color/hsl_color.h" */
-
-# include "src/conv/hsl_conv.h"
-
-# include "src/debug/hsl_debug.h"
-
-# include "src/file/hsl_file.h"
-
-/** # include "src/hash/hsl_hash.h" */
-
-# include "src/lst/hsl_lst.h"
-
-# include "src/maths/hsl_maths.h"
-
-# include "src/mem/hsl_mem.h"
-
-# include "src/sort/hsl_sort.h"
-
-# include "src/stack/hsl_stack.h"
-
-# include "src/str/hsl_str.h"
-
-# include "src/tab/hsl_tab.h"
-
-# include "src/test/hsl_test.h"
-
-# include "src/write/hsl_write.h"
-
-#endif /* LIBFT_H */
+#endif

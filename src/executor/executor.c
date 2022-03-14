@@ -24,7 +24,7 @@ char	*find_command(char **envp, t_command *c)
 	splited = ft_split(*envp, ':');
 	while (splited && splited[i++])
 	{
-		test_path = ft_strjointri(splited[i], "/", c->command);
+		test_path = ft_str_threejoin(splited[i], "/", c->command);
 		if (!test_path || access(test_path, X_OK) == 0)
 			break ;
 		free(test_path);

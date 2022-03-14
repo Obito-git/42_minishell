@@ -1,240 +1,118 @@
-SHELL	=/bin/sh
-cr		="\e[1;31m   - \e[0;31m"
-cg		="\e[1;32m   + \e[0;32m"
-cm		="\e[1;35m   > \e[0;35m"
-r		="\e[0m"
-n		=$(NAME)"   "
-e_gcc	=$(cg)$(n)"(@) "$@" (<) "$<$(r)
-size	=$(cr)$(n)$(shell du -bh $(NAME) 2>/dev/null | tr -d '$(NAME) \t')$(r)
-sls		=$(shell ls $(SRC_DIR)/*/*.c 2>/dev/null | tr ' ' '\n')
-q_src	=$(shell ls $(SRC_DIR)/*/*.c 2>/dev/null | wc -l | tr -d '\n')
-q_obj	=$(shell ls $(OBJ_DIR)/*/*.o 2>/dev/null | wc -l | tr -d '\n')
-e_src	=$(cm)$(n)$(q_src)" sources"$(r)
-e_obj	=$(n)$(q_obj)" objects"
-grepr	=$(shell grep -nH --color printf $(SRC_DIR)/*/*.c | grep -v "ft_printf")
-grepgc	=$(shell grep -nH --color getchar $(SRC_DIR)/*/*.c)
+NAME = libft.a
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
 
-#########################################
-SRC		=	$(addsuffix .c,				\
-			$(addprefix char/,			\
-			ft_isalnum					\
-	  		ft_isalpha					\
-	  		ft_isascii					\
-	  		ft_isdigit					\
-	  		ft_islower					\
-	  		ft_isprint					\
-	  		ft_issign					\
-	  		ft_isupper					\
-	  		ft_tolower					\
-	  		ft_toupper					\
-			)							\
-			$(addprefix conv/,			\
-			ft_atoi_base				\
-			ft_atoi						\
-			ft_atol_severe				\
-			ft_convert_base				\
-			ft_itoabtw					\
-			ft_itoa						\
-			ft_nbrlen					\
-			)							\
-			$(addprefix debug/,			\
-			debug_aux					\
-			debug_coffee				\
-			debug_int					\
-			dbg_ar						\
-			)							\
-			$(addprefix file/,			\
-			ft_filename					\
-			ft_is_extension				\
-			)							\
-			$(addprefix lst/,			\
-			ft_lstadd_back				\
-			ft_lstadd_front				\
-			ft_lstclear					\
-			ft_lstdelone				\
-			ft_lstiter					\
-			ft_lstlast					\
-			ft_lstmap					\
-			ft_lstnew					\
-			ft_lstsize					\
-			)							\
-			$(addprefix maths/,			\
-			ft_abs						\
-			ft_factorial				\
-			ft_fibonacci				\
-			ft_isprime					\
-			ft_median					\
-			ft_minmax					\
-			ft_nextprime				\
-			ft_power					\
-			ft_sqrt						\
-			)							\
-			$(addprefix mem/,			\
-			ft_bzero					\
-	  		ft_calloc					\
-			ft_memchr					\
-	  		ft_memcmp					\
-	  		ft_memcpy					\
-	  		ft_memmove					\
-	  		ft_memset					\
-			)							\
-			$(addprefix sort/,			\
-			ft_insort					\
-			ft_intswap					\
-			ft_qsort					\
-			ft_rev_int_tab				\
-			ft_sort_int_tab				\
-			)							\
-			$(addprefix stack/,			\
-			ft_stack_add_bottom			\
-			ft_stack_del				\
-			ft_stack_isempty			\
-			ft_stack_isfull				\
-			ft_stack_issort				\
-			ft_stack_len				\
-			ft_stack_median				\
-			ft_stack_minmax				\
-			ft_stack_new				\
-			ft_stack_peek				\
-			ft_stack_pop				\
-			ft_stack_push				\
-			ft_stack_rev				\
-			ft_stack_show				\
-			ft_stack_stats				\
-			ft_stack_swap_top			\
-			)							\
-			$(addprefix str/,			\
-			ft_arfree					\
-			ft_split					\
-			ft_strchr					\
-			ft_strcmp					\
-			ft_strcpy					\
-	  		ft_strdup					\
-	  		ft_striteri					\
-	  		ft_strjoin					\
-	  		ft_strlcat					\
-	  		ft_strlcpy					\
-	  		ft_strlen					\
-	  		ft_strmapi					\
-	  		ft_strncmp					\
-	  		ft_strnstr					\
-	  		ft_strrchr					\
-			ft_strtolower				\
-			ft_strtoupper				\
-	  		ft_strtrim					\
-	  		ft_substr					\
-			get_next_line				\
-			)							\
-			$(addprefix tab/,			\
-			ft_newtab					\
-			ft_tab_are_distinct			\
-			ft_tabdup					\
-			ft_tab_issort				\
-			ft_tab_median				\
-			ft_tab_firstquart			\
-			ft_tab_minmax				\
-			ft_tabshow					\
-			)							\
-			$(addprefix test/,			\
-			ft_test						\
-			)							\
-			$(addprefix write/,			\
-	  		ft_printf					\
-	  		ft_putarray					\
-	  		ft_putchar					\
-			ft_putnbase					\
-			ft_putnbr					\
-	  		ft_putnl					\
-			ft_putptr					\
-	  		ft_putstr					\
-			ft_putx						\
-			)							\
-			)
-#########################################
+FILE_NBR=1
 
-SRC_DIR	=	src
-OBJ_DIR	=	obj
-OBJ		=	$(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
+#colors:
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+ENDCOLOR="\e[0m"
 
-NAME	=	libft.a
+#src directions
+MEM_DIR = mem/
+STR_DIR = string/
+CHR_DIR = char/
+LST_DIR = lists/
+PRINT_DIR = print/
+UTIL_DIR = utils/
+MATH_DIR = math/
+PRINTF_DIR = $(PRINT_DIR)ft_printf/
+GNL_DIR = $(UTIL_DIR)gnl/
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+SRCS = $(CHR_DIR)ft_isalnum.c $(CHR_DIR)ft_isalpha.c $(CHR_DIR)ft_isascii.c $(CHR_DIR)ft_isspace.c \
+$(CHR_DIR)ft_isdigit.c $(CHR_DIR)ft_isprint.c $(CHR_DIR)ft_tolower.c $(CHR_DIR)ft_toupper.c \
+$(MEM_DIR)ft_bzero.c $(MEM_DIR)ft_calloc.c $(MEM_DIR)ft_memchr.c $(MEM_DIR)ft_memcmp.c \
+$(MEM_DIR)ft_memcpy.c $(MEM_DIR)ft_memmove.c $(MEM_DIR)ft_memset.c \
+$(PRINT_DIR)ft_putchar_fd.c $(PRINT_DIR)ft_putendl_fd.c $(PRINT_DIR)ft_putnbr_fd.c $(PRINT_DIR)ft_putstr_fd.c \
+$(PRINT_DIR)ft_putchar.c $(PRINT_DIR)ft_putendl.c $(PRINT_DIR)ft_putnbr.c $(PRINT_DIR)ft_putstr.c $(PRINT_DIR)ft_putnbr_base.c \
+$(STR_DIR)ft_split.c $(STR_DIR)ft_strdup.c $(STR_DIR)ft_strjoin.c $(STR_DIR)ft_strlcpy.c $(STR_DIR)ft_strmapi.c \
+$(STR_DIR)ft_strnstr.c $(STR_DIR)ft_strtrim.c $(STR_DIR)ft_strchr.c $(STR_DIR)ft_striteri.c $(STR_DIR)ft_strlcat.c \
+$(STR_DIR)ft_strlen.c $(STR_DIR)ft_strncmp.c $(STR_DIR)ft_strrchr.c $(STR_DIR)ft_substr.c \
+$(STR_DIR)ft_strcpy.c $(STR_DIR)ft_strcat.c $(STR_DIR)ft_strcpy.c $(STR_DIR)ft_strrev.c $(STR_DIR)ft_strcmp.c $(STR_DIR)ft_str_threejoin.c \
+$(UTIL_DIR)ft_atoi.c $(UTIL_DIR)ft_itoa.c $(UTIL_DIR)ft_convert_base.c $(UTIL_DIR)ft_numblen.c $(UTIL_DIR)ft_atol_sample.c \
+$(MATH_DIR)ft_pow.c \
+$(GNL_DIR)get_next_line.c $(GNL_DIR)get_next_line_utils.c \
+$(PRINTF_DIR)ft_printf.c $(PRINTF_DIR)parsing.c $(PRINTF_DIR)patterns.c \
+$(LST_DIR)ft_lstadd_back.c $(LST_DIR)ft_lstadd_front.c $(LST_DIR)ft_lstclear.c $(LST_DIR)ft_lstdelone.c \
+$(LST_DIR)ft_lstiter.c $(LST_DIR)ft_lstlast.c $(LST_DIR)ft_lstmap.c $(LST_DIR)ft_lstnew.c $(LST_DIR)ft_lstsize.c
 
-AR		=	ar -rc
+OBJS = $(SRCS:.c=.o)
 
-RANLIB	=	ranlib
+all: $(NAME)
+	
+%.o: %.c
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
-RM		=	rm -rf
+$(NAME): check norm $(OBJS)
+	@echo ${GREEN}"Objects have been created!"${ENDCOLOR}
+	@echo ""
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@echo ${YELLOW}$(NAME)" is ready for use!"${ENDCOLOR}
 
-#########################################
+check: generate_difs
+	@echo ${YELLOW}"Looking for makefile and src diffs..."${ENDCOLOR}
+	@$(eval DIF_IN := $(shell diff -y make_src real_src | grep ">|" | sed 's/^[^[:alnum:]]*//'))
+	@$(eval DIF_OUT := $(shell diff -y make_src real_src | grep "|" | sed 's/.*|//' | sed 's/^[^[:alnum:]]*//'))
+	@rm -f make_src && rm -f real_src
+	@if [ ! -z "$(DIF_IN)" ]; then\
+		echo "Functions are not added in Makefile:";\
+		echo ${RED}"$(DIF_IN)"${ENDCOLOR};\
+		exit 1;\
+	elif [ ! -z "$(DIF_OUT)" ]; then\
+		echo "Functions are not added in Makefile:";\
+		echo ${RED}"$(DIF_OUT)"${ENDCOLOR};\
+		exit 1;\
+	else\
+		echo ${GREEN}"OK"${ENDCOLOR};\
+	fi
+	@echo ""
 
-.PHONY:	all
-all:	$(NAME)
+generate_difs:
+	@rm -f make_src && rm -f real_src
+	@echo "$(SRCS)" | tr ' ' '\n' | sort > make_src
+	@find -name "*.c" | sed 's/^..//g' | sort > real_src
 
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-		@mkdir -p $(dir $@)
-		@$(CC) $(CFLAGS) -c $< -o $@
-#\
-		@echo $(e_gcc)
+git:
+	@echo ""
+	@echo ${YELLOW}"Git:"${GREEN}
+	@git pull
+	@echo ${ENDCOLOR}
 
-$(NAME):$(OBJ)
-		@ar rc $(NAME) $(OBJ)
-		@ranlib $(NAME)
-		@echo $(cg)$(e_obj)$(r)
-		@echo -n $(cg)$(n) && du -bh $(NAME) | tr -d '$(NAME)' && echo -n $(r)
+norm:
+	@echo ${YELLOW}"Checking norminette.."${ENDCOLOR}
+	@$(eval NORM_RES :=$(shell norminette | grep "Error" | head -n1))
+	@if [ ! -z "$(NORM_RES)" ]; then\
+		echo ${RED}"Norm KO"${ENDCOLOR};\
+		echo "";\
+		exit 1;\
+	else\
+		echo ${GREEN}"Norm OK"${ENDCOLOR};\
+	fi
+	@echo ""
 
-.PHONY:	clean
 clean:
-		@$(RM) $(OBJ_DIR)
-		@echo $(cr)$(e_obj)$(r)
+	@rm -f $(OBJS)
+	@rm -f .*.swp
+	@rm -f */.*.swp
+	@rm -f *.so
+	@rm -f */*.so
+	@rm -f a.out
+	@rm -f */a.out
+	@rm -f main.c
+	@rm -f */main.c
+	@rm -f make_src && rm -f real_src
+	@echo ""
+	@echo ${GREEN}"Objects and trash were successfully removed"${RESET}
 
-.PHONY:	fclean
-fclean:	clean
-		@$(RM) $(NAME)
-		@echo $(size)
+fclean: clean
+	@rm -f $(NAME)
+	@echo ""
+	@echo ${YELLOW}"Project is clear!"${ENDCOLOR}
 
-.PHONY:	re
-re:		fclean all
+re: fclean all
 
-#########################################
+.PHONY: all clean fclean re bonus
 
-.PHONY: a dream come true m
-a:
-		@echo $(e_src)"\n"$(cm)$(n)"diff check *"$(r)
-		@echo $(sls) | tr ' ' '\n' | sort > o_sls.out
-		@echo $(addprefix $(SRC_DIR)/, $(SRC)) | tr ' ' '\n' | sort > o_src.out
-		@-diff -y --color --suppress-common-lines o_sls.out o_src.out
-		@rm *.out
-		@echo -n $(cm)$(n)"printf check *\n$(grepr)"$(r)
-		@echo -n $(cm)$(n)"getchar check *\n$(grepgc)"$(r)
-
-dream:	fclean
-#\
-		@./autoh $(shell ls $(SRC_DIR))
-
-come:	all
-
-true:
-		@echo -n $(cm)$(n)"$(shell ar -tv $(NAME) | wc -l) scan ar objects\n"
-
-m:		a dream come true
-
-# # # #
-# SUBDIRS = foo bar baz
-#
-# subdirs:
-#		for dir in $(SUBDIRS); do $(MAKE) -C $$dir; done
-#
-# # # #
-#
-# SUBDIRS = foo bar baz
-#
-# .PHONY: subdirs $(SUBDIRS)
-#
-# subdirs: $(SUBDIRS)
-#
-# $(SUBDIRS):
-#        $(MAKE) -C $@
-#
-# foo: baz
