@@ -12,7 +12,7 @@ PARSING=$(addprefix $(SRC_PATH), $(PARSING_DIR))
 EXE_DIR=executor/
 EXECUTOR=$(addprefix $(SRC_PATH), $(EXE_DIR))
 
-CFLAGS = -Wall -Werror -Wextra -lreadline -g
+CFLAGS = -Wall -Werror -Wextra -lreadline -g3
 SRCS = minishell.c $(PARSING)parsing.c $(PARSING)str_to_struct.c \
 		$(PARSING)input_to_str.c $(SRC_PATH)struct_utils.c $(SRC_PATH)utils.c \
 		$(EXECUTOR)pipes_redir.c $(EXECUTOR)executor.c
