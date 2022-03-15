@@ -1,52 +1,82 @@
-NAME = minishell
-CC = gcc
-#CC = clang
-LIBFT_DIR=libft/
-LIBFT_NAME=libft.a
-LIBFT  = $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
+#    Updated: 2021/09/15 14:36:55 by bajaba           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC_PATH = src/
+##################
+##	VARIABLES	##
+##################
 
-PARSING_DIR=parsing/
-PARSING=$(addprefix $(SRC_PATH), $(PARSING_DIR))
+SHELL			=	zsh
+NAME			=	minishell
 
-EXE_DIR=executor/
-EXECUTOR=$(addprefix $(SRC_PATH), $(EXE_DIR))
+#CC			  	=	gcc-11
+CC			  	=	clang
 
-CFLAGS = -Wall -Werror -Wextra -lreadline -g3
-SRCS = minishell.c $(PARSING)parsing.c $(PARSING)str_to_struct.c \
-		$(PARSING)input_to_str.c $(SRC_PATH)struct_utils.c $(SRC_PATH)utils.c \
-		$(EXECUTOR)pipes_redir.c $(EXECUTOR)executor.c
-OBJS = $(SRCS:.c=.o)
-UNAME_S := $(shell uname -s)
-
-all: check_os $(NAME)
-
-check_os:
-ifeq ($(UNAME_S),Darwin)
-CFLAGS = -Wall -Werror -Wextra -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar/readline/8.1.2/include
+INCLUDE_FLAGS	=	-Iinc -Ilibft
+ifeq ($(shell uname -s),Darwin)
+INCLUDE_FLAGS	+=	-I/opt/homebrew/Cellar/readline/8.1.2/include
 endif
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+#Add -Werror before correction 
+CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 
 
-$(NAME): lib $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT) $(CFLAGS)
+#Our beloved address sanitizer
+#CFLAGS			+=	-fsanitize=address
+#LDFLAGS			+=	-fsanitize=address
 
-lib:
-	$(MAKE) -C $(LIBFT_DIR)
+#Works with gcc version 10 and 11
+#CFLAGS			+=	-fanalyzer
 
-clean:
-	@rm -f $(OBJS)
-	@rm -f .*.swp
-	@rm -f */.*.swp
-	@rm -f a.out
-	$(MAKE) clean -C $(LIBFT_DIR)
+#Get sources from src/ directory
+SRC/SOURCES		=	$(wildcard src/*.c)
+#SRC/SOURCES	+=	$(wildcard src/*/*.c)
+#SRC/SOURCES	=	$(shell ls src/**/*.c)
 
-fclean: clean
-	rm -f $(NAME)
-	rm -f $(LIBFT_DIR)$(LIBFT_NAME)
+INC/HEADERS		=	$(wildcard inc/*.h)
 
-re: fclean all
+ifeq ($(shell uname -s),Darwin)
+LDFLAGS			=	-L/opt/homebrew/Cellar/readline/8.1.2/lib
+endif
+LDFLAGS			+=	-L./libft
 
-.PHONY: all clean fclean re bonus
+LDLIBS			=	-lreadline -lft 
+
+#Use if sources are in src/ directory
+OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
+
+##############
+##	RULES	##
+##############
+
+all:			$(NAME)
+
+$(NAME):		${OBJ/OBJECTS} libft/libft.a
+				@echo "Linking..."
+				${CC} -o $@  ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
+
+obj/%.o:		src/%.c Makefile | obj
+				${CC} ${CFLAGS} -c $< -o $@
+
+libft/libft.a:
+				$(MAKE) -C libft
+
+obj:			
+				mkdir obj
+
+clean:			
+				rm -rf obj
+
+fclean:			clean
+				rm -rf $(NAME)
+
+re:				fclean all
+
+.PHONY:			all clean fclean re test
