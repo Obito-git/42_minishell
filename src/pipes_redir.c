@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 int	set_out_path(t_command *c)
 {

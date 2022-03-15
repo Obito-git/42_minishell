@@ -1,5 +1,6 @@
 NAME = minishell
 CC = gcc
+#CC = clang
 LIBFT_DIR=libft/
 LIBFT_NAME=libft.a
 LIBFT  = $(addprefix $(LIBFT_DIR), $(LIBFT_NAME))

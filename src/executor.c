@@ -1,4 +1,5 @@
-#include "../../minishell.h"
+#include "minishell.h"
+
 void	close_extra_tubes(t_command *head, t_command *current)
 {
 	while (head)

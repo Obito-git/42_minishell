@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 
 t_bool is_pipe_redir(char c)

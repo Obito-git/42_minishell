@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "minishell.h"
 
 void command_print(t_command *c)
@@ -65,6 +66,6 @@ int main(int ac, char **av, char **envp)
 			free(user_input);
 		//command_print(head);
 		free_commands(head);
-	} 
+	}
 	return (0);
 }

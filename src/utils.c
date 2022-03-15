@@ -1,4 +1,5 @@
-#include "../minishell.h"
+#include "minishell.h"
+#include "libft.h"
 
 //returns next argument. working with ft_minishell_split
 char	*get_next_arg(char *s, int *i, int *z)

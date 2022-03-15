@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 //returns malloced substring with command, args and pipe/redirection
 char    *cut_command(char *s, int *start, int *end)

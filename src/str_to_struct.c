@@ -1,4 +1,4 @@
-#include "../../minishell.h"
+#include "minishell.h"
 
 //returns args (array of strings) deleting multiple spaces and external quotes
 char	**parse_command_args(char *command)

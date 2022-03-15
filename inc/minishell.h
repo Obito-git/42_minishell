@@ -1,6 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "libft/libft.h"
+# include "libft.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #define TRUE 1
 #define FALSE 0
 #define OUT_REWRITE 1
