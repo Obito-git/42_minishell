@@ -2,7 +2,7 @@
 
 static const struct {
 	char	*name;
-	void	(*func)(void);
+	int		(*func)(void*);
 } s_built_in_table[] = {
 	{"echo", NULL},
 	{"cd", NULL},
@@ -13,7 +13,7 @@ static const struct {
 	{"exit", NULL},
 };
 
-void	(*get_built_in(t_command *cmd))(void)
+int	(*get_built_in(t_command *cmd))(void*)
 {
 	unsigned long	i;
 

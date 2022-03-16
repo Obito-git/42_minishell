@@ -51,7 +51,8 @@ char	**ft_minishell_split(char **res, char *s, int z, int i);
 //pipex
 char	*find_command(char **envp, t_command *c); //need to rename to find_path
 void	execute(t_command *head, char **envp);
-int	set_out_path(t_command *c);
+int		set_out_path(t_command *c);
 void    set_tubes_path(t_command *head, t_command *c);
 void	close_extra_tubes(t_command *head, t_command *current);
+int		(*get_built_in(t_command *cmd))(void*);
 #endif
