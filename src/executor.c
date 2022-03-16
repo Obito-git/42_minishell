@@ -38,12 +38,10 @@ char	*find_command(char **envp, t_command *c)
 	return (test_path);
 }
 
-
 void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
-	int		in_fd;
 
 	path = NULL;
 	if (pid < 0)
@@ -64,7 +62,6 @@ void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 			close(out_fd);
 	}
 	free(path);
-	(void) in_fd;
 }
 
 void	execute(t_command *head, char **envp)
@@ -86,8 +83,6 @@ void	execute(t_command *head, char **envp)
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
-	//close(c->tube[0]);
-	//close(c->tube[1]);
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
 	if (pid == 0)
