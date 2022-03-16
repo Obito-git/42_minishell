@@ -34,7 +34,11 @@ static size_t	get_end(char const *s1, char const *set)
 	size_t	end;
 	size_t	y;
 
-	end = ft_strlen(s1) - 1;
+	end = ft_strlen(s1);
+	if (end == 0)
+		return (end);
+	else
+		end--;
 	while (end > 0)
 	{
 		y = 0;
