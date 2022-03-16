@@ -4,3 +4,5 @@ tags
 .clangd/
 libft/libft.a
 minishell
+*.srctrl*
+compile_commands.json
