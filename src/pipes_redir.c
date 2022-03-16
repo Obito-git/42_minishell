@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+//open file or create file with append or rewrite mode.
+//if file is opened changing stdout to file fd
 int	set_out_path(t_command *c)
 {
 	int	fd;
@@ -27,15 +29,9 @@ int	set_out_path(t_command *c)
 */
 void    set_tubes_path(t_command *head, t_command *c)
 {
-    if (c->pipe)
-    {
-        //printf("out\n");
-        dup2(c->tube[1], STDOUT_FILENO);
-    }
+	if (c->pipe)
+		dup2(c->tube[1], STDOUT_FILENO);
     if (c->prev && c->prev->pipe)
-    {
-        //printf("in\n");
         dup2(c->prev->tube[0], STDIN_FILENO);
-    }
     close_extra_tubes(head, c);
 }

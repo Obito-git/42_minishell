@@ -86,8 +86,6 @@ void	execute(t_command *head, char **envp)
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
-	//close(c->tube[0]);
-	//close(c->tube[1]);
 	while (wait(NULL) != -1 || errno != ECHILD)
 		;
 	if (pid == 0)
