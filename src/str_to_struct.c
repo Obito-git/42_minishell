@@ -115,7 +115,7 @@ t_command *get_commands_list(char **c)
 	if (!head)
 		return (NULL);
 	current = head;
-	while (c[i])
+	while (c[i] && ft_strlen(c[i]) != 0)
 	{
 		tmp = get_command(c[i]);
 		if (!tmp)
