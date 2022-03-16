@@ -1,20 +1,21 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "libft.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#define TRUE 1
-#define FALSE 0
-#define OUT_REWRITE 1
-#define OUT_APPEND 2
-#define IN_SOLO 1
-#define IN_MULT 2
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# define TRUE 1
+# define FALSE 0
+# define OUT_REWRITE 1
+# define OUT_APPEND 2
+# define IN_SOLO 1
+# define IN_MULT 2
 
 typedef struct s_command
 {
