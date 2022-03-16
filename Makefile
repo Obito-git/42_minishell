@@ -14,11 +14,10 @@
 ##	VARIABLES	##
 ##################
 
-SHELL			=	zsh
 NAME			=	minishell
 
-#CC			  	=	gcc-11
-CC			  	=	clang
+CC			  	=	gcc-11
+#CC			  	=	clang
 
 INCLUDE_FLAGS	=	-Iinc -Ilibft
 ifeq ($(shell uname -s),Darwin)
@@ -30,7 +29,7 @@ CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3
 
 #Our beloved address sanitizer
 #CFLAGS			+=	-fsanitize=address
-#LDFLAGS			+=	-fsanitize=address
+#LDFLAGS		+=	-fsanitize=address
 
 #Works with gcc version 10 and 11
 #CFLAGS			+=	-fanalyzer
@@ -38,6 +37,7 @@ CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3
 #Get sources from src/ directory
 SRC/SOURCES		=	$(wildcard src/*.c)
 #SRC/SOURCES	+=	$(wildcard src/*/*.c)
+#SHELL			=	zsh
 #SRC/SOURCES	=	$(shell ls src/**/*.c)
 
 INC/HEADERS		=	$(wildcard inc/*.h)
@@ -60,7 +60,8 @@ all:			$(NAME)
 
 $(NAME):		${OBJ/OBJECTS} libft/libft.a
 				@echo "Linking..."
-				${CC} -o $@  ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
+				@# LDFLAGS (-L) always come before oject files !
+				${CC} -o $@ ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
 
 obj/%.o:		src/%.c Makefile | obj
 				${CC} ${CFLAGS} -c $< -o $@
@@ -72,9 +73,11 @@ obj:
 				mkdir obj
 
 clean:			
+				$(MAKE) -C libft clean
 				rm -rf obj
 
 fclean:			clean
+				$(MAKE) -C libft fclean
 				rm -rf $(NAME)
 
 re:				fclean all
