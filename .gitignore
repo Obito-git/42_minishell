@@ -1,5 +1,6 @@
 tags
 **/*.o
 .ccls-cache/
+.clangd/
 libft/libft.a
 minishell
