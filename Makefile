@@ -73,9 +73,11 @@ obj:
 
 clean:			
 				rm -rf obj
+				$(MAKE) -C libft clean
 
 fclean:			clean
 				rm -rf $(NAME)
+				rm -rf libft/libft.a
 
 re:				fclean all
 
