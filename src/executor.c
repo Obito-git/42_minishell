@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+//closes all the tubes of the array list except current.
+//used to close the tubes inside the child's process
 void	close_extra_tubes(t_command *head, t_command *current)
 {
 	while (head)
@@ -13,6 +15,7 @@ void	close_extra_tubes(t_command *head, t_command *current)
 	}
 }
 
+//Tries to find the command
 char	*find_command(char **envp, t_command *c)
 {
 	char	**splited;
@@ -38,7 +41,7 @@ char	*find_command(char **envp, t_command *c)
 	return (test_path);
 }
 
-
+//Tries to execute the command
 void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 {
 	char	*path;
@@ -67,6 +70,9 @@ void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 	(void) in_fd;
 }
 
+/* Creates child processes, calls execution of commands and waits for their execution.
+* The main function of the executor
+*/
 void	execute(t_command *head, char **envp)
 {
 	t_command	*tmp;
