@@ -30,33 +30,31 @@ typedef struct s_command
 	struct s_command *prev;
 }	t_command;
 
-//STRUCT_UTILS
+//	struct_utils.c
 t_command	*command_init(char *c, t_bool p, char in, char out);
-void	free_commands(t_command *c);
-
-//PARSING
+void		free_commands(t_command *c);
 //	parsing.c
-t_command *parse(char *user_input);
-void	set_quotes(char c, t_bool *q, t_bool *dq);
-t_bool is_pipe_redir(char c);
-void	set_command_redir(t_command *c, char *s);
-//	str_to_com.c
-char    *cut_command(char *s, int *start, int *end);
-char    **cut_all_commands(char **com, char *s, int *i);
-t_command *get_commands_list(char **c);
-char	**free_strarray(char **s);
-char	**ft_strtrim_array(char **s, char *set);
-char	**ft_minishell_split(char **res, char *s, int z, int i);
-//end parsing
-
-//pipex
-char	*find_command(char **envp, t_command *c); //need to rename to find_path
-void	execute(t_command *head, char **envp);
-int		set_out_path(t_command *c);
-void    set_tubes_path(t_command *head, t_command *c);
-void	close_extra_tubes(t_command *head, t_command *current);
-int		(*get_built_in(t_command *cmd))(void*);
-
+t_command	*parse(char *user_input);
+void		set_quotes(char c, t_bool *q, t_bool *dq);
+t_bool		is_pipe_redir(char c);
+void		set_command_redir(t_command *c, char *s);
+//	input_to_str.c
+char		*cut_command(char *s, int *start, int *end);
+char		**cut_all_commands(char **com, char *s, int *i);
+//	str_to_struct.c
+t_command	*get_commands_list(char **c);
+//	utils.c
+char		**free_strarray(char **s);
+char		**ft_strtrim_array(char **s, char *set);
+char		**ft_minishell_split(char **res, char *s, int z, int i);
+//	executor.c
+void		close_extra_tubes(t_command *head, t_command *current);
+void		execute(t_command *head, char **envp);
+//	pipes_redir.c
+int			set_out_path(t_command *c);
+void		set_tubes_path(t_command *head, t_command *c);
+//	error_handler.c
+t_command   *find_syntax_errors(t_command *head);
 //buil-ins
 int	echo(void *a);
 
