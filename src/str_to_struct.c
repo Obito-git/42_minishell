@@ -33,12 +33,12 @@ char	**parse_command_args(char *command)
 //to send it in char	**parse_command_args(char *command);
 void	set_command_args(t_command *c, char *s, int y)
 {
-	t_bool	inside_quotes;
-	t_bool	inside_double_quotes;
+	bool	inside_quotes;
+	bool	inside_double_quotes;
 	char	*tmp;
 
-	inside_quotes = FALSE;
-	inside_double_quotes = FALSE;
+	inside_quotes = false;
+	inside_double_quotes = false;
 	if (!c || !s)
 		return ;
 	while(s[y])

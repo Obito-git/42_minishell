@@ -46,7 +46,7 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
-	int		(*built_in)(void*);
+	int		(*built_in)(void*, char **);
 	int 	ret;
 
 	path = NULL;
@@ -55,7 +55,7 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
 	if (built_in)
-		ret = built_in(c->args);
+		ret = built_in(c->args, envp);
 	else
 	{
 		path = find_command(envp, c);

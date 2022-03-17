@@ -26,13 +26,13 @@ char    *cut_command(char *s, int *start, int *end)
 //all '>' '<' '|' ">>" "<<" in quotes will be ignored
 char    **cut_all_commands(char **com, char *s, int *i)
 {
-	t_bool quotes;
-	t_bool d_quotes;
+	bool quotes;
+	bool d_quotes;
 	int             start;
 	int             com_count;
 
-	quotes = FALSE;
-	d_quotes = FALSE;
+	quotes = false;
+	d_quotes = false;
 	start = 0;
 	com_count = 0;
     while(s && s[*i])

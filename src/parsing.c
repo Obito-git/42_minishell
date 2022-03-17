@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-t_bool is_pipe_redir(char c)
+bool is_pipe_redir(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
 
-/* checks whether the symbol is a pipe or a redirect and 
+/* checks whether the symbol is a pipe or a redirect and
 *  sets the corresponding value of the structure variable.
 *  Replaces the character with a space
 */
@@ -14,7 +14,7 @@ void	set_command_redir(t_command *c, char *s)
 	if (is_pipe_redir(s[0]))
 	{
 		if (s[0] == '|')
-			c->pipe = TRUE;
+			c->pipe = true;
 		else if (s[0] == '>')
 			c->out_mode = OUT_REWRITE;
 		else if (s[0] == '<')
@@ -30,16 +30,16 @@ void	set_command_redir(t_command *c, char *s)
 }
 
 //changing inside/outside state of the quotes
-void	set_quotes(char c, t_bool *q, t_bool *dq)
+void	set_quotes(char c, bool *q, bool *dq)
 {
 	if (c == '\'' && !*q)
-		*q = TRUE;
+		*q = true;
 	else if (c == '\'' && *q)
-		*q = FALSE;
+		*q = false;
 	if (c == '\"' && !*dq)
-		*dq = TRUE;
+		*dq = true;
 	else if (c == '\"' && *dq)
-		*dq = FALSE;
+		*dq = false;
 }
 
 //main parsing function

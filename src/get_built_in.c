@@ -13,7 +13,7 @@ static const struct {
 	{"exit", NULL},
 };
 
-int	(*get_built_in(t_command *cmd))(void*)
+int	(*get_built_in(t_command *cmd))(void*, char **)
 {
 	unsigned long	i;
 

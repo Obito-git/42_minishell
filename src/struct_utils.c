@@ -3,7 +3,7 @@
 /*
 *	used for the initialision of t_command structure with default values
 */
-t_command	*command_init(char *c, t_bool p, char in, char out)
+t_command	*command_init(char *c, bool p, char in, char out)
 {
 	t_command	*res;
 

@@ -36,12 +36,12 @@ char	*get_next_arg(char *s, int *i, int *z)
 char	**ft_minishell_split(char **res, char *s, int z, int i)
 {
 	int		y;
-	t_bool	q;
-	t_bool	dq;
+	bool	q;
+	bool	dq;
 
 	res = (char **) malloc(sizeof(char *) * (z + 1));
-	q = FALSE;
-	dq = FALSE;
+	q = false;
+	dq = false;
 	z = 0;
 	i = 0;
 	y = 0;
