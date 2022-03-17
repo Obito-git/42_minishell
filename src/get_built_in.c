@@ -18,7 +18,7 @@ int	(*get_built_in(t_command *cmd))(void*)
 	unsigned long	i;
 
 	i = 0;
-	while (i < sizeof(s_built_in_table) - 1
+	while (i < sizeof(s_built_in_table)/sizeof(s_built_in_table[0]) - 1
 		&& ft_strncmp(cmd->command,
 			s_built_in_table[i].name,
 			ft_strlen(cmd->command)))
