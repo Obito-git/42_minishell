@@ -1,0 +1,1107 @@
+[
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/struct_utils.c",
+   "-o",
+   "obj/struct_utils.o"
+  ],
+  "file": "src/struct_utils.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/input_to_str.c",
+   "-o",
+   "obj/input_to_str.o"
+  ],
+  "file": "src/input_to_str.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/executor.c",
+   "-o",
+   "obj/executor.o"
+  ],
+  "file": "src/executor.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/str_to_struct.c",
+   "-o",
+   "obj/str_to_struct.o"
+  ],
+  "file": "src/str_to_struct.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/parsing.c",
+   "-o",
+   "obj/parsing.o"
+  ],
+  "file": "src/parsing.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/minishell.c",
+   "-o",
+   "obj/minishell.o"
+  ],
+  "file": "src/minishell.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/pipes_redir.c",
+   "-o",
+   "obj/pipes_redir.o"
+  ],
+  "file": "src/pipes_redir.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/utils.c",
+   "-o",
+   "obj/utils.o"
+  ],
+  "file": "src/utils.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isalnum.o",
+   "char/ft_isalnum.c"
+  ],
+  "file": "char/ft_isalnum.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isalpha.o",
+   "char/ft_isalpha.c"
+  ],
+  "file": "char/ft_isalpha.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isascii.o",
+   "char/ft_isascii.c"
+  ],
+  "file": "char/ft_isascii.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isspace.o",
+   "char/ft_isspace.c"
+  ],
+  "file": "char/ft_isspace.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isdigit.o",
+   "char/ft_isdigit.c"
+  ],
+  "file": "char/ft_isdigit.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_isprint.o",
+   "char/ft_isprint.c"
+  ],
+  "file": "char/ft_isprint.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_tolower.o",
+   "char/ft_tolower.c"
+  ],
+  "file": "char/ft_tolower.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "char/ft_toupper.o",
+   "char/ft_toupper.c"
+  ],
+  "file": "char/ft_toupper.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_bzero.o",
+   "mem/ft_bzero.c"
+  ],
+  "file": "mem/ft_bzero.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_calloc.o",
+   "mem/ft_calloc.c"
+  ],
+  "file": "mem/ft_calloc.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_memchr.o",
+   "mem/ft_memchr.c"
+  ],
+  "file": "mem/ft_memchr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_memcmp.o",
+   "mem/ft_memcmp.c"
+  ],
+  "file": "mem/ft_memcmp.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_memcpy.o",
+   "mem/ft_memcpy.c"
+  ],
+  "file": "mem/ft_memcpy.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_memmove.o",
+   "mem/ft_memmove.c"
+  ],
+  "file": "mem/ft_memmove.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "mem/ft_memset.o",
+   "mem/ft_memset.c"
+  ],
+  "file": "mem/ft_memset.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putchar_fd.o",
+   "print/ft_putchar_fd.c"
+  ],
+  "file": "print/ft_putchar_fd.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putendl_fd.o",
+   "print/ft_putendl_fd.c"
+  ],
+  "file": "print/ft_putendl_fd.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putnbr_fd.o",
+   "print/ft_putnbr_fd.c"
+  ],
+  "file": "print/ft_putnbr_fd.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putstr_fd.o",
+   "print/ft_putstr_fd.c"
+  ],
+  "file": "print/ft_putstr_fd.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putchar.o",
+   "print/ft_putchar.c"
+  ],
+  "file": "print/ft_putchar.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putendl.o",
+   "print/ft_putendl.c"
+  ],
+  "file": "print/ft_putendl.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putnbr.o",
+   "print/ft_putnbr.c"
+  ],
+  "file": "print/ft_putnbr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putstr.o",
+   "print/ft_putstr.c"
+  ],
+  "file": "print/ft_putstr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_putnbr_base.o",
+   "print/ft_putnbr_base.c"
+  ],
+  "file": "print/ft_putnbr_base.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_split.o",
+   "string/ft_split.c"
+  ],
+  "file": "string/ft_split.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strdup.o",
+   "string/ft_strdup.c"
+  ],
+  "file": "string/ft_strdup.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strjoin.o",
+   "string/ft_strjoin.c"
+  ],
+  "file": "string/ft_strjoin.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strlcpy.o",
+   "string/ft_strlcpy.c"
+  ],
+  "file": "string/ft_strlcpy.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strmapi.o",
+   "string/ft_strmapi.c"
+  ],
+  "file": "string/ft_strmapi.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strnstr.o",
+   "string/ft_strnstr.c"
+  ],
+  "file": "string/ft_strnstr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strtrim.o",
+   "string/ft_strtrim.c"
+  ],
+  "file": "string/ft_strtrim.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strchr.o",
+   "string/ft_strchr.c"
+  ],
+  "file": "string/ft_strchr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_striteri.o",
+   "string/ft_striteri.c"
+  ],
+  "file": "string/ft_striteri.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strlcat.o",
+   "string/ft_strlcat.c"
+  ],
+  "file": "string/ft_strlcat.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strlen.o",
+   "string/ft_strlen.c"
+  ],
+  "file": "string/ft_strlen.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strncmp.o",
+   "string/ft_strncmp.c"
+  ],
+  "file": "string/ft_strncmp.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strrchr.o",
+   "string/ft_strrchr.c"
+  ],
+  "file": "string/ft_strrchr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_substr.o",
+   "string/ft_substr.c"
+  ],
+  "file": "string/ft_substr.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strcpy.o",
+   "string/ft_strcpy.c"
+  ],
+  "file": "string/ft_strcpy.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strcat.o",
+   "string/ft_strcat.c"
+  ],
+  "file": "string/ft_strcat.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strrev.o",
+   "string/ft_strrev.c"
+  ],
+  "file": "string/ft_strrev.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_strcmp.o",
+   "string/ft_strcmp.c"
+  ],
+  "file": "string/ft_strcmp.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "string/ft_str_threejoin.o",
+   "string/ft_str_threejoin.c"
+  ],
+  "file": "string/ft_str_threejoin.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/ft_atoi.o",
+   "utils/ft_atoi.c"
+  ],
+  "file": "utils/ft_atoi.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/ft_itoa.o",
+   "utils/ft_itoa.c"
+  ],
+  "file": "utils/ft_itoa.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/ft_convert_base.o",
+   "utils/ft_convert_base.c"
+  ],
+  "file": "utils/ft_convert_base.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/ft_numblen.o",
+   "utils/ft_numblen.c"
+  ],
+  "file": "utils/ft_numblen.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/ft_atol_sample.o",
+   "utils/ft_atol_sample.c"
+  ],
+  "file": "utils/ft_atol_sample.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "math/ft_pow.o",
+   "math/ft_pow.c"
+  ],
+  "file": "math/ft_pow.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/gnl/get_next_line.o",
+   "utils/gnl/get_next_line.c"
+  ],
+  "file": "utils/gnl/get_next_line.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "utils/gnl/get_next_line_utils.o",
+   "utils/gnl/get_next_line_utils.c"
+  ],
+  "file": "utils/gnl/get_next_line_utils.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_printf/ft_printf.o",
+   "print/ft_printf/ft_printf.c"
+  ],
+  "file": "print/ft_printf/ft_printf.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_printf/parsing.o",
+   "print/ft_printf/parsing.c"
+  ],
+  "file": "print/ft_printf/parsing.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "print/ft_printf/patterns.o",
+   "print/ft_printf/patterns.c"
+  ],
+  "file": "print/ft_printf/patterns.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstadd_back.o",
+   "lists/ft_lstadd_back.c"
+  ],
+  "file": "lists/ft_lstadd_back.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstadd_front.o",
+   "lists/ft_lstadd_front.c"
+  ],
+  "file": "lists/ft_lstadd_front.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstclear.o",
+   "lists/ft_lstclear.c"
+  ],
+  "file": "lists/ft_lstclear.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstdelone.o",
+   "lists/ft_lstdelone.c"
+  ],
+  "file": "lists/ft_lstdelone.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstiter.o",
+   "lists/ft_lstiter.c"
+  ],
+  "file": "lists/ft_lstiter.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstlast.o",
+   "lists/ft_lstlast.c"
+  ],
+  "file": "lists/ft_lstlast.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstmap.o",
+   "lists/ft_lstmap.c"
+  ],
+  "file": "lists/ft_lstmap.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstnew.o",
+   "lists/ft_lstnew.c"
+  ],
+  "file": "lists/ft_lstnew.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42/libft",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Werror",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "-o",
+   "lists/ft_lstsize.o",
+   "lists/ft_lstsize.c"
+  ],
+  "file": "lists/ft_lstsize.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/get_built_in.c",
+   "-o",
+   "obj/get_built_in.o"
+  ],
+  "file": "src/get_built_in.c"
+ },
+ {
+  "directory": "/home/cassepipe/Desktop/minishell_42",
+  "arguments": [
+   "gcc-11",
+   "-Iinc",
+   "-Ilibft",
+   "-Wall",
+   "-Wextra",
+   "-g3",
+   "-c",
+   "src/echo.c",
+   "-o",
+   "obj/echo.o"
+  ],
+  "file": "src/echo.c"
+ }
+]

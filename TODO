@@ -9,3 +9,16 @@ Why clear_history ?
 Look at the readline functions
 Handle input
 Here-doc mode
+
+Anton
+============
+
+Tom
+===========
+Working on is_builtin() function
+Replace printf with dprintf -> STDERR
+Make a t_cmd_list struct {
+	t_command *head;
+	t_command *curr_cmd;
+	int		remaining;
+} ?

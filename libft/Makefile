@@ -1,6 +1,6 @@
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 
 FILE_NBR=1
 
@@ -45,30 +45,12 @@ all: $(NAME)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
-$(NAME): check norm $(OBJS)
+$(NAME): norm $(OBJS)
 	@echo ${GREEN}"Objects have been created!"${ENDCOLOR}
 	@echo ""
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 	@echo ${YELLOW}$(NAME)" is ready for use!"${ENDCOLOR}
-
-check: generate_difs
-	@echo ${YELLOW}"Looking for makefile and src diffs..."${ENDCOLOR}
-	@$(eval DIF_IN := $(shell diff -y make_src real_src | grep ">|" | sed 's/^[^[:alnum:]]*//'))
-	@$(eval DIF_OUT := $(shell diff -y make_src real_src | grep "|" | sed 's/.*|//' | sed 's/^[^[:alnum:]]*//'))
-	@rm -f make_src && rm -f real_src
-	@if [ ! -z "$(DIF_IN)" ]; then\
-		echo "Functions are not added in Makefile:";\
-		echo ${RED}"$(DIF_IN)"${ENDCOLOR};\
-		exit 1;\
-	elif [ ! -z "$(DIF_OUT)" ]; then\
-		echo "Functions are not added in Makefile:";\
-		echo ${RED}"$(DIF_OUT)"${ENDCOLOR};\
-		exit 1;\
-	else\
-		echo ${GREEN}"OK"${ENDCOLOR};\
-	fi
-	@echo ""
 
 generate_difs:
 	@rm -f make_src && rm -f real_src
