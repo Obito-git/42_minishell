@@ -1,29 +1,29 @@
 #include "minishell.h"
 
-//Can't print variables yet !
 int	echo(void *a, char **envp)
 {
-	char **args;
-	bool newline;
+	char	**args;
+	bool	newline;
 
 	newline = true;
-	args = (char**) ++a;
-	if (!ft_strcmp(*args, "-n"))
+	args = (char **)a;
+	args++;
+	if (!ft_strncmp(*args, "-n", ft_strlen(*args)))
 	{
 		newline = false;
 		args++;
 	}
-	if (*args)
-	{
-		write(STDIN_FILENO, *args, ft_strlen(*args));
-		args++;
-	}
 	while (*args)
 	{
-		printf(" %s", *args);
+		if (**args == '$')
+			writevar(STDIN_FILENO, *args, envp);
+		else
+			write(STDIN_FILENO, *args, ft_strlen(*args));
+		if (**args != '$' && *(args + 1))
+			write(STDIN_FILENO, " ", 1);
 		args++;
 	}
 	if (newline)
-		printf("\n");
+		write(STDIN_FILENO, "\n", 1);
 	return (0);
 }
