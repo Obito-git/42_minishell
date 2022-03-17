@@ -6,3 +6,5 @@ libft/libft.a
 minishell
 *.srctrl*
 compile_commands.json
+.*.swp
+src/.*.swp

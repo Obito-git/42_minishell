@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <unistd.h>
 # define TRUE 1
 # define FALSE 0
 # define OUT_REWRITE 1
@@ -55,4 +56,8 @@ int		set_out_path(t_command *c);
 void    set_tubes_path(t_command *head, t_command *c);
 void	close_extra_tubes(t_command *head, t_command *current);
 int		(*get_built_in(t_command *cmd))(void*);
+
+//buil-ins
+int	echo(void *a);
+
 #endif

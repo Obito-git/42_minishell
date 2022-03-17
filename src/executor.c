@@ -49,19 +49,22 @@ void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 		return ;
 	if (pid == 0)
 	{
-		built_in = get_built_in(c);
-		path = find_command(envp, c);
-		if (!path && (!c->prev || !c->prev->out_mode))
-		{
-			printf("Unknown command %s\n", c->command);
-			return ;
-		}
 		out_fd = set_out_path(c);
 		set_tubes_path(head, c);
+		built_in = get_built_in(c);
 		if (built_in)
 			built_in(c->args);
-		else if (path && (!c->prev || !c->prev->out_mode))
-			execve(path, c->args, NULL);
+		else
+		{
+			path = find_command(envp, c);
+			if (!path && (!c->prev || !c->prev->out_mode))
+			{
+				printf("Unknown command %s\n", c->command);
+				return ;
+			}
+			else if (path && (!c->prev || !c->prev->out_mode))
+				execve(path, c->args, NULL);
+		}
 		if (out_fd != -1)
 			close(out_fd);
 	}

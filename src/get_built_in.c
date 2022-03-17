@@ -4,7 +4,7 @@ static const struct {
 	char	*name;
 	int		(*func)(void*);
 } s_built_in_table[] = {
-	{"echo", NULL},
+	{"echo", echo},
 	{"cd", NULL},
 	{"pwd", NULL},
 	{"export", NULL},
@@ -21,7 +21,7 @@ int	(*get_built_in(t_command *cmd))(void*)
 	while (i < sizeof(s_built_in_table)
 		&& ft_strncmp(cmd->command,
 			s_built_in_table[i].name,
-			sizeof(s_built_in_table[i].name)))
+			ft_strlen(cmd->command)))
 	{
 		i++;
 	}
