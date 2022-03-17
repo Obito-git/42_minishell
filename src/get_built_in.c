@@ -2,7 +2,7 @@
 
 static const struct {
 	char	*name;
-	int		(*func)(void*);
+	int		(*func)(void*, char **envp);
 } s_built_in_table[] = {
 	{"echo", echo},
 	{"cd", NULL},
