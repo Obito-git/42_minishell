@@ -97,7 +97,6 @@ int	execute(t_command *head, char **envp)
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
-	//Child waits even if builtin (or execve failed) but shouldnt be a pb
 	while (waitpid(-1, &wstatus, 0) != -1 || errno != ECHILD)
 		;
 	return (WEXITSTATUS(wstatus));
