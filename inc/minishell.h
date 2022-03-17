@@ -58,5 +58,7 @@ t_command   *find_syntax_errors(t_command *head);
 //built-ins
 int	(*get_built_in(t_command *cmd))(void*, char **envp);
 int	echo(void *a, char **envp);
+//env
+char	*getvar(char *var, char **envp);
 
 #endif
