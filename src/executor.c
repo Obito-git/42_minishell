@@ -42,7 +42,7 @@ char	*find_command(char **envp, t_command *c)
 }
 
 //Tries to execute the command
-int	exec_com(t_command *head, t_command *c, char **envp)
+void	exec_com(t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
@@ -50,6 +50,7 @@ int	exec_com(t_command *head, t_command *c, char **envp)
 	int 	ret;
 
 	path = NULL;
+	ret = 0;
 	out_fd = set_out_path(c);
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
@@ -60,25 +61,26 @@ int	exec_com(t_command *head, t_command *c, char **envp)
 		path = find_command(envp, c);
 		if (!path && (!c->prev || !c->prev->out_mode))
 		{
-			printf("Unknown command %s\n", c->command);
-			return ;
+			printf("Unknown command %s\n", c->command); //Should go to stderr
+			exit(EXIT_FAILURE);
 		}
 		else if (path && (!c->prev || !c->prev->out_mode))
-			execve(path, c->args, NULL);
+			ret = execve(path, c->args, NULL);
 	}
-	if (out_fd != -1)
-		close(out_fd);
+	close(out_fd);
 	free(path);
-	return (ret);
+	free_commands(head);
+	exit(ret);
 }
 
 /* Creates child processes, calls execution of commands and waits for their execution.
 * The main function of the executor
 */
-void	execute(t_command *head, char **envp)
+int	execute(t_command *head, char **envp)
 {
 	t_command	*tmp;
 	int			pid;
+	int			wstatus;
 
 	pid = -1;
 	tmp = head;
@@ -88,18 +90,15 @@ void	execute(t_command *head, char **envp)
 		if (pid == -1)
 		{
 			perror("Fork: ");
-			return ;
+			return (EXIT_FAILURE);
 		}
-		if (pid == 0)
+		else if (pid == 0)
 			exec_com(head, tmp, envp);
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
-	while (wait(NULL) != -1 || errno != ECHILD)
+	//Child waits even if builtin (or execve failed) but shouldnt be a pb
+	while (waitpid(-1, &wstatus, 0) != -1 || errno != ECHILD)
 		;
-	if (pid == 0)
-	{
-		free_commands(head);
-		exit(0);
-	}
+	return (WEXITSTATUS(wstatus));
 }

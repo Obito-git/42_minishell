@@ -49,7 +49,7 @@ char		**ft_strtrim_array(char **s, char *set);
 char		**ft_minishell_split(char **res, char *s, int z, int i);
 //	executor.c
 void		close_extra_tubes(t_command *head, t_command *current);
-void		execute(t_command *head, char **envp);
+int			execute(t_command *head, char **envp);
 //	pipes_redir.c
 int			set_out_path(t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);

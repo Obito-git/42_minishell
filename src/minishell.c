@@ -55,7 +55,7 @@ void	prepare_commands(char *user_input, t_command **head)
 		tmp = ft_str_threejoin(history, " ", user_input);
 		free(history);
 		history = tmp;
-		last->next = parse(user_input);	
+		last->next = parse(user_input);
 		if (last->next)
 			last->next->prev = last;
 		while (last && last->next)
@@ -70,6 +70,7 @@ int main(int ac, char **av, char **envp)
 {
 	char        *user_input;
 	t_command	*head;
+	int			ret;
 
 	if (ac != 1 || !av)
 	{
@@ -87,16 +88,16 @@ int main(int ac, char **av, char **envp)
 		}
 		if (ft_strlen(user_input) && ft_strcmp(user_input, "\n") != 0)
 		{
-			
+
 			prepare_commands(user_input, &head);
 			head = find_syntax_errors(head);
 			//command_print(head);
 			free(user_input);
-			execute(head, envp);
+			ret = execute(head, envp);
 		}
 		else
 			free(user_input);
 		free_commands(head);
 	}
-	return (0);
+	return (ret);
 }

@@ -1,5 +1,6 @@
 #include "minishell.h"
 
+//Can't print variables yet !
 int	echo(void *a)
 {
 	char **args;
