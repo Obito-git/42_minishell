@@ -55,7 +55,8 @@ int			set_out_path(t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head);
-//buil-ins
+//built-ins
+int	(*get_built_in(t_command *cmd))(void*);
 int	echo(void *a);
 
 #endif

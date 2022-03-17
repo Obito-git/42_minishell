@@ -42,18 +42,19 @@ char	*find_command(char **envp, t_command *c)
 }
 
 //Tries to execute the command
-void	exec_com(int pid, t_command *head, t_command *c, char **envp)
+int	exec_com(t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
 	int		(*built_in)(void*);
+	int 	ret;
 
 	path = NULL;
 	out_fd = set_out_path(c);
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
 	if (built_in)
-		built_in(c->args);
+		ret = built_in(c->args);
 	else
 	{
 		path = find_command(envp, c);
@@ -68,6 +69,7 @@ void	exec_com(int pid, t_command *head, t_command *c, char **envp)
 	if (out_fd != -1)
 		close(out_fd);
 	free(path);
+	return (ret);
 }
 
 /* Creates child processes, calls execution of commands and waits for their execution.
@@ -88,7 +90,8 @@ void	execute(t_command *head, char **envp)
 			perror("Fork: ");
 			return ;
 		}
-		exec_com(pid, head, tmp, envp);
+		if (pid == 0)
+			exec_com(head, tmp, envp);
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
