@@ -63,6 +63,7 @@ void	prepare_commands(char *user_input, t_command **head)
 	}
 	if (history)
 		add_history(history);
+	free(history);
 }
 
 int main(int ac, char **av, char **envp)
