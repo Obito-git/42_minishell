@@ -1,8 +1,7 @@
 #include "minishell.h"
 
 /*
-*	char *c is the command
-*
+*	used for the initialision of t_command structure with default values
 */
 t_command	*command_init(char *c, t_bool p, char in, char out)
 {
@@ -27,6 +26,7 @@ t_command	*command_init(char *c, t_bool p, char in, char out)
 	return (res);
 }
 
+//applies free on each element of an array list
 void	free_commands(t_command *c)
 {
 	t_command 	*tmp;

@@ -1,11 +1,14 @@
 #include "minishell.h"
 
-
 t_bool is_pipe_redir(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
 
+/* checks whether the symbol is a pipe or a redirect and 
+*  sets the corresponding value of the structure variable.
+*  Replaces the character with a space
+*/
 void	set_command_redir(t_command *c, char *s)
 {
 	if (is_pipe_redir(s[0]))
