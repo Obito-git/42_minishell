@@ -1,26 +1,36 @@
-Parsing Errors
 Expansion
-Error codes & last_pid $?
-If no env
-Signal handling
-Make is_builtin func
-built-ins : cd, export, unset, exit (clear hisory), env (print env vars)
-Why clear_history ?
+Test behaviour when no env
+Why clear_history function in subject?
 Look at the readline functions
-Handle input
-Here-doc mode
 Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
 Redirect ouput for built-ins : echo hello > hello.txt --> no output
 
 Anton
 ============
+Handle input
+Parsing Errors (in progress)
+Here-doc mode (in progress)
 
 Tom
 ===========
-Working on is_builtin() function
+Signal handling
+
+Implement all built ins :
+	echo : done
+	pwd : done
+	cd :
+	export :
+	unset
+	exit : What about history ?
+	env :
+(Do we need to copy env and carry our own copy around ?)
+
 Replace printf with dprintf -> STDERR
-Make a t_cmd_list struct {
+
+Pipeline returns last pid : should work
+
+If necessary maybe make a t_cmd_list struct {
 	t_command *head;
 	t_command *curr_cmd;
 	int		remaining;
-} ?
+} 
