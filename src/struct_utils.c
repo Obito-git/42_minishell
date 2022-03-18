@@ -49,3 +49,13 @@ void	free_commands(t_command *c)
 		c = tmp;
 	}
 }
+
+t_command	*get_last_cmd(t_command *head)
+{
+	t_command	*tmp;
+
+	tmp = head;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}

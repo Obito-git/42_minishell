@@ -44,22 +44,23 @@ void	prepare_commands(char *user_input, t_command **head)
 
 	history = ft_strdup(user_input);
 	*head = parse(user_input);
-	last = *head;
-	while (last && last->next)
-		last = last->next;
+	last = get_last_cmd(*head);
 	while (last && last->pipe)
 	{
 		user_input = readline("> ");
 		while (ft_strlen(user_input) == 0)
+		{
+			free(user_input);
 			user_input = readline("> ");
+		}
+		last->next = parse(user_input);
 		tmp = ft_str_threejoin(history, " ", user_input);
 		free(history);
+		free(user_input);
 		history = tmp;
-		last->next = parse(user_input);
 		if (last->next)
 			last->next->prev = last;
-		while (last && last->next)
-			last = last->next;
+		last = get_last_cmd(*head);
 	}
 	if (history)
 		add_history(history);

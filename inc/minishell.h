@@ -33,6 +33,7 @@ typedef struct s_command
 //	struct_utils.c
 t_command	*command_init(char *c, bool p, char in, char out);
 void		free_commands(t_command *c);
+t_command	*get_last_cmd(t_command *head);
 //	parsing.c
 t_command	*parse(char *user_input);
 void		set_quotes(char c, bool *q, bool *dq);
