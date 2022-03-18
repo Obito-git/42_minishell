@@ -5,6 +5,7 @@ int	echo(void *a, char **envp)
 	char	**args;
 	bool	newline;
 
+	(void) envp;
 	newline = true;
 	args = (char **)a;
 	args++;
@@ -15,11 +16,8 @@ int	echo(void *a, char **envp)
 	}
 	while (*args)
 	{
-		if (**args == '$')
-			writevar(STDIN_FILENO, *args, envp);
-		else
-			write(STDIN_FILENO, *args, ft_strlen(*args));
-		if (**args != '$' && *(args + 1))
+		write(STDIN_FILENO, *args, ft_strlen(*args));
+		if (*(args + 1))
 			write(STDIN_FILENO, " ", 1);
 		args++;
 	}
