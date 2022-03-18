@@ -54,6 +54,7 @@ t_command	*parse(char *user_input)
 		return (NULL);
 	com = cut_all_commands(com, user_input, &i);
 	com = ft_strtrim_array(com, " ");
+	set_input_pattern(com);
 	if (!com)
 		return (NULL);
 	head = get_commands_list(com);

@@ -23,6 +23,27 @@ int	set_out_path(t_command *c)
 	return (fd);
 }
 
+int	set_in_path(t_command *head, t_command *c)
+{
+	//FIXME if c->next not existing case
+	int	fd;
+
+	fd = -1;
+	if (c->in_mode)
+	{
+		if (c->in_mode == IN_SOLO)
+			fd = open(c->next->command, O_RDONLY);
+		if (fd == -1)
+		{
+			perror(c->next->command);
+			return (-1);
+		}
+		dup2(fd, STDIN_FILENO);
+		set_tubes_path(head, c->next);
+	}
+	return (fd);
+}
+
 /*
 * tube[0] → contiendra le fichier descripteur de l'extrémité de lecture
 * tube[1] → contiendra le fichier descripteur de l'extrémité d'écriture

@@ -32,11 +32,10 @@ void	free_commands(t_command *c)
 	t_command 	*tmp;
 	int			i;
 
-	if (c)
-		free(c->tube); //find solution with tubes closing
 	while (c)
 	{
 		free(c->command);
+		free(c->tube);
 		i = 0;
 		while (c->args && c->args[i])
 		{

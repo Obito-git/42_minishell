@@ -42,6 +42,7 @@ void		set_command_redir(t_command *c, char *s);
 //	input_to_str.c
 char		*cut_command(char *s, int *start, int *end);
 char		**cut_all_commands(char **com, char *s, int *i);
+void		set_input_pattern(char **s);
 //	str_to_struct.c
 t_command	*get_commands_list(char **c);
 //	utils.c
@@ -53,6 +54,7 @@ void		close_extra_tubes(t_command *head, t_command *current);
 int			execute(t_command *head, char **envp);
 //	pipes_redir.c
 int			set_out_path(t_command *c);
+int			set_in_path(t_command *head, t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head);

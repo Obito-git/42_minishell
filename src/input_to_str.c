@@ -1,5 +1,36 @@
 #include "minishell.h"
 
+/*
+*	Modifies [< 'input file' 'command'] to ['command' < 'input file']
+*	Used to execute 2 patterns by the same executor function
+*/
+void	set_input_pattern(char **s)
+{
+	char	*tmp;
+	char	*result;
+	int		i;
+	int		y;
+
+	i = 0;
+	if (!s || !s[0] || !s[1] || ft_strcmp(s[0], "<") != 0)
+		return ;
+	while (s[1][i] && s[1][i] != ' ' && !is_pipe_redir(s[1][i]))
+		i++;
+	if (ft_strlen(&s[1][i]) == 0 || is_pipe_redir(s[1][i]))
+		return ;
+	tmp = ft_strtrim(&s[1][i], " ><|");
+	result = ft_str_threejoin(tmp, " ", s[0]);
+	free(tmp);
+	free(s[0]);
+	s[0] = result;
+	y = i;
+	while(s[1][y] && !is_pipe_redir(s[1][y]))
+		y++;
+	//if (is_pipe_redir(s[1][y]))
+	ft_strcpy(&s[1][i], &s[1][y]);
+	//else
+	//	s[1][i] = 0;
+}
 //returns malloced substring with command, args and pipe/redirection
 char    *cut_command(char *s, int *start, int *end)
 {

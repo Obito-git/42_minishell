@@ -46,12 +46,16 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 {
 	char	*path;
 	int		out_fd;
+	int		in_fd;
 	int		(*built_in)(void*, char **);
 	int 	ret;
 
 	path = NULL;
 	ret = 0;
 	out_fd = set_out_path(c);
+	in_fd = set_in_path(head, c);
+	if (in_fd != -1 && out_fd == -1 && c->next)
+		out_fd = set_out_path(c->next);
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
 	if (built_in)
@@ -59,7 +63,7 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 	else
 	{
 		path = find_command(envp, c);
-		if (!path && (!c->prev || !c->prev->out_mode))
+		if (!path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 		{
 			printf("Unknown command %s\n", c->command); //Should go to stderr
 			exit(EXIT_FAILURE);
@@ -68,6 +72,7 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 			ret = execve(path, c->args, NULL);
 	}
 	close(out_fd);
+	close(in_fd);
 	free(path);
 	free_commands(head);
 	exit(ret);
