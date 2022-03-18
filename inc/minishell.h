@@ -11,8 +11,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
-# define TRUE 1
-# define FALSE 0
+# define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
 # define IN_SOLO 1
@@ -61,6 +60,7 @@ t_command   *find_syntax_errors(t_command *head);
 //built-ins
 int	(*get_built_in(t_command *cmd))(void*, char **envp);
 int	echo(void *a, char **envp);
+int	pwd(void *arg, char **envp);
 //env
 char	*getvar(char *var, char **envp);
 ssize_t	writevar(int fd, char *var, char **envp);

@@ -6,7 +6,7 @@ static const struct {
 } s_built_in_table[] = {
 	{"echo", echo},
 	{"cd", NULL},
-	{"pwd", NULL},
+	{"pwd", pwd},
 	{"export", NULL},
 	{"unset", NULL},
 	{"env", NULL},

@@ -9,6 +9,8 @@ Why clear_history ?
 Look at the readline functions
 Handle input
 Here-doc mode
+Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
+Redirect ouput for built-ins : echo hello > hello.txt --> no output
 
 Anton
 ============
