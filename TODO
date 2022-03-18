@@ -7,11 +7,14 @@ Make is_builtin func
 built-ins : cd, export, unset, exit (clear hisory), env (print env vars)
 Why clear_history ?
 Look at the readline functions
-Handle input
-Here-doc mode
+
+
 
 Anton
 ============
+Handle input
+Parsing Errors (in progress)
+Here-doc mode (in progress)
 
 Tom
 ===========
