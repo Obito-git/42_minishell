@@ -91,10 +91,10 @@ int	append_str_to_strlist(t_strlist *list, char *str)
 	t_strlist_node	*new_node;
 
 	new_node = new_strlist_node();
-	if (new_node)
+	if (new_node == NULL)
 		return (-1);
 	new_node->str = ft_strdup(str);
-	if (!new_node->str)
+	if (new_node->str == NULL)
 	{
 		free(new_node);
 		return (-1);
@@ -157,7 +157,7 @@ int			update_strlist_envp(t_strlist *list)
 	char	**new_envp;
 
 	tmp_list = *list;
-	new_envp = malloc(list->size * sizeof(char **) + 1);
+	new_envp = malloc((list->size + 1) * sizeof(char **));
 	if (!new_envp)
 		return (-1);
 	while (tmp_list.size--)

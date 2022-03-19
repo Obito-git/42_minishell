@@ -42,12 +42,12 @@ char	*find_command(char **envp, t_command *c)
 }
 
 //Tries to execute the command
-void	exec_com(t_command *head, t_command *c, char **envp)
+void	exec_com(t_command *head, t_command *c, t_strlist *env)
 {
 	char	*path;
 	int		out_fd;
 	int		in_fd;
-	int		(*built_in)(void*, char **);
+	int		(*built_in)(void*, t_strlist*);
 	int 	ret;
 
 	path = NULL;
@@ -59,17 +59,17 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
 	if (built_in)
-		ret = built_in(c->args, envp);
+		ret = built_in(c->args, env);
 	else
 	{
-		path = find_command(envp, c);
+		path = find_command(env->envp, c);
 		if (!path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 		{
 			printf("Unknown command %s\n", c->command); //Should go to stderr
 			exit(EXIT_FAILURE);
 		}
 		else if (path && (!c->prev || !c->prev->out_mode))
-			ret = execve(path, c->args, NULL);
+			ret = execve(path, c->args, env->envp);
 	}
 	close(out_fd);
 	close(in_fd);
@@ -81,7 +81,7 @@ void	exec_com(t_command *head, t_command *c, char **envp)
 /* Creates child processes, calls execution of commands and waits for their execution.
 * The main function of the executor
 */
-int	execute(t_command *head, char **envp)
+int	execute(t_command *head, t_strlist *env)
 {
 	t_command	*tmp;
 	int			pid;
@@ -98,7 +98,7 @@ int	execute(t_command *head, char **envp)
 			return (EXIT_FAILURE);
 		}
 		else if (pid == 0)
-			exec_com(head, tmp, envp);
+			exec_com(head, tmp, env);
 		tmp = tmp->next;
 	}
 	close_extra_tubes(head, NULL);
