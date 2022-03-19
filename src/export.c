@@ -19,5 +19,5 @@ int	_export(void *a, t_strlist *env)
 		}
 		i++;
 	}
-	return (0);
+	return (update_strlist_envp(env));
 }

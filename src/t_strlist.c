@@ -2,11 +2,12 @@
 
 t_strlist	init_strlist()
 {
-	t_strlist new;
+	t_strlist new_strlist;
 
-	new.head = NULL;
-	new.size = 0;
-	return (new);
+	new_strlist.head = NULL;
+	new_strlist.size = 0;
+	new_strlist.envp = NULL;
+	return (new_strlist);
 }
 
 t_strlist *new_strlist()
@@ -29,7 +30,6 @@ t_strlist_node	init_strlist_node()
 	node.next = NULL;
 	return (node);
 }
-
 
 t_strlist_node *new_strlist_node()
 {
@@ -151,6 +151,27 @@ void	remove_str_from_strlist(t_strlist *list, char *str)
 	}
 }
 
+int			update_strlist_envp(t_strlist *list)
+{
+	t_strlist tmp_list;
+	char	**new_envp;
+
+	tmp_list = *list;
+	new_envp = malloc(list->size * sizeof(char **) + 1);
+	if (!new_envp)
+		return (-1);
+	while (tmp_list.size--)
+	{
+		*new_envp = tmp_list.head->str;
+		tmp_list.head = tmp_list.head->next;
+		new_envp++;
+	}
+	*new_envp = NULL;
+	free(list->envp);
+	list->envp = new_envp;
+	return (0);
+}
+
 t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 {
 	t_strlist *list;
@@ -169,6 +190,7 @@ t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 			}
 			envp++;
 		}
+		update_strlist_envp(list);
 	}
 	return (list);
 }

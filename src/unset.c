@@ -21,5 +21,5 @@ int	unset(void *args, t_strlist *env)
 		}
 		arg++;
 	}
-	return (0);
+	return (update_strlist_envp(env));
 }

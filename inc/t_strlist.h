@@ -25,6 +25,7 @@ void			append_node_to_strlist(t_strlist *list, t_strlist_node *node);
 int				append_str_to_strlist(t_strlist *list, char *str);
 void			remove_node_from_strlist(t_strlist *list, t_strlist_node *node);
 void			remove_str_from_strlist(t_strlist *list, char *str);
+int				update_strlist_envp(t_strlist *list);
 t_strlist		*make_strlist_from_null_terminated_str_array(char **envp);
 
 #endif /* T_STRLIST_H */
