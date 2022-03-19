@@ -2,18 +2,18 @@
 
 static const struct {
 	char	*name;
-	int		(*func)(void*, char **envp);
+	int		(*func)(void*, t_strlist *env);
 } s_built_in_table[] = {
 	{"echo", echo},
 	{"cd", NULL},
 	{"pwd", pwd},
-	{"export", NULL},
-	{"unset", NULL},
+	{"export", _export},
+	{"unset", unset},
 	{"env", NULL},
 	{"exit", NULL},
 };
 
-int	(*get_built_in(t_command *cmd))(void*, char **)
+int	(*get_built_in(t_command *cmd))(void*, t_strlist *)
 {
 	unsigned long	i;
 

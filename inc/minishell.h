@@ -1,6 +1,5 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -11,6 +10,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include "libft.h"
+# include "t_strlist.h"
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
@@ -58,11 +59,15 @@ void		set_tubes_path(t_command *head, t_command *c);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head);
 //built-ins
-int	(*get_built_in(t_command *cmd))(void*, char **envp);
-int	echo(void *a, char **envp);
-int	pwd(void *arg, char **envp);
+int	(*get_built_in(t_command *cmd))(void*, t_strlist *env);
+int	echo(void *a, t_strlist *env);
+int	pwd(void *arg, t_strlist *env);
+int	unset(void *args, t_strlist *env);
+int	_export(void *args, t_strlist *env);
+
 //env
-char	*getvar(char *var, char **envp);
+char	*get_env_var_start(char *var, char **envp);
+char	*get_env_var_val(char *var, char **envp);
 ssize_t	writevar(int fd, char *var, char **envp);
 
 #endif

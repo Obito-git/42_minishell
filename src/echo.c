@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-int	echo(void *a, char **envp)
+int	echo(void *a, t_strlist *env)
 {
 	char	**args;
 	bool	newline;
 
-	(void) envp;
+	(void) env;
 	newline = true;
 	args = (char **)a;
 	args++;

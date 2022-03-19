@@ -1,4 +1,3 @@
-#include "libft.h"
 #include "minishell.h"
 
 void command_print(t_command *c)
@@ -72,7 +71,14 @@ int main(int ac, char **av, char **envp)
 	char        *user_input;
 	t_command	*head;
 	int			ret;
+	t_strlist	*env;
 
+	env = make_strlist_from_null_terminated_str_array(envp);
+	if (env == NULL)
+	{
+		perror("Unable to allocate list of variables");
+		return (1);
+	}
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
@@ -100,5 +106,6 @@ int main(int ac, char **av, char **envp)
 			free(user_input);
 		free_commands(head);
 	}
+	free_strlist(env);
 	return (ret);
 }

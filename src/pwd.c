@@ -1,11 +1,11 @@
 #include  "minishell.h"
 
-int	pwd(void *arg, char **envp)
+int	pwd(void *arg, t_strlist *env)
 {
 	char cwd[PATH_MAX];
 
 	(void) arg;
-	(void) envp;
+	(void) env;
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("Unable to get filesystem path for current directory");

@@ -4,6 +4,8 @@ Why clear_history function in subject?
 Look at the readline functions
 Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
 Redirect ouput for built-ins : echo hello > hello.txt --> no output
+Why minishell prints "exit" on Ctrl+D ?
+If there's just one command, no forking because built-ins do not have lasting effect whem piped but do on their own
 
 Anton
 ============
