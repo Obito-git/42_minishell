@@ -9,7 +9,7 @@ static const struct {
 	{"pwd", pwd},
 	{"export", _export},
 	{"unset", unset},
-	{"env", NULL},
+	{"env", env},
 	{"exit", NULL},
 };
 

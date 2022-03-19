@@ -64,6 +64,7 @@ int	echo(void *a, t_strlist *env);
 int	pwd(void *arg, t_strlist *env);
 int	unset(void *args, t_strlist *env);
 int	_export(void *args, t_strlist *env);
+int	env(void *args, t_strlist *env);
 
 //env
 char	*get_env_var_start(char *var, char **envp);
