@@ -87,7 +87,7 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		head = NULL;
-		user_input = readline("minishell$ ");
+		user_input = readline("\e[31mminishell$\e[0m ");
 		if (!user_input)
 		{
 			printf("exit\n");

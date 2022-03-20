@@ -61,6 +61,7 @@ void	deinit_strlist(t_strlist *list)
 void	free_strlist(t_strlist *list)
 {
 	deinit_strlist(list);
+	free(list->envp);
 	free(list);
 	list = NULL;
 }
@@ -110,18 +111,22 @@ void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 
 	if (list && node)
 	{
-		if (list->head)
+		if (list->head && list->size > 0)
 		{
 			size = list->size;
 			curr = list->head;
 			while (size-- && curr != node)
-				curr =  list->head->next;
+				curr = curr->next;
 			if (size > 0)
 			{
 				curr->prev->next = curr->next;
 				curr->next->prev = curr->prev;
+				if (curr == list->head)
+					list->head = list->head->next;
 				free(curr);
 				list->size--;
+				if (list->size == 0)
+					list->head = NULL;
 			}
 		}
 	}

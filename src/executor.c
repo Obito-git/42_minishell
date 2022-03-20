@@ -86,17 +86,21 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	t_command	*tmp;
 	int			pid;
 	int			wstatus;
+	int		(*built_in)(void*, t_strlist*);
 
+
+	built_in = NULL;
+	if (head->next == NULL)
+		built_in = get_built_in(head);
+	if (built_in)
+		return (built_in(head->args, env));
 	pid = -1;
 	tmp = head;
 	while (pid != 0 && tmp)
 	{
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("Fork: ");
-			return (EXIT_FAILURE);
-		}
+			perror("Fork");
 		else if (pid == 0)
 			exec_com(head, tmp, env);
 		tmp = tmp->next;

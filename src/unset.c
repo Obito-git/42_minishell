@@ -7,16 +7,18 @@ int	unset(void *args, t_strlist *env)
 	size_t		len;
 
 	arg = (char **) args;
-	var_list = *env;
 	while (*arg)
 	{
+		var_list = *env;
 		len = ft_strlen(*arg);
 		while (var_list.size--)
 		{
 
-			if (ft_strncmp(var_list.head->str, *arg, len) == 0
-					&& *(var_list.head->str + len) == '=')
+			if (ft_strncmp(var_list.head->str, *arg, len) == 0)
+			{
 				remove_node_from_strlist(env, var_list.head);
+				break;
+			}
 			var_list.head = var_list.head->next;
 		}
 		arg++;
