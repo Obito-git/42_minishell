@@ -51,17 +51,18 @@ void	deinit_strlist(t_strlist *list)
 		while (list->size--)
 		{
 			next_node = list->head->next;
+			free(list->head->str);
 			free(list->head);
 			list->head = next_node;
 		}
 		list->head = NULL;
+		free(list->envp);
 	}
 }
 
 void	free_strlist(t_strlist *list)
 {
 	deinit_strlist(list);
-	free(list->envp);
 	free(list);
 	list = NULL;
 }

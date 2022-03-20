@@ -73,15 +73,15 @@ int main(int ac, char **av, char **envp)
 	int			ret;
 	t_strlist	*env;
 
-	env = make_strlist_from_null_terminated_str_array(envp);
-	if (env == NULL)
-	{
-		perror("Unable to allocate list of variables");
-		return (1);
-	}
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
+		return (1);
+	}
+	env = make_strlist_from_null_terminated_str_array(envp);
+	if (env == NULL)
+	{
+		perror("Unable to allocate for list of variables");
 		return (1);
 	}
 	while (1)
