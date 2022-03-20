@@ -21,7 +21,7 @@ Implement all built ins :
 	echo : done
 	pwd : done
 	cd :
-	export : Funny business with NULL ptr, WTF ?
+	export : 
 	unset
 	exit : What about history ?
 	env :

@@ -41,7 +41,7 @@ char	*find_command(char **envp, t_command *c)
 	return (test_path);
 }
 
-//Tries to execute the command
+//Tries to execute_pipeline the command
 void	exec_com(t_command *head, t_command *c, t_strlist *env)
 {
 	char	*path;
@@ -81,7 +81,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 /* Creates child processes, calls execution of commands and waits for their execution.
 * The main function of the executor
 */
-int	execute(t_command *head, t_strlist *env)
+int	execute_pipeline(t_command *head, t_strlist *env)
 {
 	t_command	*tmp;
 	int			pid;

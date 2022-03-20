@@ -100,7 +100,7 @@ int main(int ac, char **av, char **envp)
 			head = find_syntax_errors(head);
 			//command_print(head);
 			free(user_input);
-			ret = execute(head, env);
+			ret = execute_pipeline(head, env);
 		}
 		else
 			free(user_input);

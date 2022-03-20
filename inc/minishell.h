@@ -51,7 +51,7 @@ char		**ft_strtrim_array(char **s, char *set);
 char		**ft_minishell_split(char **res, char *s, int z, int i);
 //	executor.c
 void		close_extra_tubes(t_command *head, t_command *current);
-int			execute(t_command *head, t_strlist *env);
+int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
 int			set_out_path(t_command *c);
 int			set_in_path(t_command *head, t_command *c);
