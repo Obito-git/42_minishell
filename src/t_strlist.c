@@ -116,7 +116,7 @@ void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 		{
 			size = list->size;
 			curr = list->head;
-			while (size-- && curr != node)
+			while (curr != node && size--)
 				curr = curr->next;
 			if (size > 0)
 			{
