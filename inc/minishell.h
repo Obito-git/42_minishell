@@ -15,8 +15,8 @@
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
-# define IN_SOLO 1
-# define IN_MULT 2
+# define IN_FILE 1
+# define IN_HEREDOC 2
 
 typedef struct s_command
 {
@@ -58,6 +58,9 @@ int			set_in_path(t_command *head, t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head);
+//	heredoc.c
+int		get_heredoc_fd(char *delim, t_command *head, t_command *current);
+char	*get_heredoc_tmpname(t_command *head, t_command *current);
 //built-ins
 int	(*get_built_in(t_command *cmd))(void*, t_strlist *env);
 int	echo(void *a, t_strlist *env);

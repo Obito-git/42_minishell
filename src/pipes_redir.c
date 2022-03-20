@@ -31,8 +31,10 @@ int	set_in_path(t_command *head, t_command *c)
 	fd = -1;
 	if (c->in_mode)
 	{
-		if (c->in_mode == IN_SOLO)
+		if (c->in_mode == IN_FILE)
 			fd = open(c->next->command, O_RDONLY);
+		else
+			fd = get_heredoc_fd(c->next->command, head, c);
 		if (fd == -1)
 		{
 			perror(c->next->command);
