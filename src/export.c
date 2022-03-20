@@ -11,6 +11,12 @@ int	_export(void *a, t_strlist *env)
 	while (args[i])
 	{
 		y = 0;
+		if (args[i][1] == '=')
+		{
+			printf("minishell: export: `%s': not a valid identifier\n",
+					args[i]);
+			return (1);
+		}
 		while (args[i][y])
 		{
 			if (args[i][y] == '=')
