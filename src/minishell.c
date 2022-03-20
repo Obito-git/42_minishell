@@ -91,6 +91,7 @@ int main(int ac, char **av, char **envp)
 		if (!user_input)
 		{
 			printf("exit\n");
+			free_strlist(env);
 			return (0);
 		}
 		if (ft_strlen(user_input) && ft_strcmp(user_input, "\n") != 0)
