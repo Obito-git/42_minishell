@@ -120,10 +120,11 @@ void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 				curr = curr->next;
 			if (size > 0)
 			{
-				curr->prev->next = curr->next;
-				curr->next->prev = curr->prev;
 				if (curr == list->head)
 					list->head = list->head->next;
+				curr->prev->next = curr->next;
+				curr->next->prev = curr->prev;
+				free(curr->str);
 				free(curr);
 				list->size--;
 				if (list->size == 0)
