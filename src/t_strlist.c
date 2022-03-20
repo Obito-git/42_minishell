@@ -160,6 +160,8 @@ int			update_strlist_envp(t_strlist *list)
 	new_envp = malloc((list->size + 1) * sizeof(char **));
 	if (!new_envp)
 		return (-1);
+	free(list->envp);
+	list->envp = new_envp;
 	while (tmp_list.size--)
 	{
 		*new_envp = tmp_list.head->str;
@@ -167,8 +169,6 @@ int			update_strlist_envp(t_strlist *list)
 		new_envp++;
 	}
 	*new_envp = NULL;
-	free(list->envp);
-	list->envp = new_envp;
 	return (0);
 }
 
