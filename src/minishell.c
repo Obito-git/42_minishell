@@ -98,7 +98,7 @@ int main(int ac, char **av, char **envp)
 
 			prepare_commands(user_input, &head);
 			head = find_syntax_errors(head);
-			//command_print(head);
+			command_print(head);
 			free(user_input);
 			ret = execute_pipeline(head, env);
 		}

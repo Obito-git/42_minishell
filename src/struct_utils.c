@@ -26,16 +26,38 @@ t_command	*command_init(char *c, bool p, char in, char out)
 	return (res);
 }
 
+//tries to delete heredoc tmpfile
+void	delete_tmpfiles(t_command *head)
+{
+	char		*filename;
+	t_command	*tmp;
+
+	tmp = head;
+	while (tmp)
+	{
+		if (tmp->in_mode == IN_HEREDOC)
+		{
+			filename = get_heredoc_tmpname(head, tmp);
+			if (filename)
+				unlink(filename);
+			free(filename);
+		}
+		tmp = tmp->next;
+	}
+}
+
 //applies free on each element of an array list
 void	free_commands(t_command *c)
 {
 	t_command 	*tmp;
 	int			i;
 
+	delete_tmpfiles(c);
 	while (c)
 	{
 		free(c->command);
 		free(c->tube);
+		
 		i = 0;
 		while (c->args && c->args[i])
 		{

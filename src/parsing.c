@@ -18,13 +18,13 @@ void	set_command_redir(t_command *c, char *s)
 		else if (s[0] == '>')
 			c->out_mode = OUT_REWRITE;
 		else if (s[0] == '<')
-			c->in_mode = IN_SOLO;
+			c->in_mode = IN_FILE;
 		if (s[0] == '>' && s[1] == '>')
 			c->out_mode = OUT_APPEND;
 		if (s[0] == '<' && s[1] == '<')
-			c->out_mode = IN_MULT;
+			c->in_mode = IN_HEREDOC;
 		s[0] = ' ';
-		if (c->out_mode == OUT_APPEND || c->in_mode == IN_MULT)
+		if (c->out_mode == OUT_APPEND || c->in_mode == IN_HEREDOC)
 			s[1] = ' ';
 	}
 }
