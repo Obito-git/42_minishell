@@ -10,8 +10,6 @@ int	cd(t_command *cmd, t_strlist *env)
 	paths++;
 	if (paths[0])
 	{
-		/*printf("%s\n", paths[0]);*/
-		/*printf("%s\n", paths[1]);*/
 		if (paths[1])
 		{
 			printf("minishell: cd: too many arguments\n");

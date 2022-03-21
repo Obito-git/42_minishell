@@ -18,14 +18,14 @@ int	(*get_built_in(t_command *cmd))(t_command*, t_strlist *)
 	unsigned long	i;
 
 	i = 0;
-	while (i < sizeof(s_built_in_table)/sizeof(s_built_in_table[0]) - 1
+	while (i < sizeof(s_built_in_table)/sizeof(s_built_in_table[0])
 		&& ft_strncmp(cmd->command,
 			s_built_in_table[i].name,
 			ft_strlen(cmd->command)))
 	{
 		i++;
 	}
-	if (i == sizeof(s_built_in_table))
+	if (i == sizeof(s_built_in_table)/sizeof(s_built_in_table[0]))
 		return (NULL);
 	else
 		return (s_built_in_table[i].func);
