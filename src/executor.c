@@ -47,7 +47,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	char	*path;
 	int		out_fd;
 	int		in_fd;
-	int		(*built_in)(void*, t_strlist*);
+	int		(*built_in)(t_command*, t_strlist*);
 	int 	ret;
 
 	path = NULL;
@@ -59,7 +59,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	set_tubes_path(head, c);
 	built_in = get_built_in(c);
 	if (built_in)
-		ret = built_in(c->args, env);
+		ret = built_in(c, env);
 	else
 	{
 		path = find_command(env->envp, c);
@@ -86,7 +86,7 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	t_command	*tmp;
 	int			pid;
 	int			wstatus;
-	int		(*built_in)(void*, t_strlist*);
+	int		(*built_in)(t_command*, t_strlist*);
 
 
 	built_in = NULL;

@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-int	echo(void *a, t_strlist *env)
+int	echo(t_command *cmd, t_strlist *env)
 {
 	char	**args;
 	bool	newline;
 
 	(void) env;
 	newline = true;
-	args = (char **)a;
+	args = (char **)cmd->args;
 	args++;
 	if (!ft_strncmp(*args, "-n", ft_strlen(*args)))
 	{

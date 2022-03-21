@@ -5,7 +5,7 @@ static const struct {
 	int		(*func)(t_command*, t_strlist *env);
 } s_built_in_table[] = {
 	{"echo", echo},
-	{"cd", NULL},
+	{"cd", cd},
 	{"pwd", pwd},
 	{"export", xport},
 	{"unset", unset},

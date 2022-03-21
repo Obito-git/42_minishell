@@ -69,6 +69,7 @@ int	unset(t_command *cmd, t_strlist *env);
 int	xport(t_command *cmd, t_strlist *env);
 int	xit(t_command *cmd, t_strlist *env);
 int	env(t_command *cmd, t_strlist *env);
+int	cd(t_command *cmd, t_strlist *env);
 
 //env
 char	*get_env_var_start(char *var, char **envp);
