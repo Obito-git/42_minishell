@@ -21,10 +21,10 @@ Implement all built ins :
 	echo : done
 	pwd : done
 	cd :
-	export : 
+	export : done
 	unset
 	exit : What about history ?
-	env :
+	env : done
 (Do we need to copy env and carry our own copy around ?)
 
 Replace printf with dprintf -> STDERR

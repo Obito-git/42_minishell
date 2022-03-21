@@ -32,17 +32,22 @@ void	delete_tmpfiles(t_command *head)
 	char		*filename;
 	t_command	*tmp;
 
-	tmp = head;
-	while (tmp)
+	if (head)
 	{
-		if (tmp->in_mode == IN_HEREDOC)
+		printf("%p\n", head);
+		printf("%p\n", &head->in_mode);
+		tmp = head;
+		while (tmp)
 		{
-			filename = get_heredoc_tmpname(head, tmp);
-			if (filename)
-				unlink(filename);
-			free(filename);
+			if (tmp->in_mode == IN_HEREDOC)
+			{
+				filename = get_heredoc_tmpname(head, tmp);
+				if (filename)
+					unlink(filename);
+				free(filename);
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
 	}
 }
 
@@ -53,21 +58,24 @@ void	free_commands(t_command *c)
 	int			i;
 
 	delete_tmpfiles(c);
-	while (c)
+	if (c)
 	{
-		free(c->command);
-		free(c->tube);
-		
-		i = 0;
-		while (c->args && c->args[i])
+		while (c)
 		{
-			free(c->args[i]);
-			i++;
+			free(c->command);
+			free(c->tube);
+
+			i = 0;
+			while (c->args && c->args[i])
+			{
+				free(c->args[i]);
+				i++;
+			}
+			free(c->args);
+			tmp = c->next;
+			free(c);
+			c = tmp;
 		}
-		free(c->args);
-		tmp = c->next;
-		free(c);
-		c = tmp;
 	}
 }
 

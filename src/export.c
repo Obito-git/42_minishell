@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	_export(void *a, t_strlist *env)
+int	xport(void *a, t_strlist *env)
 {
 	char **args;
 	int i;

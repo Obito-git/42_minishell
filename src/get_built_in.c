@@ -7,10 +7,10 @@ static const struct {
 	{"echo", echo},
 	{"cd", NULL},
 	{"pwd", pwd},
-	{"export", _export},
+	{"export", xport},
 	{"unset", unset},
 	{"env", env},
-	{"exit", NULL},
+	{"exit", xit},
 };
 
 int	(*get_built_in(t_command *cmd))(void*, t_strlist *)
