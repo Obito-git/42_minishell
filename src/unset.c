@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int	unset(void *args, t_strlist *env)
+int	unset(t_command *cmd, t_strlist *env)
 {
 	char		**arg;
 	t_strlist	var_list;
 	size_t		len;
 
-	arg = (char **) args;
+	arg = cmd->args;
 	while (*arg)
 	{
 		var_list = *env;

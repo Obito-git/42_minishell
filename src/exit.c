@@ -1,12 +1,10 @@
 #include "minishell.h"
 
-int	xit(void *args, t_strlist *env)
+int	xit(t_command *cmd, t_strlist *env)
 {
-	t_command	*head;
 
-	head = (t_command *) args;
 	printf("exit\n");
-	free_commands(head);
+	free_commands(cmd);
 	free_strlist(env);
 	exit(0);
 }

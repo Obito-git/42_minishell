@@ -93,7 +93,7 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	if (head->next == NULL)
 		built_in = get_built_in(head);
 	if (built_in)
-		return (built_in(head->args, env));
+		return (built_in(head, env));
 	pid = -1;
 	tmp = head;
 	while (pid != 0 && tmp)

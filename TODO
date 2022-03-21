@@ -22,7 +22,7 @@ Implement all built ins :
 	pwd : done
 	cd :
 	export : done
-	unset
+	unset : done
 	exit : What about history ?
 	env : done
 (Do we need to copy env and carry our own copy around ?)

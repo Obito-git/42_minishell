@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-int	xport(void *a, t_strlist *env)
+int	xport(t_command *cmd, t_strlist *env)
 {
 	char **args;
 	int i;
 	int y;
 
-	args = (char **) a;
+	args = cmd->args;
 	i = 0;
 	while (args[i])
 	{

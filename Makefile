@@ -28,8 +28,9 @@ endif
 CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 
 
 #Our beloved address sanitizer
-CFLAGS			+=	-fsanitize=address
-LDFLAGS			+=	-fsanitize=address
+asan			=	-fsanitize=address	
+#CFLAGS			+=	$(asan)	
+#LDFLAGS		+=	$(asan)	
 
 #Works with gcc version 10 and 11
 #CFLAGS			+=	-fanalyzer

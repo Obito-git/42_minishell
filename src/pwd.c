@@ -1,10 +1,10 @@
 #include  "minishell.h"
 
-int	pwd(void *arg, t_strlist *env)
+int	pwd(t_command *cmd, t_strlist *env)
 {
 	char cwd[PATH_MAX];
 
-	(void) arg;
+	(void) cmd;
 	(void) env;
 	if (!getcwd(cwd, sizeof(cwd)))
 	{

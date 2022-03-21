@@ -62,13 +62,13 @@ t_command   *find_syntax_errors(t_command *head);
 int		get_heredoc_fd(char *delim, t_command *head, t_command *current);
 char	*get_heredoc_tmpname(t_command *head, t_command *current);
 //built-ins
-int	(*get_built_in(t_command *cmd))(void*, t_strlist *env);
-int	echo(void *a, t_strlist *env);
-int	pwd(void *arg, t_strlist *env);
-int	unset(void *args, t_strlist *env);
-int	xport(void *args, t_strlist *env);
-int	xit(void *a, t_strlist *env);
-int	env(void *args, t_strlist *env);
+int	(*get_built_in(t_command *cmd))(t_command *cmd, t_strlist *env);
+int	echo(t_command *cmd, t_strlist *env);
+int	pwd(t_command *cmd, t_strlist *env);
+int	unset(t_command *cmd, t_strlist *env);
+int	xport(t_command *cmd, t_strlist *env);
+int	xit(t_command *cmd, t_strlist *env);
+int	env(t_command *cmd, t_strlist *env);
 
 //env
 char	*get_env_var_start(char *var, char **envp);

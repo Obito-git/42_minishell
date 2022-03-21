@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int	env(void *args, t_strlist *env)
+int	env(t_command *cmd, t_strlist *env)
 {
-	(void) args;
+	(void) cmd;
 
 	/*char **str;*/
 

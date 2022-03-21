@@ -34,8 +34,6 @@ void	delete_tmpfiles(t_command *head)
 
 	if (head)
 	{
-		printf("%p\n", head);
-		printf("%p\n", &head->in_mode);
 		tmp = head;
 		while (tmp)
 		{
