@@ -1,13 +1,6 @@
 {
-   ignore_unversioned_libs
+   ignore_libreadline
    Memcheck:Leak
    ...
-   obj:*/lib*/lib*.so
+   obj:*/libreadline.so.*
 }
-{
-   ignore_versioned_libs
-   Memcheck:Leak
-   ...
-   obj:*/lib*/lib*.so.*
-}
-
