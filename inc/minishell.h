@@ -63,7 +63,8 @@ int	(*get_built_in(t_command *cmd))(void*, t_strlist *env);
 int	echo(void *a, t_strlist *env);
 int	pwd(void *arg, t_strlist *env);
 int	unset(void *args, t_strlist *env);
-int	_export(void *args, t_strlist *env);
+int	xport(void *args, t_strlist *env);
+int	xit(void *a, t_strlist *env);
 int	env(void *args, t_strlist *env);
 
 //env
