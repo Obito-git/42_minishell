@@ -12,7 +12,8 @@ void	set_input_pattern(char **s)
 	int		y;
 
 	i = 0;
-	if (!s || !s[0] || !s[1] || ft_strcmp(s[0], "<") != 0)
+	if (!s || !s[0] || !s[1] || (ft_strcmp(s[0], "<")
+			&& ft_strcmp(s[0], "<<")))
 		return ;
 	while (s[1][i] && s[1][i] != ' ' && !is_pipe_redir(s[1][i]))
 		i++;
@@ -26,11 +27,9 @@ void	set_input_pattern(char **s)
 	y = i;
 	while(s[1][y] && !is_pipe_redir(s[1][y]))
 		y++;
-	//if (is_pipe_redir(s[1][y]))
 	ft_strcpy(&s[1][i], &s[1][y]);
-	//else
-	//	s[1][i] = 0;
 }
+
 //returns malloced substring with command, args and pipe/redirection
 char    *cut_command(char *s, int *start, int *end)
 {
