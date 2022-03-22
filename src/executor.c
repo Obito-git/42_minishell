@@ -68,7 +68,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 			printf("Unknown command %s\n", c->command); //Should go to stderr
 			exit(EXIT_FAILURE);
 		}
-		else if (path && (!c->prev || !c->prev->out_mode))
+		else if (path && (!c->prev && !c->prev->out_mode))
 			ret = execve(path, c->args, env->envp);
 	}
 	close(out_fd);
@@ -86,7 +86,7 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	t_command	*tmp;
 	int			pid;
 	int			wstatus;
-	int		(*built_in)(t_command*, t_strlist*);
+	int			(*built_in)(t_command*, t_strlist*);
 
 
 	built_in = NULL;
