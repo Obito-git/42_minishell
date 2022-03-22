@@ -90,7 +90,7 @@ int main(int ac, char **av, char **envp)
 		user_input = readline("\e[31mminishell$\e[0m ");
 		if (!user_input)
 		{
-			printf("exit\n");
+			ft_dprintf_str(STDERR_FILENO, "exit\n");
 			free_strlist(env);
 			return (0);
 		}

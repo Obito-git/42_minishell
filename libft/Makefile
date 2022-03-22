@@ -27,6 +27,7 @@ $(MEM_DIR)ft_bzero.c $(MEM_DIR)ft_calloc.c $(MEM_DIR)ft_memchr.c $(MEM_DIR)ft_me
 $(MEM_DIR)ft_memcpy.c $(MEM_DIR)ft_memmove.c $(MEM_DIR)ft_memset.c \
 $(PRINT_DIR)ft_putchar_fd.c $(PRINT_DIR)ft_putendl_fd.c $(PRINT_DIR)ft_putnbr_fd.c $(PRINT_DIR)ft_putstr_fd.c \
 $(PRINT_DIR)ft_putchar.c $(PRINT_DIR)ft_putendl.c $(PRINT_DIR)ft_putnbr.c $(PRINT_DIR)ft_putstr.c $(PRINT_DIR)ft_putnbr_base.c \
+$(PRINT_DIR)ft_printf_str.c $(PRINT_DIR)ft_dprintf_str.c $(PRINT_DIR)ft_vdprintf_str.c \
 $(STR_DIR)ft_split.c $(STR_DIR)ft_strdup.c $(STR_DIR)ft_strjoin.c $(STR_DIR)ft_strlcpy.c $(STR_DIR)ft_strmapi.c \
 $(STR_DIR)ft_strnstr.c $(STR_DIR)ft_strtrim.c $(STR_DIR)ft_strchr.c $(STR_DIR)ft_striteri.c $(STR_DIR)ft_strlcat.c \
 $(STR_DIR)ft_strlen.c $(STR_DIR)ft_strncmp.c $(STR_DIR)ft_strrchr.c $(STR_DIR)ft_substr.c \

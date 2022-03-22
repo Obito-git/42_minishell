@@ -2,9 +2,9 @@
 
 int	xport(t_command *cmd, t_strlist *env)
 {
-	char **args;
-	int i;
-	int y;
+	char	**args;
+	int		i;
+	int		y;
 
 	args = cmd->args;
 	i = 0;
@@ -13,8 +13,9 @@ int	xport(t_command *cmd, t_strlist *env)
 		y = 0;
 		if (args[i][1] == '=')
 		{
-			printf("minishell: export: `%s': not a valid identifier\n",
-					args[i]);
+			ft_dprintf_str(STDERR_FILENO,
+				"minishell: export: `%s': not a valid identifier\n",
+				args[i]);
 			return (1);
 		}
 		while (args[i][y])

@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # include "constants.h"
 # define TRUE 1
 # define FALSE 0
@@ -54,6 +55,9 @@ void	ft_putnbr(long n);
 void	ft_putnbr_fd(long n, int fd);
 void	ft_putnbr_base(int nbr, char *base);
 int		ft_printf(const char *s, ...);
+int		ft_vdprintf_str(int fd, const char *str, va_list ap);
+int		ft_dprintf_str(int fd, const char *str, ...);
+int		ft_printf_str(const char *str, ...);
 /* string/ */
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);

@@ -65,7 +65,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 		path = find_command(env->envp, c);
 		if (!path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 		{
-			printf("Unknown command %s\n", c->command); //Should go to stderr
+			ft_dprintf_str(STDERR_FILENO, "Unknown command %s\n", c->command);
 			exit(EXIT_FAILURE);
 		}
 		else if (path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))

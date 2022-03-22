@@ -3,7 +3,7 @@
 int	xit(t_command *cmd, t_strlist *env)
 {
 
-	printf("exit\n");
+	ft_dprintf_str(STDERR_FILENO, "exit\n");
 	free_commands(cmd);
 	free_strlist(env);
 	exit(0);
