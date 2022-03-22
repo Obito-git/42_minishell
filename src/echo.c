@@ -16,12 +16,12 @@ int	echo(t_command *cmd, t_strlist *env)
 	}
 	while (*args)
 	{
-		write(STDIN_FILENO, *args, ft_strlen(*args));
+		write(STDOUT_FILENO, *args, ft_strlen(*args));
 		if (*(args + 1))
-			write(STDIN_FILENO, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 		args++;
 	}
 	if (newline)
-		write(STDIN_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
