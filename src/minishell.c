@@ -73,6 +73,7 @@ int main(int ac, char **av, char **envp)
 	int			ret;
 	t_strlist	*env;
 
+	set_signal_handling();
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
@@ -87,7 +88,7 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		head = NULL;
-		user_input = readline("\e[31mminishell$\e[0m ");
+		user_input = readline(PROMPT);
 		if (!user_input)
 		{
 			ft_dprintf_str(STDERR_FILENO, "exit\n");

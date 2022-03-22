@@ -29,8 +29,8 @@ CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3
 
 #Our beloved address sanitizer
 asan			=	-fsanitize=address	
-CFLAGS			+=	$(asan)	
-LDFLAGS			+=	$(asan)	
+#CFLAGS			+=	$(asan)	
+#LDFLAGS			+=	$(asan)	
 
 #Works with gcc version 10 and 11
 #CFLAGS			+=	-fanalyzer
@@ -64,7 +64,7 @@ $(NAME):		${OBJ/OBJECTS} libft/libft.a
 				@# LDFLAGS (-L) always come before oject files !
 				${CC} -o $@ ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
 
-obj/%.o:		src/%.c Makefile | obj
+obj/%.o:		src/%.c ${INC/HEADERS} Makefile | obj
 				${CC} ${CFLAGS} -c $< -o $@
 
 libft/libft.a:

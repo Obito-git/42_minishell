@@ -10,6 +10,8 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <signal.h>
+# include <sys/signal.h>
 # include "libft.h"
 # include "t_strlist.h"
 # define PATH_MAX 4096
@@ -17,6 +19,9 @@
 # define OUT_APPEND 2
 # define IN_FILE 1
 # define IN_HEREDOC 2
+# define _GNU_SOURCE 1
+# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
+# define REPROMPT   "\n\e[2K\e[G\e[31mminishell$\e[0m "
 
 typedef struct s_command
 {
@@ -70,10 +75,12 @@ int	xport(t_command *cmd, t_strlist *env);
 int	xit(t_command *cmd, t_strlist *env);
 int	env(t_command *cmd, t_strlist *env);
 int	cd(t_command *cmd, t_strlist *env);
-
 //env
 char	*get_env_var_start(char *var, char **envp);
 char	*get_env_var_val(char *var, char **envp);
 ssize_t	writevar(int fd, char *var, char **envp);
+// signal handling
+void	set_signal_handling();
+void	sigint_handler(int signal);
 
 #endif
