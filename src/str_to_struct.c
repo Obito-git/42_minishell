@@ -10,9 +10,9 @@ char	**parse_command_args(char *command)
 	i = 0;
 	size = 1;
 	res = NULL;
-	if (!command[0])
+	if (ft_strlen(command) == 0)
 	{
-		res = (char **) malloc(sizeof(char *));
+		res = (char **) malloc(sizeof(char *) * 2);
 		if (!res)
 			return (NULL);
 		res[0] = NULL;
