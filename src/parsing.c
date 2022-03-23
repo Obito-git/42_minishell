@@ -8,6 +8,8 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
+	if (!*envp)
+		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
 	splited = ft_split(*envp, ':');

@@ -210,7 +210,7 @@ char	*find_strlist_node_varvalue(t_strlist *list, char *name)
 	size_t			y;
 
 	i = 0;
-	if (!list || !name)
+	if (!list || !name || !list->envp || !list->head)
 		return (NULL);
 	tmp = list->head;
 	while (i < list->size)
@@ -221,7 +221,6 @@ char	*find_strlist_node_varvalue(t_strlist *list, char *name)
 			y++;
 		if (env_name && env_name[y] == '=')
 			env_name[y] = 0;
-		//printf("ENV NAME: [%s], NAME: [%s]\n", env_name, name);
 		if (env_name && ft_strcmp(env_name, name) == 0)
 		{
 			free(env_name);
