@@ -202,3 +202,34 @@ t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 	return (list);
 }
 
+char	*find_strlist_node_varvalue(t_strlist *list, char *name)
+{
+	size_t			i;
+	t_strlist_node	*tmp;
+	char			*env_name;
+	size_t			y;
+
+	i = 0;
+	if (!list || !name)
+		return (NULL);
+	tmp = list->head;
+	while (i < list->size)
+	{
+		y = 0;
+		env_name = ft_strdup(tmp->str);
+		while (env_name && env_name[y] && tmp->str[y] != '=')
+			y++;
+		if (env_name && env_name[y] == '=')
+			env_name[y] = 0;
+		//printf("ENV NAME: [%s], NAME: [%s]\n", env_name, name);
+		if (env_name && ft_strcmp(env_name, name) == 0)
+		{
+			free(env_name);
+			return (&tmp->str[y + 1]);
+		}
+		free(env_name);
+		i++;
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
