@@ -70,6 +70,7 @@ t_command *get_command(char *c, t_strlist *env)
 			&& !is_pipe_redir(res->command[y]))
 		y++;
 	res->command[y] = '\0';
+	res->path_to_bin = find_command(env->envp, res);
 	set_command_args(res, c, y);
 	if (!res->args || !parse_quotes_vars(res, env))
 	{
@@ -119,10 +120,7 @@ t_command *get_commands_list(char **c, t_strlist *env)
 	{
 		tmp = get_command(c[i], env);
 		if (!tmp)
-		{
-			free_commands(head);
-			return (NULL);
-		}
+			return (free_commands(head));
 		tmp->prev = current;
 		current->next = tmp;
 		current = tmp;

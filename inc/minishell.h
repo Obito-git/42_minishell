@@ -26,6 +26,7 @@
 typedef struct s_command
 {
 	char	*command;
+	char	*path_to_bin;
 	char	**args;
 	bool	pipe;
 	char	in_mode;
@@ -37,7 +38,7 @@ typedef struct s_command
 
 //	struct_utils.c
 t_command	*command_init(char *c, bool p, char in, char out);
-void		free_commands(t_command *c);
+t_command	*free_commands(t_command *c);
 t_command	*get_last_cmd(t_command *head);
 //	parsing
 t_command	*parse(char *user_input, t_strlist *env);
@@ -45,6 +46,7 @@ void		set_quotes(char c, bool *q, bool *dq);
 bool		is_pipe_redir(char c);
 void		set_command_redir(t_command *c, char *s);
 t_bool		parse_quotes_vars(t_command *c, t_strlist *env);
+char		*find_command(char **envp, t_command *c);
 //	input_to_str.c
 char		*cut_command(char *s, int *start, int *end);
 char		**cut_all_commands(char **com, char *s, int *i);

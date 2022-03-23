@@ -11,6 +11,7 @@ t_command	*command_init(char *c, bool p, char in, char out)
 	if (!res)
 		return (NULL);
 	res->command = ft_strdup(c);
+	res->path_to_bin = NULL;
 	res->tube = NULL;
 	res->args = NULL;
 	res->pipe = p;
@@ -50,7 +51,7 @@ void	delete_tmpfiles(t_command *head)
 }
 
 //applies free on each element of an array list
-void	free_commands(t_command *c)
+t_command	*free_commands(t_command *c)
 {
 	t_command 	*tmp;
 	int			i;
@@ -61,6 +62,7 @@ void	free_commands(t_command *c)
 		while (c)
 		{
 			free(c->command);
+			free(c->path_to_bin);
 			free(c->tube);
 
 			i = 0;
@@ -75,6 +77,7 @@ void	free_commands(t_command *c)
 			c = tmp;
 		}
 	}
+	return (NULL);
 }
 
 t_command	*get_last_cmd(t_command *head)

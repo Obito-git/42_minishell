@@ -15,42 +15,14 @@ void	close_extra_tubes(t_command *head, t_command *current)
 	}
 }
 
-//Tries to find the command
-char	*find_command(char **envp, t_command *c)
-{
-	char	**splited;
-	int		i;
-	char	*test_path;
-
-	i = 0;
-	while (*envp && ft_strncmp("PATH", *envp, 4))
-		envp++;
-	splited = ft_split(*envp, ':');
-	while (splited && splited[i++])
-	{
-		test_path = ft_str_threejoin(splited[i], "/", c->command);
-		if (!test_path || access(test_path, X_OK) == 0)
-			break ;
-		free(test_path);
-		test_path = NULL;
-	}
-	i = 0;
-	while (splited && splited[i])
-		free(splited[i++]);
-	free(splited);
-	return (test_path);
-}
-
 //Tries to execute_pipeline the command
 void	exec_com(t_command *head, t_command *c, t_strlist *env)
 {
-	char	*path;
 	int		out_fd;
 	int		in_fd;
 	int		(*built_in)(t_command*, t_strlist*);
 	int 	ret;
 
-	path = NULL;
 	ret = 0;
 	out_fd = set_out_path(c);
 	in_fd = set_in_path(head, c);
@@ -62,18 +34,16 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 		ret = built_in(c, env);
 	else
 	{
-		path = find_command(env->envp, c);
-		if (!path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
+		if (!c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 		{
 			ft_dprintf_str(STDERR_FILENO, "Unknown command %s\n", c->command);
 			exit(EXIT_FAILURE);
 		}
-		else if (path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
-			ret = execve(path, c->args, env->envp);
+		else if (c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
+			ret = execve(c->path_to_bin, c->args, env->envp);
 	}
 	close(out_fd);
 	close(in_fd);
-	free(path);
 	free_commands(head);
 	exit(ret);
 }
@@ -87,7 +57,6 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	int			pid;
 	int			wstatus;
 	int			(*built_in)(t_command*, t_strlist*);
-
 
 	built_in = NULL;
 	if (head->next == NULL)
