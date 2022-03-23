@@ -57,7 +57,7 @@ void	set_command_args(t_command *c, char *s, int y)
 }
 
 //return parsed struct
-t_command *get_command(char *c)
+t_command *get_command(char *c, t_strlist *env)
 {
 	int			y;
 	t_command	*res;
@@ -70,8 +70,9 @@ t_command *get_command(char *c)
 			&& !is_pipe_redir(res->command[y]))
 		y++;
 	res->command[y] = '\0';
+	res->path_to_bin = find_command(env->envp, res);
 	set_command_args(res, c, y);
-	if (!res->args)
+	if (!res->args || !parse_quotes_vars(res, env))
 	{
 		free_commands(res);
 		return (NULL);
@@ -103,7 +104,7 @@ t_command	*set_command_list_tube(t_command *head)
 }
 
 //takes an array of strings and parse them in an array of structures
-t_command *get_commands_list(char **c)
+t_command *get_commands_list(char **c, t_strlist *env)
 {
 	int		i;
 	t_command	*head;
@@ -111,18 +112,15 @@ t_command *get_commands_list(char **c)
 	t_command	*current;
 
 	i = 0;
-	head = get_command(c[i++]);
+	head = get_command(c[i++], env);
 	if (!head)
 		return (NULL);
 	current = head;
 	while (c[i] && ft_strlen(c[i]) != 0)
 	{
-		tmp = get_command(c[i]);
+		tmp = get_command(c[i], env);
 		if (!tmp)
-		{
-			free_commands(head);
-			return (NULL);
-		}
+			return (free_commands(head));
 		tmp->prev = current;
 		current->next = tmp;
 		current = tmp;

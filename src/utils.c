@@ -14,6 +14,7 @@ char	*get_next_arg(char *s, int *i, int *z)
 		*i += 1;
 	res = ft_strtrim(tmp, " ");
 	free(tmp);
+	/*
 	while (res && ft_strlen(res) > 0
 			&& ((res[0] == '\"' && res[ft_strlen(res) - 1] == '\"')
 			|| (res[0] == '\'' && res[ft_strlen(res) - 1] == '\'')))
@@ -26,7 +27,7 @@ char	*get_next_arg(char *s, int *i, int *z)
 		if (!tmp)
 			return (NULL);
 		res = tmp;
-	}
+	} */
 	return (res);
 }
 

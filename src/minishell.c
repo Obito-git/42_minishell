@@ -25,6 +25,7 @@ void command_print(t_command *c)
 				printf("OUT: %s", c->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
 			if (c->in_mode)
 				printf("IN: %s", c->in_mode == 1 ? "SOLO\n" : "MULTU\n");
+			printf("PATH: %s\n", c->path_to_bin);
 			printf("------------------\n");
 			c = c->next;
 		}
@@ -35,14 +36,14 @@ void command_print(t_command *c)
 *	call the readline if there is no command after the pipe and
 *	correctly displays the history in this case
 */
-void	prepare_commands(char *user_input, t_command **head)
+void	prepare_commands(char *user_input, t_command **head, t_strlist *env)
 {
 	t_command	*last;
 	char		*tmp;
 	char		*history;
 
 	history = ft_strdup(user_input);
-	*head = parse(user_input);
+	*head = parse(user_input, env);
 	last = get_last_cmd(*head);
 	while (last && last->pipe)
 	{
@@ -52,7 +53,7 @@ void	prepare_commands(char *user_input, t_command **head)
 			free(user_input);
 			user_input = readline("> ");
 		}
-		last->next = parse(user_input);
+		last->next = parse(user_input, env);
 		tmp = ft_str_threejoin(history, " ", user_input);
 		free(history);
 		free(user_input);
@@ -99,9 +100,10 @@ int main(int ac, char **av, char **envp)
 		if (ft_strlen(user_input) && ft_strcmp(user_input, "\n") != 0)
 		{
 
-			prepare_commands(user_input, &head);
+			prepare_commands(user_input, &head, env);
 			head = find_syntax_errors(head);
 			//command_print(head);
+			//head = NULL; //disactivate execution, create a leaks
 			free(user_input);
 			if (head)
 				ret = execute_pipeline(head, env);
