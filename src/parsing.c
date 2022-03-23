@@ -43,7 +43,7 @@ void	set_quotes(char c, bool *q, bool *dq)
 }
 
 //main parsing function
-t_command	*parse(char *user_input)
+t_command	*parse(char *user_input, t_strlist *env)
 {
 	char **com;
 	t_command *head;
@@ -57,7 +57,7 @@ t_command	*parse(char *user_input)
 	set_input_pattern(com);
 	if (!com)
 		return (NULL);
-	head = get_commands_list(com);
+	head = get_commands_list(com, env);
 	i = 0;
 	while (com && com[i])
 		free(com[i++]);
