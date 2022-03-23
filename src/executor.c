@@ -22,6 +22,8 @@ char	*find_command(char **envp, t_command *c)
 	int		i;
 	char	*test_path;
 
+	if (!envp)
+		return (NULL);
 	i = 0;
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
@@ -62,6 +64,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 		ret = built_in(c, env);
 	else
 	{
+		reset_sigquit();
 		path = find_command(env->envp, c);
 		if (!path && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 		{
@@ -73,8 +76,8 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	}
 	close(out_fd);
 	close(in_fd);
-	free(path);
 	free_commands(head);
+	free(path);
 	exit(ret);
 }
 

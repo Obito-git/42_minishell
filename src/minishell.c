@@ -73,7 +73,6 @@ int main(int ac, char **av, char **envp)
 	int			ret;
 	t_strlist	*env;
 
-	set_signal_handling();
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
@@ -85,9 +84,11 @@ int main(int ac, char **av, char **envp)
 		perror("Unable to allocate for list of variables");
 		return (1);
 	}
+	printf("\e[1A");
 	while (1)
 	{
 		head = NULL;
+		set_signal_handling();
 		user_input = readline(PROMPT);
 		if (!user_input)
 		{
