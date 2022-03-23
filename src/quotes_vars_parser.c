@@ -63,7 +63,8 @@ void	set_var_value(t_command *c, t_strlist *env)
 				res = ft_strdup(&c->args[args_count][i]);
 				if (!res)
 					continue ;
-				while (res[y] && res[y] != '\"' && res[y] != '\'' && res[y] != ' ' && res[y] != '$')
+				while (res[y] && res[y] != '\"' && res[y] != '\''
+						&& res[y] != ' ' && res[y] != '$' && res[y] != ':')
 					y++;
 				res[y] = 0;
 				var_value = find_strlist_node_varvalue(env, &res[1]);
