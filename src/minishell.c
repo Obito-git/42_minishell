@@ -67,25 +67,33 @@ void	prepare_commands(char *user_input, t_command **head, t_strlist *env)
 	free(history);
 }
 
+t_bool	check_args(int ac, char **av, char **envp, t_strlist **env)
+{
+	if (ac != 1 || !av)
+	{
+		printf("You can't have args\n");
+		return (FALSE);
+	}
+	*env = make_strlist_from_null_terminated_str_array(envp);
+	if (env == NULL)
+	{
+		perror("Unable to allocate for list of variables");
+		return (FALSE);
+	}
+	printf("\e[1A");
+	return (TRUE);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char        *user_input;
 	t_command	*head;
-	int			ret;
 	t_strlist	*env;
+	int			ret;
 
-	if (ac != 1 || !av)
-	{
-		printf("You can't have args\n");
+	env = NULL;
+	if (!check_args(ac, av, envp, &env))
 		return (1);
-	}
-	env = make_strlist_from_null_terminated_str_array(envp);
-	if (env == NULL)
-	{
-		perror("Unable to allocate for list of variables");
-		return (1);
-	}
-	printf("\e[1A");
 	while (1)
 	{
 		head = NULL;
@@ -106,12 +114,13 @@ int main(int ac, char **av, char **envp)
 			//head = NULL; //disactivate execution, create a leaks
 			free(user_input);
 			if (head)
-				ret = execute_pipeline(head, env);
+				env->ret = execute_pipeline(head, env);
 		}
 		else
 			free(user_input);
 		free_commands(head);
 	}
+	ret = env->ret;
 	free_strlist(env);
 	return (ret);
 }
