@@ -13,6 +13,7 @@ typedef struct s_strlist {
 	t_strlist_node	*head;
 	size_t			size;
 	char			**envp;
+	int				ret;
 } t_strlist;
 
 t_strlist		init_strlist();

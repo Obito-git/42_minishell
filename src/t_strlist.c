@@ -199,6 +199,7 @@ t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 		}
 		update_strlist_envp(list);
 	}
+	list->ret = 0;
 	return (list);
 }
 

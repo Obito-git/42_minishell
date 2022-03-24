@@ -23,21 +23,26 @@ char	*command_delete_quotes(char *c)
 }
 
 //replaces $VAR_NAME by variable name or "" if they are no value
-char	*replace_var_value(char *arg, char *value, char *var_name)
+char	*replace_var_value(char *arg, char *value, char *var_name, t_strlist *env)
 {
 	//malloc prot inside
 	size_t	i;
 	char	*res;
+	char	*last_error_code;
 
 	i = 0;
+	last_error_code = ft_itoa(env->ret);
 	while (ft_strncmp(&arg[i], var_name, ft_strlen(var_name)))
 		i++;
 	arg[i] = 0;
 	i += ft_strlen(var_name);
-	if (!value)
+	if (!value && last_error_code && !ft_strcmp(var_name, "$?"))
+		res = ft_str_threejoin(arg, last_error_code, &arg[i]);
+	else if (!value)
 		res = ft_str_threejoin(arg, "", &arg[i]);
 	else
 		res = ft_str_threejoin(arg, value, &arg[i]);
+	free(last_error_code);
 	return (res);
 }
 
@@ -68,7 +73,7 @@ void	set_var_value(t_command *c, t_strlist *env)
 					y++;
 				res[y] = 0;
 				var_value = find_strlist_node_varvalue(env, &res[1]);
-				tmp = replace_var_value(c->args[args_count], var_value, res);
+				tmp = replace_var_value(c->args[args_count], var_value, res, env);
 				free(c->args[args_count]);
 				free(res);
 				c->args[args_count] = tmp;
