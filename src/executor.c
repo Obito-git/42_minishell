@@ -15,7 +15,28 @@ void	close_extra_tubes(t_command *head, t_command *current)
 	}
 }
 
-//Tries to execute_pipeline the command
+int	try_to_execute(t_command *c, t_strlist *env, int in_fd, int out_fd)
+{
+	reset_sigquit();
+	if (!c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
+	{
+		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
+		//if will be in/out troubles need to delete close -_-
+		if (in_fd != -1)
+			close(in_fd);
+		if (out_fd != -1)
+			close(out_fd);
+		exit(EXIT_UNK_CMD);
+	}
+	else if (c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
+		return (execve(c->path_to_bin, c->args, env->envp));
+	else if (c->prev && (c->prev->out_mode || c->prev->in_mode))
+		return (EXIT_SUCCESS);
+	return (EXIT_UNK_CMD);
+}
+
+//Tries to execute built-in if possible, if not tries to execute a binary file;
+// calls all input/output files and pipe functions
 void	exec_com(t_command *head, t_command *c, t_strlist *env)
 {
 	int		out_fd;
@@ -25,6 +46,8 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 
 	ret = 0;
 	out_fd = set_out_path(c);
+	if (out_fd == -2)
+		exit(EXIT_FAILURE);
 	in_fd = set_in_path(head, c);
 	if (in_fd != -1 && out_fd == -1 && c->next)
 		out_fd = set_out_path(c->next);
@@ -33,18 +56,11 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	if (built_in)
 		ret = built_in(c, env);
 	else
-	{
-		reset_sigquit();
-		if (!c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
-		{
-			ft_dprintf_str(STDERR_FILENO, "Unknown command %s\n", c->command);
-			exit(EXIT_FAILURE);
-		}
-		else if (c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
-			ret = execve(c->path_to_bin, c->args, env->envp);
-	}
-	close(out_fd);
-	close(in_fd);
+		ret = try_to_execute(c, env, in_fd, out_fd);
+	if (out_fd != -1)
+		close(out_fd);
+	if (in_fd != -1)
+		close(in_fd);
 	free_commands(head);
 	exit(ret);
 }
@@ -70,7 +86,7 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	{
 		pid = fork();
 		if (pid == -1)
-			perror("Fork");
+			perror("Fork: ");
 		else if (pid == 0)
 			exec_com(head, tmp, env);
 		tmp = tmp->next;

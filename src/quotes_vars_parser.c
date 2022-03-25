@@ -10,7 +10,7 @@ char	*command_delete_quotes(char *c)
 	if (!c)
 		return (NULL);
 	res = ft_strtrim(c, " \'\"");
-	while (res[i])
+	while (res && res[i])
 	{
 		if (res[i] == '\'' || res[i] == '\"')
 		{
@@ -25,13 +25,14 @@ char	*command_delete_quotes(char *c)
 //replaces $VAR_NAME by variable name or "" if they are no value
 char	*replace_var_value(char *arg, char *value, char *var_name, t_strlist *env)
 {
-	//malloc prot inside
 	size_t	i;
 	char	*res;
 	char	*last_error_code;
 
 	i = 0;
 	last_error_code = ft_itoa(env->ret);
+	if (!last_error_code)
+		return (NULL);
 	while (ft_strncmp(&arg[i], var_name, ft_strlen(var_name)))
 		i++;
 	arg[i] = 0;
@@ -47,48 +48,38 @@ char	*replace_var_value(char *arg, char *value, char *var_name, t_strlist *env)
 }
 
 //checks all t_command struct args and replace all $VAR_NAME by values
-void	set_var_value(t_command *c, t_strlist *env)
+void	replace_varname_by_values(t_command *c, t_strlist *env, char *s, int ac)
 {
-	int				args_count;
-	int				i;
 	int				y;
 	char			*res;
 	char	*var_value;
 	char	*tmp;
 
-	args_count = 1;
-	while (c->args[args_count])
-	{
-		i = 0;
-		while (c->args[args_count][i])
-		{
-			y = 1;
-			if (c->args[args_count][i] == '$')
-			{
-				res = ft_strdup(&c->args[args_count][i]);
-				if (!res)
-					continue ;
-				while (res[y] && res[y] != '\"' && res[y] != '\''
-						&& res[y] != ' ' && res[y] != '$' && res[y] != ':')
-					y++;
-				res[y] = 0;
-				var_value = find_strlist_node_varvalue(env, &res[1]);
-				tmp = replace_var_value(c->args[args_count], var_value, res, env);
-				free(c->args[args_count]);
-				free(res);
-				c->args[args_count] = tmp;
-			}
-			i++;
-		}
-		args_count++;
-	}
+	y = 1;
+	res = ft_strdup(s);
+	if (!res)
+		return ;
+	while (res[y] && res[y] != '\"' && res[y] != '\''
+		&& res[y] != ' ' && res[y] != '$' && res[y] != ':')
+		y++;
+	res[y] = 0;
+	var_value = find_strlist_node_varvalue(env, &res[1]);
+	tmp = replace_var_value(c->args[ac], var_value, res, env);
+	free(c->args[ac]);
+	free(res);
+	c->args[ac] = tmp;
 }
 
 //i hope this function will parse all "quotes" and "vars" cases :D
+// deletes all quotes/single quotes from command and first arg
+//replaces all $VAR_NAME to the varible value
 t_bool	parse_quotes_vars(t_command *c, t_strlist *env)
 {
 	char	*tmp;
+	int		ac;
+	int		i;
 
+	ac = 1;
 	tmp = command_delete_quotes(c->command);
 	if (!tmp && c->command)
 		return (FALSE);
@@ -99,6 +90,13 @@ t_bool	parse_quotes_vars(t_command *c, t_strlist *env)
 		return (FALSE);
 	free(c->args[0]);
 	c->args[0] = tmp;
-	set_var_value(c, env);
+	while (c->args[0] && c->args[ac])
+	{
+		i = 0;
+		while (c->args[ac][i])
+			if (c->args[ac][i++] == '$')
+				replace_varname_by_values(c, env, &c->args[ac][i - 1], ac);
+		ac++;
+	}
 	return (TRUE);
 }
