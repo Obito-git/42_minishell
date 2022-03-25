@@ -20,8 +20,11 @@
 # define IN_FILE 1
 # define IN_HEREDOC 2
 # define _GNU_SOURCE 1
+# define EXIT_UNK_CMD 127
 //# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
 # define PROMPT   "\n\e[31mminishell$\e[0m "
+# define ERROR_SYNTAX "syntax error near unexpected token "
+# define HEADER "minishell: "
 
 typedef struct sigaction t_sigaction;
 
@@ -67,7 +70,7 @@ int			set_out_path(t_command *c);
 int			set_in_path(t_command *head, t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);
 //	error_handler.c
-t_command   *find_syntax_errors(t_command *head);
+t_command   *find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
 int		get_heredoc_fd(char *delim, t_command *head, t_command *current);
 char	*get_heredoc_tmpname(t_command *head, t_command *current);
