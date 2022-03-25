@@ -2,9 +2,11 @@
 
 //open file or create file with append or rewrite mode.
 //if file is opened changing stdout to file fd
+// -1 will be returned if no need to open file, -2 in error case
 int	set_out_path(t_command *c)
 {
-	int	fd;
+	int		fd;
+	char	*err_msg;
 
 	fd = -1;
 	if (c->out_mode)
@@ -15,8 +17,13 @@ int	set_out_path(t_command *c)
 			fd = open(c->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (fd == -1)
 		{
-			perror(c->next->command);
-			return (-1);
+			err_msg = ft_strjoin(HEADER, c->next->command);
+			if (!err_msg)
+				perror(c->next->command);
+			else
+				perror(err_msg);
+			free(err_msg);
+			return (-2);
 		}
 		dup2(fd, STDOUT_FILENO);
 	}

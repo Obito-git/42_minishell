@@ -64,7 +64,6 @@ t_command	*free_commands(t_command *c)
 			free(c->command);
 			free(c->path_to_bin);
 			free(c->tube);
-
 			i = 0;
 			while (c->args && c->args[i])
 			{

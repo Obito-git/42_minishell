@@ -8,7 +8,7 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
-	if (!*envp)
+	if (!*envp || !ft_strlen(c->command))
 		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
@@ -77,7 +77,7 @@ t_command	*parse(char *user_input, t_strlist *env)
 	t_command *head;
 	int i = 0;
 
-	com = (char **) malloc(sizeof(char *) * (ft_strlen(user_input) + 1)); //FIX SIZE
+	com = (char **) malloc(sizeof(char *) * (ft_strlen(user_input) + 2));
 	if (!com)
 		return (NULL);
 	com = cut_all_commands(com, user_input, &i);

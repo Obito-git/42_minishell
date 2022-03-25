@@ -29,8 +29,6 @@ char	**parse_command_args(char *command)
 }
 
 //set redir/pipe value inside struct and delete character from the string
-// we need it for send substring without command and redir/pipe to have only args
-//to send it in char	**parse_command_args(char *command);
 void	set_command_args(t_command *c, char *s, int y)
 {
 	bool	inside_quotes;
