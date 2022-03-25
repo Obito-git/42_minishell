@@ -8,8 +8,10 @@ int	echo(t_command *cmd, t_strlist *env)
 	(void) env;
 	newline = true;
 	args = (char **)cmd->args;
+	if (!*args)
+		return (0);
 	args++;
-	if (!ft_strncmp(*args, "-n", ft_strlen(*args)))
+	if (*args && !ft_strncmp(*args, "-n", ft_strlen(*args)))
 	{
 		newline = false;
 		args++;
