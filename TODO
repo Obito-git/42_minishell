@@ -1,17 +1,24 @@
 Expansion
-Test behaviour when no env
 Why clear_history function in subject?
 Look at the readline functions
 Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
-Redirect ouput for built-ins : echo hello > hello.txt --> no output
-Why minishell prints "exit" on Ctrl+D ?
-If there's just one command, no forking because built-ins do not have lasting effect whem piped but do on their own
+Fix command > file1 > file 2. (need to create file1, but write result in the last one)
+Fix extra newline in prompt. (you add it for fix ctrl^c i think)
+
 
 Anton
 ============
-Handle input
+Handle input (done)
 Parsing Errors (in progress)
-Here-doc mode (in progress)
+Here-doc mode (normally done)
+Test behaviour when no env (normally done)
+Fixed and tested many return values for errors, can be checked by echo $?
+Fixed cases like "ls >|" "ls |||>" ">" "<" etc.
+Fixed some input bugs
+Added t_strlist->int ret variable to easily update the last returned value
+Added some preprocessor define for economise lines
+Fixed many of valgrind errors and no memory leaks were detected
+
 
 Tom
 ===========
@@ -36,3 +43,5 @@ If necessary maybe make a t_cmd_list struct {
 	t_command *curr_cmd;
 	int		remaining;
 } 
+
+If there's just one command, no forking because built-ins do not have lasting effect whem piped but do on their own (done)
