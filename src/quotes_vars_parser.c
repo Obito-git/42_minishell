@@ -19,7 +19,7 @@ char	*command_delete_quotes(char *c)
 		}
 		i++;
 	}
-	return (res);	
+	return (res);
 }
 
 //replaces $VAR_NAME by variable name or "" if they are no value
@@ -63,6 +63,7 @@ void	set_var_value(t_command *c, t_strlist *env)
 				res = ft_strdup(&c->args[args_count][i]);
 				if (!res)
 					continue ;
+				//Replace this while loop by a function that checks if we have a valid variable name and return the right index
 				while (res[y] && res[y] != '\"' && res[y] != '\''
 						&& res[y] != ' ' && res[y] != '$' && res[y] != ':')
 					y++;
