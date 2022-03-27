@@ -235,3 +235,19 @@ char	*find_strlist_node_varvalue(t_strlist *list, char *name)
 	}
 	return (NULL);
 }
+
+int	get_strlist_total_len(t_strlist strlist)
+{
+	int	total_len;
+
+	total_len = 0;
+	if (strlist.head)
+	{
+		while (strlist.size--)
+		{
+			total_len += strlist.head->len;
+			strlist.head = strlist.head->next;
+		}
+	}
+	return (total_len);
+}

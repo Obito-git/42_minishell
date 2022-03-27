@@ -1,5 +1,6 @@
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
+
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -14,12 +15,15 @@
 # include <sys/signal.h>
 # include "libft.h"
 # include "t_strlist.h"
+# include "expansion.h"
+
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
 # define IN_FILE 1
 # define IN_HEREDOC 2
 # define _GNU_SOURCE 1
+
 //# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
 # define PROMPT   "\n\e[31mminishell$\e[0m "
 
@@ -92,4 +96,4 @@ void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
 
-#endif
+#endif /* MINISHELL_H */

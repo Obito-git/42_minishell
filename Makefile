@@ -16,8 +16,8 @@
 
 NAME			=	minishell
 
-CC			  	=	gcc-11
-#CC			  	=	clang
+#CC			  	=	gcc-11
+CC			  	=	clang-12
 
 INCLUDE_FLAGS	=	-Iinc -Ilibft
 ifeq ($(shell uname -s),Darwin)
