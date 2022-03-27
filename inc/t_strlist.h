@@ -5,6 +5,7 @@
 
 typedef struct s_strlist_node {
 	char	*str;
+	int		len;
 	struct s_strlist_node *next;
 	struct s_strlist_node *prev;
 }	t_strlist_node;

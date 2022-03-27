@@ -26,6 +26,7 @@ t_strlist_node	init_strlist_node()
 	t_strlist_node node;
 
 	node.str = NULL;
+	node.len = 0;
 	node.prev = NULL;
 	node.next = NULL;
 	return (node);
@@ -96,6 +97,7 @@ int	append_str_to_strlist(t_strlist *list, char *str)
 	if (new_node == NULL)
 		return (-1);
 	new_node->str = ft_strdup(str);
+	new_node->len = ft_strlen(str);
 	if (new_node->str == NULL)
 	{
 		free(new_node);
