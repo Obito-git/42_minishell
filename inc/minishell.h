@@ -83,7 +83,7 @@ int	cd(t_command *cmd, t_strlist *env);
 //env
 char	*get_env_var_start(char *var, char **envp);
 char	*get_env_var_val(char *var, char **envp);
-ssize_t	writevar(int fd, char *var, char **envp);
+char	*get_env_var_val_from_slice(char *var, char *end, char **envp);
 // signal handling
 void	set_signal_handling();
 void	sigint_handler(int signal);

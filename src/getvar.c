@@ -42,11 +42,23 @@ char	*get_env_var_val(char *var, char **envp)
 	return (NULL);
 }
 
-ssize_t	writevar(int fd, char *var, char **envp)
+char	*get_env_var_val_from_slice(char *var, char *var_end, char **envp)
 {
-	size_t	len;
+	int	vlen;
 
-	var = get_env_var_val(var, envp);
-	len = ft_strlen(var);
-	return (write(fd, var, len));
+	var++;
+	vlen = var_end - var;
+	if (envp)
+	{
+		while (*envp)
+		{
+			if (ft_strncmp(*envp, var, vlen) == 0
+				&& *(*envp + vlen) == '=' )
+			{
+				return (*envp + vlen + 1);
+			}
+			envp++;
+		}
+	}
+	return (NULL);
 }
