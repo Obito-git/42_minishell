@@ -70,6 +70,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char	*dest, const char	*src, size_t	size);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcat_slice(char *dest, const char *src, int n);
 char	*ft_strnstr(const char	*str, const char	*to_find, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
