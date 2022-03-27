@@ -72,7 +72,7 @@ t_command *get_command(char *c, t_strlist *env)
 	res->command[y] = '\0';
 	res->path_to_bin = find_command(env->envp, res);
 	set_command_args(res, c, y);
-	if (!res->args || !parse_quotes_vars(res, env))
+	if (!res->args)
 	{
 		free_commands(res);
 		return (NULL);

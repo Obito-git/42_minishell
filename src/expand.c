@@ -240,21 +240,31 @@ char	*expand_arg(char *to_exp, int *indexes, t_strlist *env)
 	return (exp_str);
 }
 
-int	expand_args(char **argv, t_strlist *env)
+char	**expand_args(char **argv, t_strlist *env)
 {
 	int	i;
 	int	*indexes;
+	char *to_free;
 
 	i = 0;
 	while (argv[i])
 	{
 		if (argv[i][0] && argv[i][0] != '\'' )
 		{
+			to_free = argv[i];
 			indexes = register_expansion(argv[i]);
 			argv[i] = expand_arg(argv[i], indexes, env);
 			free(indexes);
+			if (argv[i] == NULL)
+			{
+				//Risks of double-free
+				/*while (--i)*/
+				/*    free (argv[i]);*/
+				return (NULL);
+			}
+			free(argv[i]);
 		}
 		i++;
 	}
-	return (0);
+	return (argv);
 }

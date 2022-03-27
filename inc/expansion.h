@@ -32,6 +32,6 @@ int			var_start_mode(char *str, int *i, int **table);
 int			var_mode(char *str, int *i, int **table);
 int			*register_expansion(char* to_exp);
 char		*expand_arg(char *to_exp, int *indexes, t_strlist *env);
-int			expand_args(char **argv, t_strlist *env);
+char		**expand_args(char **argv, t_strlist *env);
 
 #endif /* EXPANSION_H */
