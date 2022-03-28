@@ -19,8 +19,11 @@ int	cd(t_command *cmd, t_strlist *env)
 		{
 			ret = chdir(paths[0]);
 			if (ret)
+			{
 				ft_dprintf_str(2,
 					"minishell: cd: %s: No such file or directory\n", paths[0]);
+					return (1);
+			}
 			return (0);
 		}
 	}

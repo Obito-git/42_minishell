@@ -4,6 +4,7 @@ Look at the readline functions
 Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
 Fix command > file1 > file 2. (need to create file1, but write result in the last one)
 Fix extra newline in prompt. (you add it for fix ctrl^c i think)
+Anton: my bash do nothing in the case when cd with no args, owr print a promp
 
 
 Anton
