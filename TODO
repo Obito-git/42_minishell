@@ -5,6 +5,8 @@ Check for commands before executing them : echo hello | notexist -d l  --> notex
 Fix command > file1 > file 2. (need to create file1, but write result in the last one)
 Fix extra newline in prompt. (you add it for fix ctrl^c i think)
 Anton: my bash do nothing in the case when cd with no args, owr print a promp
+Anton: unset dont working for me :( . if "unset $PATH" do nothing, if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
+Anton: 
 
 
 Anton
