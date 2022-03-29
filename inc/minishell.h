@@ -72,9 +72,9 @@ char		**ft_minishell_split(char **res, char *s, int z, int i);
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
-int			set_out_path(t_command *c);
-int			set_in_path(t_command *head, t_command *c);
+t_inout_fd *set_redirections(t_command *c, t_command *head, t_strlist *env);
 void		set_tubes_path(t_command *head, t_command *c);
+void		close_fds(t_inout_fd *fds);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
