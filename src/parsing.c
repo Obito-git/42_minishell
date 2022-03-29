@@ -8,6 +8,8 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
+	if (access(c->command, X_OK) == 0)
+		return (ft_strdup(c->command));
 	if (!*envp || !ft_strlen(c->command))
 		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))

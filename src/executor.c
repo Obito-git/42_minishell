@@ -20,6 +20,7 @@ int	try_to_execute(t_command *c, t_strlist *env, int in_fd, int out_fd)
 	reset_sigquit();
 	if (!c->path_to_bin && (!c->prev || (!c->prev->out_mode && !c->prev->in_mode)))
 	{
+		ft_dprintf_str(STDERR_FILENO, "%s", HEADER);
 		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
 		//if will be in/out troubles need to delete close -_-
 		if (in_fd != -1)
