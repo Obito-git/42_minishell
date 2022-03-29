@@ -25,7 +25,6 @@ int	set_out_path(t_command *c)
 			free(err_msg);
 			return (-2);
 		}
-		dup2(fd, STDOUT_FILENO);
 	}
 	return (fd);
 }
@@ -45,9 +44,8 @@ int	set_in_path(t_command *head, t_command *c)
 		if (fd == -1)
 		{
 			perror(c->next->command);
-			return (-1);
+			return (-2);
 		}
-		dup2(fd, STDIN_FILENO);
 		set_tubes_path(head, c->next);
 	}
 	return (fd);
@@ -59,9 +57,9 @@ int	set_in_path(t_command *head, t_command *c)
 */
 void    set_tubes_path(t_command *head, t_command *c)
 {
-	if (c->pipe)
+	if (c && c->pipe)
 		dup2(c->tube[1], STDOUT_FILENO);
-    if (c->prev && c->prev->pipe)
-        dup2(c->prev->tube[0], STDIN_FILENO);
-    close_extra_tubes(head, c);
+	if (c && c->prev && c->prev->pipe)
+		dup2(c->prev->tube[0], STDIN_FILENO);
+	close_extra_tubes(head, c);
 }

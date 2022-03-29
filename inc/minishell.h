@@ -41,6 +41,12 @@ typedef struct s_command
 	struct s_command *prev;
 }	t_command;
 
+typedef struct s_inout_fd
+{
+	int	in_fd;
+	int out_fd;
+}	t_inout_fd;
+
 //	struct_utils.c
 t_command	*command_init(char *c, bool p, char in, char out);
 t_command	*free_commands(t_command *c);
