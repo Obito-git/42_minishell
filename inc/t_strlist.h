@@ -5,6 +5,7 @@
 
 typedef struct s_strlist_node {
 	char	*str;
+	int		len;
 	struct s_strlist_node *next;
 	struct s_strlist_node *prev;
 }	t_strlist_node;
@@ -29,5 +30,6 @@ void			remove_str_from_strlist(t_strlist *list, char *str);
 int				update_strlist_envp(t_strlist *list);
 t_strlist		*make_strlist_from_null_terminated_str_array(char **envp);
 char			*find_strlist_node_varvalue(t_strlist *list, char *name);
+int				get_strlist_total_len(t_strlist strlist);
 
 #endif /* T_STRLIST_H */

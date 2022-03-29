@@ -19,7 +19,7 @@ char	*command_delete_quotes(char *c)
 		}
 		i++;
 	}
-	return (res);	
+	return (res);
 }
 
 //replaces $VAR_NAME by variable name or "" if they are no value

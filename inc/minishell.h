@@ -1,5 +1,6 @@
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
+
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -14,6 +15,8 @@
 # include <sys/signal.h>
 # include "libft.h"
 # include "t_strlist.h"
+# include "expansion.h"
+
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
@@ -21,8 +24,10 @@
 # define IN_HEREDOC 2
 # define _GNU_SOURCE 1
 # define EXIT_UNK_CMD 127
-//# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
-# define PROMPT   "\n\e[31mminishell$\e[0m "
+
+# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
+# define REPROMPT   "\n\e[31mminishell$\e[0m "
+
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
 
@@ -86,7 +91,7 @@ int	cd(t_command *cmd, t_strlist *env);
 //env
 char	*get_env_var_start(char *var, char **envp);
 char	*get_env_var_val(char *var, char **envp);
-ssize_t	writevar(int fd, char *var, char **envp);
+char	*get_env_var_val_from_slice(char *var, char *end, char **envp);
 // signal handling
 void	set_signal_handling();
 void	sigint_handler(int signal);
@@ -95,4 +100,4 @@ void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
 
-#endif
+#endif /* MINISHELL_H */

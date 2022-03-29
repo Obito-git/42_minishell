@@ -28,7 +28,7 @@ Implement all built ins :
 	echo : done
 	pwd : done
 	cd :
-	export : done
+	export : check if valid  input after = ?
 	unset : done
 	exit : What about history ?
 	env : done
