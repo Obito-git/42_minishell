@@ -91,8 +91,8 @@ t_command	*parse(char *user_input, t_strlist *env)
 	com = (char **) malloc(sizeof(char *) * (ft_strlen(user_input) + 2));
 	if (!com)
 		return (NULL);
-	com = cut_all_commands(com, user_input, &i);
-	com = ft_strtrim_array(com, " ");
+	/*com = cut_all_commands(com, user_input, &i);*/
+	/*com = ft_strtrim_array(com, " ");*/
 	print_strarray(com);
 	com = expand_args(com, env);
 	set_input_pattern(com);
