@@ -71,6 +71,15 @@ void	set_quotes(char c, bool *q, bool *dq)
 }
 
 //main parsing function
+void	print_strarray(char **com)
+{
+	while (*com)
+	{
+		printf("%s\n", *com);
+		com++;
+	}
+}
+
 t_command	*parse(char *user_input, t_strlist *env)
 {
 	char **com;
@@ -82,6 +91,7 @@ t_command	*parse(char *user_input, t_strlist *env)
 		return (NULL);
 	com = cut_all_commands(com, user_input, &i);
 	com = ft_strtrim_array(com, " ");
+	print_strarray(com);
 	com = expand_args(com, env);
 	set_input_pattern(com);
 	if (!com)

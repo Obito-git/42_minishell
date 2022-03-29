@@ -187,6 +187,8 @@ int	*register_expansion(char *to_exp)
 	if (!indexes)
 		return (NULL);
 	i = 0;
+	if (to_exp[i] == '\"' || to_exp[i] == '\'')
+		i = 1;
 	*indexes = 0;
 	if (to_exp[0] == DOLLAR && !is_single_dollar(to_exp))
 		state = VSTART;
@@ -195,7 +197,10 @@ int	*register_expansion(char *to_exp)
 	box = indexes;
 	while (state != DONE)
 		state = g_func_table[state](to_exp, &i, &box);
-	log_index(i, &box);
+	if (to_exp[i] == '\"' || to_exp[i] == '\'')
+		log_index(i - 1, &box);
+	else
+		log_index(i, &box);
 	log_index(0, &box);
 	return (indexes);
 }
@@ -223,17 +228,14 @@ char	*expand_arg(char *to_exp, int *indexes, t_strlist *env)
 				ft_strcat_slice(exp_str, exp->head->str, exp->head->len);
 				exp->head = exp->head->next;
 			}
-			//If we have var first, y++ gets bumped
 			y++;
 			i = y;
 		}
 		else
 		{
 			ft_strcat_slice(exp_str, &to_exp[indexes[i]], indexes[y] - indexes[i]);
-			//if we have a str first, advance i by one and y by one
 			i = y;
 			y++;
-			//Now i points to new start and y next
 		}
 	}
 	free_strlist(exp);
@@ -249,7 +251,7 @@ char	**expand_args(char **argv, t_strlist *env)
 	i = 0;
 	while (argv[i])
 	{
-		if (argv[i][0] && argv[i][0] != '\'' )
+		/*if (argv[i][0] && argv[i][0] != '\'' )*/
 		{
 			to_free = argv[i];
 			indexes = register_expansion(argv[i]);
