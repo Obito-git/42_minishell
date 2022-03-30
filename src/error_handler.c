@@ -35,7 +35,6 @@ t_bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 		*msg = ft_str_threejoin(HEADER, tmp, "command not found\n");
 		free(tmp);
 		env->ret = 127;
-		printf("asd");
 		return (TRUE);
 	}
 	return (FALSE);

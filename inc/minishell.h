@@ -45,6 +45,12 @@ typedef struct s_command
 	struct s_command *prev;
 }	t_command;
 
+typedef struct s_inout_fd
+{
+	int	in_fd;
+	int out_fd;
+}	t_inout_fd;
+
 //	struct_utils.c
 t_command	*command_init(char *c, bool p, char in, char out);
 t_command	*free_commands(t_command *c);
@@ -70,9 +76,9 @@ char		**ft_minishell_split(char **res, char *s, int z, int i);
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
-int			set_out_path(t_command *c);
-int			set_in_path(t_command *head, t_command *c);
+t_inout_fd *set_redirections(t_command *c, t_command *head, t_strlist *env);
 void		set_tubes_path(t_command *head, t_command *c);
+void		close_fds(t_inout_fd *fds);
 //	error_handler.c
 t_command   *find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
