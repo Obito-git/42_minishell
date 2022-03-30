@@ -15,7 +15,6 @@
 # include <sys/signal.h>
 # include "libft.h"
 # include "t_strlist.h"
-# include "expansion.h"
 
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
@@ -99,5 +98,9 @@ void	sigquit_handler(int signal);
 void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
+//quotes
+char	**quote_preserving_split(char *str);
+//expand
+char		**expand_args(char **argv, t_strlist *env);
 
 #endif /* MINISHELL_H */

@@ -8,6 +8,7 @@ Anton: my bash do nothing in the case when cd with no args, owr print a promp
 Anton: unset dont working for me :( . if "unset $PATH" do nothing, if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
 Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You are cheking arg len caracters, possible error is "unset test" will work for $test123 if $test not existing
 input/output file without permissons
+Check for NULL return in prepare commands ?
 
 
 Anton
@@ -26,7 +27,9 @@ Fixed many of valgrind errors and no memory leaks were detected
 
 Tom
 ===========
-Signal handling
+Signal handling : Prompt still not doing ok
+
+Implemet ft_strndup and remove strndup
 
 Implement all built ins :
 	echo : done
@@ -49,3 +52,4 @@ If necessary maybe make a t_cmd_list struct {
 } 
 
 If there's just one command, no forking because built-ins do not have lasting effect whem piped but do on their own (done)
+

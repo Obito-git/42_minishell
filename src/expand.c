@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "expansion.h"
 
 //Remove this !
 #include <assert.h>
@@ -189,8 +190,8 @@ int	*register_expansions(char *to_exp)
 	if (!indexes)
 		return (NULL);
 	i = 0;
-	if (to_exp[0] == '\"' || to_exp[0] == '\'')
-		i = 1;
+	/*if (to_exp[0] == '\"' || to_exp[0] == '\'')*/
+	/*    i = 1;*/
 	*indexes = 0;
 	if (to_exp[0] == DOLLAR && !is_single_dollar(to_exp))
 		state = var_start;
@@ -199,10 +200,10 @@ int	*register_expansions(char *to_exp)
 	box = indexes;
 	while (state != done)
 		state = g_expand_func_table[state](to_exp, &i, &box);
-	if (i > 0 && (to_exp[i - 1] == '\"' || to_exp[i - 1] == '\''))
-		log_index(i - 1, &box);
-	else
-		log_index(i, &box);
+	/*if (i > 0 && (to_exp[i - 1] == '\"' || to_exp[i - 1] == '\''))*/
+	/*    log_index(i - 1, &box);*/
+	/*else*/
+	log_index(i, &box);
 	log_index(0, &box);
 	return (indexes);
 }

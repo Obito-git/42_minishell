@@ -28,11 +28,11 @@ $(MEM_DIR)ft_memcpy.c $(MEM_DIR)ft_memmove.c $(MEM_DIR)ft_memset.c \
 $(PRINT_DIR)ft_putchar_fd.c $(PRINT_DIR)ft_putendl_fd.c $(PRINT_DIR)ft_putnbr_fd.c $(PRINT_DIR)ft_putstr_fd.c \
 $(PRINT_DIR)ft_putchar.c $(PRINT_DIR)ft_putendl.c $(PRINT_DIR)ft_putnbr.c $(PRINT_DIR)ft_putstr.c $(PRINT_DIR)ft_putnbr_base.c \
 $(PRINT_DIR)ft_printf_str.c $(PRINT_DIR)ft_dprintf_str.c $(PRINT_DIR)ft_vdprintf_str.c \
-$(STR_DIR)ft_split.c $(STR_DIR)ft_strdup.c $(STR_DIR)ft_strjoin.c $(STR_DIR)ft_strlcpy.c $(STR_DIR)ft_strmapi.c \
+$(STR_DIR)ft_split.c $(STR_DIR)ft_strdup.c $(STR_DIR)ft_strjoin.c $(STR_DIR)ft_join_null_terminated_str_array.c $(STR_DIR)ft_strlcpy.c $(STR_DIR)ft_strmapi.c \
 $(STR_DIR)ft_strnstr.c $(STR_DIR)ft_strtrim.c $(STR_DIR)ft_strchr.c $(STR_DIR)ft_striteri.c $(STR_DIR)ft_strlcat.c \
 $(STR_DIR)ft_strlen.c $(STR_DIR)ft_strncmp.c $(STR_DIR)ft_strrchr.c $(STR_DIR)ft_substr.c \
 $(STR_DIR)ft_strcpy.c $(STR_DIR)ft_strcat.c $(STR_DIR)ft_strcat_slice.c $(STR_DIR)ft_strcpy.c $(STR_DIR)ft_strrev.c $(STR_DIR)ft_strcmp.c $(STR_DIR)ft_str_threejoin.c \
-$(UTIL_DIR)ft_atoi.c $(UTIL_DIR)ft_itoa.c $(UTIL_DIR)ft_convert_base.c $(UTIL_DIR)ft_numblen.c $(UTIL_DIR)ft_atol_sample.c \
+$(UTIL_DIR)ft_atoi.c $(UTIL_DIR)ft_itoa.c $(UTIL_DIR)ft_convert_base.c $(UTIL_DIR)ft_numblen.c $(UTIL_DIR)ft_atol_sample.c $(UTIL_DIR)ft_is_is_set.c\
 $(MATH_DIR)ft_pow.c \
 $(GNL_DIR)get_next_line.c $(GNL_DIR)get_next_line_utils.c \
 $(PRINTF_DIR)ft_printf.c $(PRINTF_DIR)parsing.c $(PRINTF_DIR)patterns.c \

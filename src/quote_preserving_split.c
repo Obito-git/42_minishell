@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "quote_splitting.h"
 
 //Erase
 #include <assert.h>
@@ -6,16 +7,12 @@
 #include <stdio.h>
 //Erase this above !
 
-enum e_quote_state {
-	not_in_quote,
-	single_quote,
-	double_quote,
-	fini,
-};
-
-enum e_quote_state	not_in_quote_mode(char *str, int *i, int **table);
-enum e_quote_state	sq_mode(char *str, int *i, int **table);
-enum e_quote_state	dq_mode(char *str, int *i, int **table);
+/*enum e_quote_state {*/
+/*    not_in_quote,*/
+/*    single_quote,*/
+/*    double_quote,*/
+/*    fini,*/
+/*};*/
 
 static enum e_quote_state	(*g_quote_func_table[])(char *, int*, int**) = {
 	&not_in_quote_mode,
@@ -189,7 +186,7 @@ static char	**strarray_alloc_from_index_table(int *index_table)
 	return (ret);
 }
 
-char	**quote_preserving_split(char const *str, int *index_table)
+char	**quote_preserving_split_splitter(char *str, int *index_table)
 {
 	char		**strarray;
 	size_t		i;
@@ -216,6 +213,26 @@ char	**quote_preserving_split(char const *str, int *index_table)
 	return (strarray);
 }
 
+char	**quote_preserving_split(char *str)
+{
+	int *index_table;
+	char **str_array;
+
+	if (check_quotes(str) == -1)
+	{
+		ft_dprintf_str(STDERR_FILENO, "\e[31mYou have unclosed quotes$\e[0m\n");
+		return (NULL);
+	}
+	index_table = register_quotes(str);
+	if (index_table == NULL)
+		return (NULL);
+	str_array = quote_preserving_split_splitter(str, index_table);
+	free(index_table);
+	if (str_array == NULL)
+		return (NULL);
+	return (str_array);
+}
+
 /*int main()*/
 /*{*/
 /*    char *user_input = NULL;*/
@@ -226,10 +243,6 @@ char	**quote_preserving_split(char const *str, int *index_table)
 /*    while (1)*/
 /*    {*/
 /*        user_input = readline("012345678901234567890123456789\n");*/
-/*        if (check_quotes(user_input) == -1)*/
-/*            printf("\e[31mYou have unclosed quotes$\e[0m\n");*/
-/*        index_table = register_quotes(user_input);*/
-/*        str_array = quote_preserving_split(user_input, index_table);*/
 /*        printf("%i\t", index_table[0]);*/
 /*        for (int i = 1; index_table[i] != 0; i++)*/
 /*            printf("%i\t", index_table[i]);*/
