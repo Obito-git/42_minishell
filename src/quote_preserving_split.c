@@ -22,7 +22,11 @@ static enum e_quote_state	(*g_quote_func_table[])(char *, int*, int**) = {
 
 int	next_any_quote(char *str, int i)
 {
+<<<<<<< HEAD
 	while (str[i] && str[i] != '\"' && str[i] != '\"' )
+=======
+	while (str[i] && !ft_is_in_set(str[i], "\'\""))
+>>>>>>> new_parse
 		i++;
 	return (i);
 };
@@ -72,7 +76,11 @@ enum e_quote_state	sq_mode(char *str, int *i, int **table)
 	*i = next_single_quote(str, *i);
 	if (str[*i] == 0)
 	{
+<<<<<<< HEAD
 		//False alert,  this is not a valid single quote, remove prvious index
+=======
+		//false alert,  this is not a valid single quote, remove prvious index
+>>>>>>> new_parse
 		(*table)--;
 		log_index(*i, table);
 		return (fini);
@@ -90,7 +98,11 @@ enum e_quote_state	dq_mode(char *str, int *i, int **table)
 	*i = next_double_quote(str, *i);
 	if (str[*i] == 0)
 	{
+<<<<<<< HEAD
 		//False alert,  this is not a valid double quote, remove prvious index
+=======
+		//false alert,  this is not a valid double quote, remove prvious index
+>>>>>>> new_parse
 		(*table)--;
 		log_index(*i, table);
 		return (fini);
@@ -109,7 +121,11 @@ int	*register_quotes(char *str)
 	int	i;
 
 	indexes = malloc(4096 * sizeof(int));
+<<<<<<< HEAD
 	if (!indexes)
+=======
+	if (!indexes || !str)
+>>>>>>> new_parse
 		return (NULL);
 	if (str[0] == '\'')
 		state = single_quote;
@@ -120,7 +136,11 @@ int	*register_quotes(char *str)
 	i = 0;
 	box = indexes;
 	log_index(0, &box);
+<<<<<<< HEAD
 	while (state != fini)
+=======
+	while (*str && state != fini)
+>>>>>>> new_parse
 		state = g_quote_func_table[state](str, &i, &box);
 	log_index(0, &box);
 	return (indexes);
@@ -182,7 +202,11 @@ static char	**strarray_alloc_from_index_table(int *index_table)
 	while (index_table[++i] != 0)
 		n++;
 	ret = malloc(n * sizeof(char *) + 1);
+<<<<<<< HEAD
 	printf("Allocated for %li strings\n", n);
+=======
+	/*printf("Allocated for %li strings\n", n);*/
+>>>>>>> new_parse
 	return (ret);
 }
 
@@ -218,6 +242,11 @@ char	**quote_preserving_split(char *str)
 	int *index_table;
 	char **str_array;
 
+<<<<<<< HEAD
+=======
+	if (str == NULL)
+		return (NULL);
+>>>>>>> new_parse
 	if (check_quotes(str) == -1)
 	{
 		ft_dprintf_str(STDERR_FILENO, "\e[31mYou have unclosed quotes$\e[0m\n");
@@ -225,7 +254,14 @@ char	**quote_preserving_split(char *str)
 	}
 	index_table = register_quotes(str);
 	if (index_table == NULL)
+<<<<<<< HEAD
 		return (NULL);
+=======
+	{
+		free(index_table);
+		return (NULL);
+	}
+>>>>>>> new_parse
 	str_array = quote_preserving_split_splitter(str, index_table);
 	free(index_table);
 	if (str_array == NULL)

@@ -1,11 +1,15 @@
 #ifndef EXPANSION_H
 #define EXPANSION_H
+<<<<<<< HEAD
 
 #include <assert.h>
 
 #include "t_strlist.h"
 #include <stdbool.h>
 
+=======
+#include "minishell.h"
+>>>>>>> new_parse
 #define DOLLAR '$'
 #define DOUBLE_QUOTE '\"'
 

@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/23 11:47:23 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 static size_t	get_start(char const *s1, char const *set)
 {

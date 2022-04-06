@@ -26,5 +26,5 @@ int	xport(t_command *cmd, t_strlist *env)
 		}
 		i++;
 	}
-	return (update_strlist_envp(env));
+	return (update_strlist_strarr_value(env));
 }

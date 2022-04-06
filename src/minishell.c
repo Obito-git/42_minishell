@@ -36,7 +36,7 @@ void command_print(t_command *c)
 *	call the readline if there is no command after the pipe and
 *	correctly displays the history in this case
 */
-void	prepare_commands(char *in, t_command **head, t_strlist *env, char **h)
+void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env)
 {
 	t_command	*last;
 	char		*tmp;
@@ -64,21 +64,21 @@ void	prepare_commands(char *in, t_command **head, t_strlist *env, char **h)
 }
 
 //checks main arguments
-t_bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
+ bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
 {
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
-		return (FALSE);
+		return (false);
 	}
 	*env = make_strlist_from_null_terminated_str_array(envp);
 	if (env == NULL)
 	{
 		perror("Unable to allocate for list of variables");
-		return (FALSE);
+		return (false);
 	}
 	printf("\e[1A");
-	return (TRUE);
+	return ( true);
 }
 
 //calls all parsing functions and tries to execute user input
@@ -89,10 +89,13 @@ void	execute_userinput(t_strlist *env, char *user_input)
 
 	history = NULL;
 	head = NULL;
-	prepare_commands(user_input, &head, env, &history);
+	prepare_commands(user_input, &head, &history, env);
 	head = find_syntax_errors(head, env);
+<<<<<<< HEAD
 	command_print(head);
 	/*head = NULL;*/
+=======
+>>>>>>> new_parse
 	if (history)
 		add_history(history);
 	free(history);
@@ -110,7 +113,7 @@ int main(int ac, char **av, char **envp)
 	if (!check_main_args(ac, av, envp, &env))
 		return (1);
 	printf("\n");
-	while (TRUE)
+	while ( true)
 	{
 		set_signal_handling();
 		user_input = readline(PROMPT);

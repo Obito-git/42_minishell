@@ -6,7 +6,7 @@ int	env(t_command *cmd, t_strlist *env)
 
 	/*char **str;*/
 
-	/*str = env->envp;*/
+	/*str = env->strarr_value;*/
 	/*while (*str)*/
 	/*{*/
 	/*    printf("%s\n", *str);*/

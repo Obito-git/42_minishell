@@ -9,10 +9,7 @@
 /*   Updated: 2022/03/22 14:11:38 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdarg.h>
-#include <unistd.h>
-#include "../libft.h"
+#include "libft.h"
 
 static int	write_format(int fd, const char **str, va_list ap)
 {

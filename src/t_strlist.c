@@ -6,7 +6,7 @@ t_strlist	init_strlist()
 
 	new_strlist.head = NULL;
 	new_strlist.size = 0;
-	new_strlist.envp = NULL;
+	new_strlist.strarr_value = NULL;
 	return (new_strlist);
 }
 
@@ -57,7 +57,7 @@ void	deinit_strlist(t_strlist *list)
 			list->head = next_node;
 		}
 		list->head = NULL;
-		free(list->envp);
+		free(list->strarr_value);
 	}
 }
 
@@ -104,6 +104,20 @@ int	append_str_to_strlist(t_strlist *list, char *str)
 		return (-1);
 	}
 	append_node_to_strlist(list, new_node);
+	return (0);
+}
+
+int	append_strarray_to_strlist(t_strlist *list, char **strarray)
+{
+	int i;
+
+	i = 0;
+	while (strarray[i])
+	{
+		if (append_str_to_strlist(list, strarray[i]))
+			return (-1);
+		i++;
+	}
 	return (0);
 }
 
@@ -160,24 +174,24 @@ void	remove_str_from_strlist(t_strlist *list, char *str)
 	}
 }
 
-int			update_strlist_envp(t_strlist *list)
+int			update_strlist_strarr_value(t_strlist *list)
 {
 	t_strlist tmp_list;
-	char	**new_envp;
+	char	**new_strarr_val;
 
 	tmp_list = *list;
-	new_envp = malloc((list->size + 1) * sizeof(char **));
-	if (!new_envp)
+	new_strarr_val = malloc((list->size + 1) * sizeof(char **));
+	if (!new_strarr_val)
 		return (-1);
-	free(list->envp);
-	list->envp = new_envp;
+	free(list->strarr_value);
+	list->strarr_value = new_strarr_val;
 	while (tmp_list.size--)
 	{
-		*new_envp = tmp_list.head->str;
+		*new_strarr_val = tmp_list.head->str;
 		tmp_list.head = tmp_list.head->next;
-		new_envp++;
+		new_strarr_val++;
 	}
-	*new_envp = NULL;
+	*new_strarr_val = NULL;
 	return (0);
 }
 
@@ -199,7 +213,7 @@ t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 			}
 			envp++;
 		}
-		update_strlist_envp(list);
+		update_strlist_strarr_value(list);
 	}
 	list->ret = 0;
 	return (list);
@@ -213,7 +227,7 @@ char	*find_strlist_node_varvalue(t_strlist *list, char *name)
 	size_t			y;
 
 	i = 0;
-	if (!list || !name || !list->envp || !list->head)
+	if (!list || !name || !list->strarr_value || !list->head)
 		return (NULL);
 	tmp = list->head;
 	while (i < list->size)
@@ -251,3 +265,15 @@ int	get_strlist_total_len(t_strlist strlist)
 	}
 	return (total_len);
 }
+<<<<<<< HEAD
+=======
+
+void	print_strlist(t_strlist list)
+{
+	while (list.size--)
+	{
+		printf("%s\n", list.head->str);
+		list.head = list.head->next;
+	}
+}
+>>>>>>> new_parse

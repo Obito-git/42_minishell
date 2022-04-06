@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/23 11:27:53 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 int	ft_check(char *numb, long *sign)
 {

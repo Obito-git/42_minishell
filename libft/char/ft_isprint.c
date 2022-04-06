@@ -9,9 +9,9 @@
 /*   Updated: 2022/01/24 09:00:11 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
-t_bool	ft_isprint(int c)
+bool	ft_isprint(int c)
 {
 	return (c > 31 && c < 127);
 }

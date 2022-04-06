@@ -1,8 +1,6 @@
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
-
-FILE_NBR=1
+CFLAGS = -Iincludes -Wall -Werror -Wextra -g3
 
 #colors:
 RED="\e[31m"
@@ -10,6 +8,7 @@ GREEN="\e[32m"
 YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 
+<<<<<<< HEAD
 #src directions
 MEM_DIR = mem/
 STR_DIR = string/
@@ -38,31 +37,24 @@ $(GNL_DIR)get_next_line.c $(GNL_DIR)get_next_line_utils.c \
 $(PRINTF_DIR)ft_printf.c $(PRINTF_DIR)parsing.c $(PRINTF_DIR)patterns.c \
 $(LST_DIR)ft_lstadd_back.c $(LST_DIR)ft_lstadd_front.c $(LST_DIR)ft_lstclear.c $(LST_DIR)ft_lstdelone.c \
 $(LST_DIR)ft_lstiter.c $(LST_DIR)ft_lstlast.c $(LST_DIR)ft_lstmap.c $(LST_DIR)ft_lstnew.c $(LST_DIR)ft_lstsize.c
+=======
+SRCS = $(wildcard */*.c) 
+SRCS += $(wildcard */*/*.c)
+>>>>>>> new_parse
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 	
 %.o: %.c
-	@$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): norm $(OBJS)
 	@echo ${GREEN}"Objects have been created!"${ENDCOLOR}
 	@echo ""
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+	ar rc $(NAME) $(OBJS)
+	ranlib $(NAME)
 	@echo ${YELLOW}$(NAME)" is ready for use!"${ENDCOLOR}
-
-generate_difs:
-	@rm -f make_src && rm -f real_src
-	@echo "$(SRCS)" | tr ' ' '\n' | sort > make_src
-	@find -name "*.c" | sed 's/^..//g' | sort > real_src
-
-git:
-	@echo ""
-	@echo ${YELLOW}"Git:"${GREEN}
-	@git pull
-	@echo ${ENDCOLOR}
 
 norm:
 	@echo ${YELLOW}"Checking norminette.."${ENDCOLOR}
@@ -77,21 +69,16 @@ norm:
 	@echo ""
 
 clean:
-	@rm -f $(OBJS)
-	@rm -f .*.swp
-	@rm -f */.*.swp
-	@rm -f *.so
-	@rm -f */*.so
-	@rm -f a.out
-	@rm -f */a.out
-	@rm -f main.c
-	@rm -f */main.c
-	@rm -f make_src && rm -f real_src
+	rm -f $(OBJS)
+	rm -f .*.swp
+	rm -f */.*.swp
+	rm -f */*/.*.swp
+	rm -f a.out
 	@echo ""
 	@echo ${GREEN}"Objects and trash were successfully removed"${ENDCOLOR}
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 	@echo ""
 	@echo ${YELLOW}"Project is clear!"${ENDCOLOR}
 

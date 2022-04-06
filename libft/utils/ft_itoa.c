@@ -9,14 +9,14 @@
 /*   Updated: 2021/11/23 11:52:28 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 static int	get_numblen(long n)
 {
 	int	size;
 
 	size = 1;
-	if (n == LONG_MIN - 1)
+	if (n == LONG_MIN)
 		return (20);
 	if (n < 0)
 	{
@@ -33,7 +33,7 @@ static int	get_numblen(long n)
 
 static int	check_negative(char *str, int *last_index, long *n)
 {
-	if (*n == LONG_MIN - 1)
+	if (*n == LONG_MIN)
 	{
 		ft_strcpy(str, "-9223372036854775808");
 		return (1);

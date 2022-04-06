@@ -9,9 +9,7 @@
 /*   Updated: 2022/03/22 14:11:26 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdarg.h>
-#include "../libft.h"
+#include "libft.h"
 
 int	ft_dprintf_str(int fd, const char *str, ...)
 {

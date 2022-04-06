@@ -16,9 +16,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdbool.h>
+<<<<<<< HEAD:libft/libft.h
 # include "constants.h"
 # define TRUE 1
 # define FALSE 0
+=======
+# include <limits.h>
+>>>>>>> new_parse:libft/includes/libft.h
 
 typedef struct s_list
 {
@@ -26,15 +30,13 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef int	t_bool;
-
 /* char/ */
-t_bool	ft_isalpha(int c);
-t_bool	ft_isdigit(int c);
-t_bool	ft_isalnum(int c);
-t_bool	ft_isascii(int c);
-t_bool	ft_isprint(int c);
-t_bool	ft_isspace(char c);
+bool	ft_isalpha(int c);
+bool	ft_isdigit(int c);
+bool	ft_isalnum(int c);
+bool	ft_isascii(int c);
+bool	ft_isprint(int c);
+bool	ft_isspace(char c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 /* mem/ */
@@ -56,9 +58,8 @@ void	ft_putnbr(long n);
 void	ft_putnbr_fd(long n, int fd);
 void	ft_putnbr_base(int nbr, char *base);
 int		ft_printf(const char *s, ...);
-int		ft_vdprintf_str(int fd, const char *str, va_list ap);
 int		ft_dprintf_str(int fd, const char *str, ...);
-int		ft_printf_str(const char *str, ...);
+int		ft_vdprintf_str(int fd, const char *str, va_list ap);
 /* string/ */
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
