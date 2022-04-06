@@ -201,6 +201,11 @@ int	*register_expansions(char *to_exp)
 	return (indexes);
 }
 
+/*Receives an index array following a certain format then and uses to create a*/
+/*string. The format is the following. Each index marks the (including) start of*/
+/*a token and the (excluding) end of the one that came before. If the index is*/
+/*-1 it means that instead of copying the slice defined by the index before and */
+/*after it, the function must the value of an evironment variable*/
 char	*expand_arg(char *to_exp, int *idxs, t_strlist *env)
 {
 	char		*exp_str;
