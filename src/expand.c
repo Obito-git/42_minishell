@@ -15,7 +15,7 @@ bool	is_special_var_start_char(int c)
 		|| c == '*'
 		|| c == '_'
 		|| ft_isdigit(c))
-		return ( true);
+		return (true);
 	return (false);
 }
 
@@ -24,14 +24,14 @@ bool	is_valid_shellvar_start_char(int c)
 	if (ft_isdigit(c))
 		return (false);
 	if (is_special_var_start_char(c) || ft_isalpha(c))
-		return ( true);
+		return (true);
 	return (false);
 }
 
 bool	is_valid_env_var_char(int c)
 {
 	if (c == '_' || ft_isalpha(c))
-		return ( true);
+		return (true);
 	return (false);
 }
 
@@ -39,7 +39,7 @@ bool	is_single_dollar(char *c)
 {
 	if (c[0] == '$')
 		if (!is_valid_shellvar_start_char(c[1]))
-			return ( true);
+			return (true);
 	return (false);
 }
 
@@ -143,10 +143,8 @@ static void	log_index(int i, int **table)
 /* Does log no matter what */
 enum e_expand_state	normal_mode(char *str, int *i, int **table)
 {
-	//Log current index
 	log_index(*i, table);
 	*i = next_var(str, *i);
-	//Check for end
 	if (str[*i] == 0)
 		return (done);
 	if (str[*i] == '$')
@@ -159,9 +157,7 @@ enum e_expand_state	normal_mode(char *str, int *i, int **table)
 enum e_expand_state	var_start_mode(char *str, int *i, int **table)
 {
 	assert(str[*i] == '$');
-	//Log current index Normal mode is responsible that it is not an isolated var
 	log_index(*i, table);
-	//Jump over dollar
 	(*i)++;
 	return (in_var);
 }
@@ -169,13 +165,11 @@ enum e_expand_state	var_start_mode(char *str, int *i, int **table)
 /* Does not log */
 enum e_expand_state	in_var_mode(char *str, int *i, int **table)
 {
-	//Put in table that it's a var we are dealing with
 	log_index(-1, table);
-	//Jumping over the right size of char
 	if (is_special_var_start_char(str[*i]))
 			(*i)++;
 	else
-		*i = next_non_env_var(str, *i); //Has to stop on dollars
+		*i = next_non_env_var(str, *i);
 	if (str[*i] == '$' && !is_single_dollar(&str[*i]))
 		return (var_start);
 	else
@@ -184,17 +178,15 @@ enum e_expand_state	in_var_mode(char *str, int *i, int **table)
 
 int	*register_expansions(char *to_exp)
 {
-	int	*indexes;
-	int	*box;
-	int	i;
-	enum e_expand_state state;
+	int					*indexes;
+	int					*box;
+	int					i;
+	enum e_expand_state	state;
 
 	indexes = malloc(4096 * sizeof(int));
 	if (!indexes)
 		return (NULL);
 	i = 0;
-	/*if (to_exp[0] == '\"' || to_exp[0] == '\'')*/
-	/*    i = 1;*/
 	*indexes = 0;
 	if (to_exp[0] == DOLLAR && !is_single_dollar(to_exp))
 		state = var_start;
@@ -203,31 +195,28 @@ int	*register_expansions(char *to_exp)
 	box = indexes;
 	while (state != done)
 		state = g_expand_func_table[state](to_exp, &i, &box);
-	/*if (i > 0 && (to_exp[i - 1] == '\"' || to_exp[i - 1] == '\''))*/
-	/*    log_index(i - 1, &box);*/
-	/*else*/
 	log_index(i, &box);
 	log_index(0, &box);
 	return (indexes);
 }
 
-char	*expand_arg(char *to_exp, int *indexes, t_strlist *env)
+char	*expand_arg(char *to_exp, int *idxs, t_strlist *env)
 {
 	char		*exp_str;
 	t_strlist	*exp;
 	int			y;
 	int			i;
 
-	exp = get_expansions_list(to_exp, indexes, env);
-	exp_str = malloc(get_expanded_len(exp, indexes) + 1);
+	exp = get_expansions_list(to_exp, idxs, env);
+	exp_str = malloc(get_expanded_len(exp, idxs) + 1);
 	if (exp_str == NULL)
 		return (NULL);
 	exp_str[0] = 0;
 	i = 0;
 	y = 1;
-	while (indexes[y] != 0)
+	while (idxs[y] != 0)
 	{
-		if (indexes[y] == -1)
+		if (idxs[y] == -1)
 		{
 			if (exp->head)
 			{
@@ -239,7 +228,7 @@ char	*expand_arg(char *to_exp, int *indexes, t_strlist *env)
 		}
 		else
 		{
-			ft_strcat_slice(exp_str, &to_exp[indexes[i]], indexes[y] - indexes[i]);
+			ft_strcat_slice(exp_str, &to_exp[idxs[i]], idxs[y] - idxs[i]);
 			i = y;
 			y++;
 		}
@@ -250,9 +239,9 @@ char	*expand_arg(char *to_exp, int *indexes, t_strlist *env)
 
 char	**expand_args(char **argv, t_strlist *env)
 {
-	int	i;
-	int	*indexes;
-	char *to_free;
+	int		i;
+	int		*indexes;
+	char	*to_free;
 
 	i = 0;
 	while (argv[i])

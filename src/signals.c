@@ -1,21 +1,20 @@
 #include "minishell.h"
 
-void set_signal_handling()
+void	set_signal_handling(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = &sigint_handler;
 	sigaction(SIGINT, &sa, NULL);
-
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void	reset_sigint()
+void	reset_sigint(void)
 {
-	struct sigaction sa_sigint;
+	struct sigaction	sa_sigint;
 
 	ft_bzero(&sa_sigint, sizeof(sa_sigint));
 	sa_sigint.sa_handler = SIG_DFL;
@@ -24,14 +23,14 @@ void	reset_sigint()
 
 void	reset_sigquit()
 {
-	struct sigaction sa_sigquit;
+	struct sigaction	sa_sigquit;
 
 	ft_bzero(&sa_sigquit, sizeof(sa_sigquit));
 	sa_sigquit.sa_handler = SIG_DFL;
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
-void	reset_signals()
+void	reset_signals(void)
 {
 	reset_sigint();
 	reset_sigquit();

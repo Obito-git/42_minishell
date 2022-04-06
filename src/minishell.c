@@ -63,8 +63,8 @@ void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env)
 	}
 }
 
-//checks main arguments
- bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
+/*Checks main arguments*/
+bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
 {
 	if (ac != 1 || !av)
 	{
@@ -78,7 +78,7 @@ void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env)
 		return (false);
 	}
 	printf("\e[1A");
-	return ( true);
+	return (true);
 }
 
 //calls all parsing functions and tries to execute user input
@@ -99,16 +99,16 @@ void	execute_userinput(t_strlist *env, char *user_input)
 	free_commands(head);
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
-	char        *user_input;
+	char		*user_input;
 	t_strlist	*env;
 
 	env = NULL;
 	if (!check_main_args(ac, av, envp, &env))
 		return (1);
 	printf("\n");
-	while ( true)
+	while (true)
 	{
 		set_signal_handling();
 		user_input = readline(PROMPT);

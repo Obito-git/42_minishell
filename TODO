@@ -31,6 +31,8 @@ Signal handling : Prompt still not doing ok
 
 Implemet ft_strndup and remove strndup
 
+check for redir symbol at beginning of the output (may not work)
+
 Implement all built ins :
 	echo : done
 	pwd : done

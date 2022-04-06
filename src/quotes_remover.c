@@ -2,15 +2,15 @@
 
 char	*remove_first_and_last_quote(char *str)
 {
-	int len;
-	char *ret;
+	int		len;
+	char	*ret;
 
 	len = ft_strlen(str);
 	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
 		return (NULL);
 	if (ft_strcmp(str, "\"\"") == 0 || ft_strcmp(str, "\'\'") == 0)
-			return (ft_strcat(ret, ""));
+		return (ft_strcat(ret, ""));
 	if (ft_is_in_set(str[0], "\'\""))
 	{
 		ft_strcpy(ret, str + 1);
@@ -31,7 +31,7 @@ char	*remove_first_and_last_quote(char *str)
 
 char	**remove_first_and_last_quote_on_each_str(char **str_array)
 {
-	int i;
+	int		i;
 	char	*to_free;
 
 	if (!str_array)
@@ -56,9 +56,9 @@ char	**remove_first_and_last_quote_on_each_str(char **str_array)
 
 char	**handle_quotes(char **strarray)
 {
-	char *to_free;
-	char **split;
-	int i;
+	char	*to_free;
+	char	**split;
+	int		i;
 
 	i = 0;
 	if (!strarray)

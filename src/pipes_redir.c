@@ -71,7 +71,7 @@ int	set_in_path(t_command *head, t_command *c, int old_fd)
 *	in this case file1, file2 and file3 will be created, STDOUT will be
 *	replaced by file3 fd. File descriptors of file1 and file2 will be closed.
 */
-t_inout_fd *set_redirections(t_command *c, t_command *head, t_strlist *env)
+t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
 {
 	t_inout_fd	*fds;
 
@@ -104,7 +104,7 @@ t_inout_fd *set_redirections(t_command *c, t_command *head, t_strlist *env)
 * tube[0] → contiendra le fichier descripteur de l'extrémité de lecture
 * tube[1] → contiendra le fichier descripteur de l'extrémité d'écriture
 */
-void    set_tubes_path(t_command *head, t_command *c)
+void	set_tubes_path(t_command *head, t_command *c)
 {
 	if (c && c->pipe)
 		dup2(c->tube[1], STDOUT_FILENO);

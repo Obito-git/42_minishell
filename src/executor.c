@@ -32,9 +32,9 @@ int	try_to_execute(t_command *c, t_strlist *env)
 // calls all input/output files and pipe functions
 void	exec_com(t_command *head, t_command *c, t_strlist *env)
 {
-	int		(*built_in)(t_command*, t_strlist*);
+	int			(*built_in)(t_command*, t_strlist*);
 	t_inout_fd	*inout;
-	int 	ret;
+	int			ret;
 
 	ret = 0;
 	inout = set_redirections(c, head, env);
@@ -68,14 +68,14 @@ void	run_childs(t_command *head, t_strlist *env)
 		else if (pid == 0)
 			exec_com(head, tmp, env);
 		tmp = tmp->next;
-		while (tmp && (tmp->prev && (tmp->prev->in_mode || tmp->prev->out_mode)))
+		while (tmp
+			&& (tmp->prev && (tmp->prev->in_mode || tmp->prev->out_mode)))
 			tmp = tmp->next;
 	}
 }
 
-/* Creates child processes, calls execution of commands and waits for their execution.
-* The main function of the executor
-*/
+/* Creates child processes, calls execution of commands and waits for their
+ * execution. The main function of the executor */
 int	execute_pipeline(t_command *head, t_strlist *env)
 {
 	int			wstatus;

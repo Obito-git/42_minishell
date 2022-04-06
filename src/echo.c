@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 16:30:18 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/06 16:30:18 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	echo(t_command *cmd, t_strlist *env)
@@ -6,7 +18,7 @@ int	echo(t_command *cmd, t_strlist *env)
 	bool	newline;
 
 	(void) env;
-	newline =true;
+	newline = true;
 	args = (char **)cmd->args;
 	if (!*args)
 		return (0);

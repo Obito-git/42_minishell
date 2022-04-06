@@ -25,7 +25,7 @@ int	next_any_quote(char *str, int i)
 	while (str[i] && !ft_is_in_set(str[i], "\'\""))
 		i++;
 	return (i);
-};
+}
 
 int	next_double_quote(char *str, int i)
 {
@@ -72,7 +72,6 @@ enum e_quote_state	sq_mode(char *str, int *i, int **table)
 	*i = next_single_quote(str, *i);
 	if (str[*i] == 0)
 	{
-		//false alert,  this is not a valid single quote, remove prvious index
 		(*table)--;
 		log_index(*i, table);
 		return (fini);
@@ -90,7 +89,6 @@ enum e_quote_state	dq_mode(char *str, int *i, int **table)
 	*i = next_double_quote(str, *i);
 	if (str[*i] == 0)
 	{
-		//false alert,  this is not a valid double quote, remove prvious index
 		(*table)--;
 		log_index(*i, table);
 		return (fini);
@@ -103,10 +101,10 @@ enum e_quote_state	dq_mode(char *str, int *i, int **table)
 
 int	*register_quotes(char *str)
 {
-	int	*indexes;
-	int	*box;
+	int					*indexes;
+	int					*box;
 	enum e_quote_state	state;
-	int	i;
+	int					i;
 
 	indexes = malloc(4096 * sizeof(int));
 	if (!indexes || !str)
@@ -126,16 +124,17 @@ int	*register_quotes(char *str)
 	return (indexes);
 }
 
-static char *_next_any_quote(char *str)
+static char	*_next_any_quote(char *str)
 {
+	//Verify that this is correct
 	while (*str && *str != '\'' && *str != '\"')
 		str++;
 	return (str);
 }
 
-int		check_quotes(char *str)
+int	check_quotes(char *str)
 {
-	char quote;
+	char	quote;
 
 	if (*str == '\'' || *str == '\"')
 		quote = *str;
@@ -175,33 +174,33 @@ static char	**strarray_alloc_from_index_table(int *index_table)
 {
 	size_t	n;
 	char	**ret;
-	int 	i;
+	int		i;
 
 	i = 0;
 	n = 1;
 	while (index_table[++i] != 0)
 		n++;
 	ret = malloc(n * sizeof(char *) + 1);
-	/*printf("Allocated for %li strings\n", n);*/
 	return (ret);
 }
 
-char	**quote_preserving_split_splitter(char *str, int *index_table)
+char	**quote_preserving_split_splitter(char *str, int *idx_table)
 {
 	char		**strarray;
 	size_t		i;
 	size_t		y;
 	size_t		z;
 
-	strarray = strarray_alloc_from_index_table(index_table);
+	strarray = strarray_alloc_from_index_table(idx_table);
 	if (!str || !strarray)
 		return (NULL);
 	i = 0;
 	y = 1;
 	z = 0;
-	while (strarray && index_table[y] != 0)
+	while (strarray && idx_table[y] != 0)
 	{
-		strarray[z] = strndup(&str[index_table[i]], index_table[y]- index_table[i]);
+		//Use ft_strndup instead !
+		strarray[z] = strndup(&str[idx_table[i]], idx_table[y] - idx_table[i]);
 		if (strarray[z] == NULL)
 			free_strarray_and_set_to_null(&strarray, y);
 		i++;
@@ -215,8 +214,8 @@ char	**quote_preserving_split_splitter(char *str, int *index_table)
 
 char	**quote_preserving_split(char *str)
 {
-	int *index_table;
-	char **str_array;
+	int		*index_table;
+	char	**str_array;
 
 	if (str == NULL)
 		return (NULL);

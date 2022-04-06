@@ -2,7 +2,7 @@
 
 int	pwd(t_command *cmd, t_strlist *env)
 {
-	char cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	(void) cmd;
 	(void) env;

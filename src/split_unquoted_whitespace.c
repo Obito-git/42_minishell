@@ -10,34 +10,35 @@ static void	free_dir_and_set_to_null(char ***dir, long i)
 
 static void	set_quote_mode(const char c, bool *q)
 {
-	const int sq = 0;
-	const int dq = 1;
+	const int	sq = 0;
+	const int	dq = 1;
 
 	if (c == '\'' && q[dq] == false)
 	{
 		if (q[sq])
 			q[sq] = false;
 		else
-			q[sq] =true;
+			q[sq] = true;
 	}
 	else if (c == '\"' && q[sq] == false)
 	{
 		if (q[dq])
 			q[dq] = false;
 		else
-			q[dq] =true;
+			q[dq] = true;
 	}
 }
 
 static const char	*next_sep(const char *str, char *set, bool *quotes)
 {
-	const int sq = 0;
-	const int dq = 1;
+	const int	sq = 0;
+	const int	dq = 1;
 
-	while (str && *str && ( (quotes[sq] || quotes[dq]) || (!ft_is_in_set(*str, set) && !quotes[sq] && !quotes[dq])))
+	while (str && *str && ((quotes[sq] || quotes[dq])
+			|| (!ft_is_in_set(*str, set) && !quotes[sq] && !quotes[dq])))
 	{
-			set_quote_mode(*str, quotes);
-			str++;
+		set_quote_mode(*str, quotes);
+		str++;
 	}
 	return (str);
 }

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
- bool	check_unexpected_token(t_command *head, char **msg)
+bool	check_unexpected_token(t_command *head, char **msg)
 {
 	while (head)
 	{
@@ -10,14 +10,14 @@
 				*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'newline\'\n");
 			else
 				*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'|\'\n");
-			return ( true);
+			return (true);
 		}
 		head = head->next;
 	}
 	return (false);
 }
 
- bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
+bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 {
 	t_command	*last;
 	char		*tmp;
@@ -25,7 +25,7 @@
 	if (ft_strlen(head->command) == 0 && head->pipe)
 	{
 		*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'|\'\n");
-		return ( true);
+		return (true);
 	}
 	last = get_last_cmd(head);
 	if (last->prev && last->prev->pipe
@@ -35,12 +35,12 @@
 		*msg = ft_str_threejoin(HEADER, tmp, "command not found\n");
 		free(tmp);
 		env->ret = 127;
-		return ( true);
+		return (true);
 	}
 	return (false);
 }
 
- bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
+bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
 {
 	*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'newline\'\n");
 	while (head)
@@ -50,18 +50,18 @@
 			free(*msg);
 			*msg = ft_str_threejoin(head->command, ": ", "command not found\n");
 			env->ret = 127;
-			return ( true);
+			return (true);
 		}
 		if (ft_strlen(head->command) == 0 && !head->pipe
 			&& !head->in_mode && !head->out_mode)
-			return ( true);
+			return (true);
 		head = head->next;
 	}
 	free(*msg);
 	return (false);
 }
 
-t_command   *find_syntax_errors(t_command *head, t_strlist *env)
+t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 {
 	char		*msg;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 16:28:19 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/06 16:28:19 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	cd(t_command *cmd, t_strlist *env)
@@ -22,7 +34,7 @@ int	cd(t_command *cmd, t_strlist *env)
 			{
 				ft_dprintf_str(2,
 					"minishell: cd: %s: No such file or directory\n", paths[0]);
-					return (1);
+				return (1);
 			}
 			return (0);
 		}

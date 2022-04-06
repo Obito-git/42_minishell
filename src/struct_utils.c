@@ -48,7 +48,7 @@ void	delete_tmpfiles(t_command *head)
 //applies free on each element of an array list
 t_command	*free_commands(t_command *c)
 {
-	t_command 	*tmp;
+	t_command	*tmp;
 	int			i;
 
 	delete_tmpfiles(c);

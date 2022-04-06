@@ -2,7 +2,7 @@
 
 t_strlist	init_strlist()
 {
-	t_strlist new_strlist;
+	t_strlist	new_strlist;
 
 	new_strlist.head = NULL;
 	new_strlist.size = 0;
@@ -10,9 +10,9 @@ t_strlist	init_strlist()
 	return (new_strlist);
 }
 
-t_strlist *new_strlist()
+t_strlist	*new_strlist(void)
 {
-	t_strlist *new_list;
+	t_strlist	*new_list;
 
 	new_list = malloc(sizeof(t_strlist));
 	if (!new_list)
@@ -21,9 +21,9 @@ t_strlist *new_strlist()
 	return (new_list);
 }
 
-t_strlist_node	init_strlist_node()
+t_strlist_node	init_strlist_node(void)
 {
-	t_strlist_node node;
+	t_strlist_node	node;
 
 	node.str = NULL;
 	node.len = 0;
@@ -32,9 +32,9 @@ t_strlist_node	init_strlist_node()
 	return (node);
 }
 
-t_strlist_node *new_strlist_node()
+t_strlist_node	*new_strlist_node(void)
 {
-	t_strlist_node *new_node;
+	t_strlist_node	*new_node;
 
 	new_node = malloc(sizeof(t_strlist_node));
 	if (!new_node)
@@ -45,7 +45,7 @@ t_strlist_node *new_strlist_node()
 
 void	deinit_strlist(t_strlist *list)
 {
-	t_strlist_node *next_node;
+	t_strlist_node	*next_node;
 
 	if (list)
 	{
@@ -109,7 +109,7 @@ int	append_str_to_strlist(t_strlist *list, char *str)
 
 int	append_strarray_to_strlist(t_strlist *list, char **strarray)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strarray[i])
@@ -123,7 +123,7 @@ int	append_strarray_to_strlist(t_strlist *list, char **strarray)
 
 void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 {
-	t_strlist_node *curr;
+	t_strlist_node	*curr;
 	size_t			size;
 
 	if (list && node)
@@ -152,7 +152,7 @@ void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 
 void	remove_str_from_strlist(t_strlist *list, char *str)
 {
-	t_strlist_node *curr;
+	t_strlist_node	*curr;
 	size_t			size;
 
 	if (list && str)
@@ -162,7 +162,7 @@ void	remove_str_from_strlist(t_strlist *list, char *str)
 			curr = list->head;
 			size = list->size;
 			while (size-- && ft_strcmp(curr->str, str))
-				curr =  list->head->next;
+				curr = list->head->next;
 			if (size >  0)
 			{
 				curr->prev->next = curr->next;
@@ -174,10 +174,10 @@ void	remove_str_from_strlist(t_strlist *list, char *str)
 	}
 }
 
-int			update_strlist_strarr_value(t_strlist *list)
+int	update_strlist_strarr_value(t_strlist *list)
 {
-	t_strlist tmp_list;
-	char	**new_strarr_val;
+	t_strlist	tmp_list;
+	char		**new_strarr_val;
 
 	tmp_list = *list;
 	new_strarr_val = malloc((list->size + 1) * sizeof(char **));
@@ -197,14 +197,14 @@ int			update_strlist_strarr_value(t_strlist *list)
 
 t_strlist	*make_strlist_from_null_terminated_str_array(char **envp)
 {
-	t_strlist *list;
+	t_strlist	*list;
 
 	list = new_strlist();
 	if (!list)
 		return (NULL);
 	if (envp)
 	{
-		while  (*envp)
+		while (*envp)
 		{
 			if (append_str_to_strlist(list, *envp) == -1)
 			{

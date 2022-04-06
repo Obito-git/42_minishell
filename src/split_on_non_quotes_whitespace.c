@@ -10,23 +10,20 @@ static void	free_dir_and_set_to_null(char ***dir, long i)
 
 static const char	*next_sep(const char *str, char *set)
 {
-	char quote;
+	char	quote;
 
 	quote = *str;
 	while (str && *str)
 	{
-		//Switch state
 		if (ft_is_in_set(*str, "\'\"") && quote == *str)
 			quote = 0;
 		else if (ft_is_in_set(*str, "\'\""))
 			quote = *str;
-		//If we are not in quote mode, advance while not a whitespace
 		if (!ft_is_in_set(quote, "\'\""))
 		{
 			if (!ft_is_in_set(*str, set))
 				str++;
 		}
-		//Else ignore the whitespace between quotes
 		else
 			str++;
 	}

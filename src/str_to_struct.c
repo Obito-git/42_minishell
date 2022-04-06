@@ -89,7 +89,7 @@ void	set_struct_pipes_redirections(t_command *com, char *c)
 	if (!c)
 		return ;
 	if (!ft_strcmp(c, "|"))
-		com->pipe =true;
+		com->pipe = true;
 	else
 	{
 		if (!ft_strcmp(c, ">>"))
@@ -106,7 +106,7 @@ void	set_struct_pipes_redirections(t_command *com, char *c)
 }
 
 //return parsed struct
-t_command *get_command(char **c, int *pos, t_strlist *env)
+t_command	*get_command(char **c, int *pos, t_strlist *env)
 {
 	t_command	*res;
 
@@ -154,9 +154,9 @@ t_command	*set_command_list_tube(t_command *head)
 }
 
 //takes an array of strings and parse them in an array of structures
-t_command *get_commands_list(char **c, t_strlist *env)
+t_command	*get_commands_list(char **c, t_strlist *env)
 {
-	int		i;
+	int			i;
 	t_command	*head;
 	t_command	*tmp;
 	t_command	*current;

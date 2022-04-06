@@ -2,7 +2,6 @@
 
 void	print_strarray(char **com)
 {
-	//delete of smthing
 	if (com)
 	{
 		while (*com)

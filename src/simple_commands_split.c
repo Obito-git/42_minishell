@@ -10,8 +10,8 @@ static void	free_str_array_and_set_to_null(char ***dir, long i)
 
 static void	set_quote_mode(const char *c, bool *q)
 {
-	const int sq = 0;
-	const int dq = 1;
+	const int	sq = 0;
+	const int	dq = 1;
 
 	if (c)
 	{
@@ -20,27 +20,28 @@ static void	set_quote_mode(const char *c, bool *q)
 			if (q[sq])
 				q[sq] = false;
 			else
-				q[sq] =true;
+				q[sq] = true;
 		}
 		else if (*c == '\"')
 		{
 			if (q[dq])
 				q[dq] = false;
 			else
-				q[dq] =true;
+				q[dq] = true;
 		}
 	}
 }
 
 static const char	*next_sep(const char *str, char *set, bool *quotes)
 {
-	const int sq = 0;
-	const int dq = 1;
+	const int	sq = 0;
+	const int	dq = 1;
 
-	while (str && *str && ( (quotes[sq] || quotes[dq]) || (!ft_is_in_set(*str, set) && !quotes[sq] && !quotes[dq])))
+	while (str && *str && ((quotes[sq] || quotes[dq])
+			|| (!ft_is_in_set(*str, set) && !quotes[sq] && !quotes[dq])))
 	{
-			set_quote_mode(str, quotes);
-			str++;
+		set_quote_mode(str, quotes);
+		str++;
 	}
 	return (str);
 }
@@ -63,10 +64,6 @@ static char	**strarray_alloc(const char *s, char *set)
 		return (NULL);
 	quotes[0] = 0;
 	quotes[1] = 0;
-	/*if (*s == '\'')*/
-	/*    quotes[0] =true;*/
-	/*else if (*s == '\"')*/
-	/*    quotes[1] =true;*/
 	size = 1;
 	s = next_word(s, set, quotes);
 	while (*s)
@@ -77,7 +74,6 @@ static char	**strarray_alloc(const char *s, char *set)
 		size++;
 	}
 	ret = ft_calloc(size + 1, sizeof(char *));
-	/*printf("Allocated for %li\n", size - 1);*/
 	return (ret);
 }
 
@@ -89,8 +85,7 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	long		i;
 	bool		quotes[2];
 
-	quotes[0] = 0;
-	quotes[1] = 0;
+	ft_bzero(quotes, 2 * sizeof(bool));
 	str_array = strarray_alloc(s, set);
 	s = next_word(s, set, quotes);
 	follower = s;

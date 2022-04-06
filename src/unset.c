@@ -13,11 +13,10 @@ int	unset(t_command *cmd, t_strlist *env)
 		len = ft_strlen(*arg);
 		while (var_list.size--)
 		{
-
 			if (ft_strncmp(var_list.head->str, *arg, len) == 0)
 			{
 				remove_node_from_strlist(env, var_list.head);
-				break;
+				break ;
 			}
 			var_list.head = var_list.head->next;
 		}
