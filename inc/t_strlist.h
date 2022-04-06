@@ -32,10 +32,7 @@ int				update_strlist_strarr_value(t_strlist *list);
 t_strlist		*make_strlist_from_null_terminated_str_array(char **envp);
 char			*find_strlist_node_varvalue(t_strlist *list, char *name);
 int				get_strlist_total_len(t_strlist strlist);
-<<<<<<< HEAD
-=======
 void			print_strlist(t_strlist list);
->>>>>>> new_parse
 
 #endif /* T_STRLIST_H */
 

@@ -265,8 +265,6 @@ int	get_strlist_total_len(t_strlist strlist)
 	}
 	return (total_len);
 }
-<<<<<<< HEAD
-=======
 
 void	print_strlist(t_strlist list)
 {
@@ -276,4 +274,3 @@ void	print_strlist(t_strlist list)
 		list.head = list.head->next;
 	}
 }
->>>>>>> new_parse

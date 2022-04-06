@@ -16,13 +16,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdbool.h>
-<<<<<<< HEAD:libft/libft.h
-# include "constants.h"
-# define TRUE 1
-# define FALSE 0
-=======
 # include <limits.h>
->>>>>>> new_parse:libft/includes/libft.h
 
 typedef struct s_list
 {
@@ -72,12 +66,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char	*dest, const char	*src, size_t	size);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
-char	*ft_strcat_slice(char *dest, const char *src, int n);
 char	*ft_strnstr(const char	*str, const char	*to_find, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_join_null_terminated_str_array(char **str);
 char	*ft_str_threejoin(char const *s1, char const *s2, char const *s3);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
@@ -89,7 +81,6 @@ char	*get_next_line(int fd);
 size_t	ft_numblen(long numb);
 char	*ft_itoa(long n);
 char	*ft_convert_base(unsigned long nbr, char *base);
-bool	ft_is_in_set(char c, char *set);
 /* math/ */
 long	ft_pow(long nb, int power);
 /* lists/ */

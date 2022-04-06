@@ -9,9 +9,7 @@
 /*   Updated: 2022/03/30 13:56:50 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../libft.h"
-#include <stdbool.h>
+#include "libft.h"
 
 bool	ft_is_in_set(char c, char *set)
 {
@@ -26,4 +24,3 @@ bool	ft_is_in_set(char c, char *set)
 	}
 	return (false);
 }
-

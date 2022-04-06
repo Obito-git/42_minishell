@@ -15,11 +15,7 @@ bool	is_special_var_start_char(int c)
 		|| c == '*'
 		|| c == '_'
 		|| ft_isdigit(c))
-<<<<<<< HEAD
-		return (true);
-=======
 		return ( true);
->>>>>>> new_parse
 	return (false);
 }
 
@@ -28,22 +24,14 @@ bool	is_valid_shellvar_start_char(int c)
 	if (ft_isdigit(c))
 		return (false);
 	if (is_special_var_start_char(c) || ft_isalpha(c))
-<<<<<<< HEAD
-		return (true);
-=======
 		return ( true);
->>>>>>> new_parse
 	return (false);
 }
 
 bool	is_valid_env_var_char(int c)
 {
 	if (c == '_' || ft_isalpha(c))
-<<<<<<< HEAD
-		return (true);
-=======
 		return ( true);
->>>>>>> new_parse
 	return (false);
 }
 
@@ -51,11 +39,7 @@ bool	is_single_dollar(char *c)
 {
 	if (c[0] == '$')
 		if (!is_valid_shellvar_start_char(c[1]))
-<<<<<<< HEAD
-			return (true);
-=======
 			return ( true);
->>>>>>> new_parse
 	return (false);
 }
 
@@ -110,11 +94,7 @@ t_strlist	*get_expansions_list(char *to_exp, int *indexes, t_strlist *env)
 		if (indexes[y] == 0)
 			break ;
 		var = get_env_var_val_from_slice(&to_exp[indexes[i]],
-<<<<<<< HEAD
-				&to_exp[indexes[y]], env->envp);
-=======
 				&to_exp[indexes[y]], env->strarr_value);
->>>>>>> new_parse
 		append_str_to_strlist(exp_list, var);
 		i = y;
 		y++;

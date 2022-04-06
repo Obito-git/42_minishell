@@ -17,11 +17,7 @@
 NAME			=	minishell
 
 #CC			  	=	gcc-11
-<<<<<<< HEAD
-CC			  	=	clang-12
-=======
-CC			  	=	clang
->>>>>>> new_parse
+CC				=	clang
 
 INCLUDE_FLAGS	=	-Iinc -I libft/includes
 ifeq ($(shell uname -s),Darwin)

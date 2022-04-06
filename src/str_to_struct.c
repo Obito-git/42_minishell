@@ -113,19 +113,10 @@ t_command *get_command(char **c, int *pos, t_strlist *env)
 	res = command_init();
 	if (!res)
 		return (NULL);
-<<<<<<< HEAD
-	while (res->command[y] && res->command[y] != ' '
-			&& !is_pipe_redir(res->command[y]))
-		y++;
-	res->command[y] = '\0';
-	res->path_to_bin = find_command(env->envp, res);
-	set_command_args(res, c, y);
-=======
 	res->command = ft_strdup(c[*pos]);
 	if (!res->command)
 		return (NULL);
 	res->args = get_com_args(c, pos);
->>>>>>> new_parse
 	if (!res->args)
 	{
 		free(res->command);

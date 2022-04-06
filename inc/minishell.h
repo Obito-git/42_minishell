@@ -15,12 +15,8 @@
 # include <sys/signal.h>
 # include "libft.h"
 # include "t_strlist.h"
-<<<<<<< HEAD
-
-=======
 # include "expansion.h"
 # include "quote_splitting.h"
->>>>>>> new_parse
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
@@ -29,13 +25,9 @@
 # define _GNU_SOURCE 1
 # define EXIT_UNK_CMD 127
 
-<<<<<<< HEAD
-# define PROMPT   "\e[2K\e[G\e[31mminishell$\e[0m "
-=======
 # define RED   "\e[31m"
 # define ENDCOLOR   "\e[0m "
 # define PROMPT   "\e[2K\e[G" RED "minishell$" ENDCOLOR
->>>>>>> new_parse
 # define REPROMPT   "\n\e[31mminishell$\e[0m "
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
@@ -107,13 +99,9 @@ int	cd(t_command *cmd, t_strlist *env);
 //env
 char	*get_env_var_start(char *var, char **envp);
 char	*get_env_var_val(char *var, char **envp);
-<<<<<<< HEAD
-char	*get_env_var_val_from_slice(char *var, char *end, char **envp);
-=======
 ssize_t	writevar(int fd, char *var, char **envp);
 //vars
 char	*get_env_var_val_from_slice(char *var, char *var_end, char **envp);
->>>>>>> new_parse
 // signal handling
 void	set_signal_handling();
 void	sigint_handler(int signal);
@@ -121,13 +109,4 @@ void	sigquit_handler(int signal);
 void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
-<<<<<<< HEAD
-//quotes
-char	**quote_preserving_split(char *str);
-//expand
-char		**expand_args(char **argv, t_strlist *env);
-
-#endif /* MINISHELL_H */
-=======
 #endif
->>>>>>> new_parse

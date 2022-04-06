@@ -104,52 +104,6 @@ t_strlist	*expand_pipeline(char *user_input, t_strlist *env)
 	return (arg_list);
 }
 
-<<<<<<< HEAD
-//main parsing function
-void	print_strarray(char **com)
-{
-	while (*com)
-	{
-		printf("%s\n", *com);
-		com++;
-	}
-}
-
-t_command	*parse(char *user_input, t_strlist *env)
-{
-	char **com;
-	t_command *head;
-	int i = 0;
-	char *expanded = NULL;
-
-	//Handle size;
-	com = (char **) malloc(sizeof(char *) * (ft_strlen(user_input) + 2));
-	if (!com)
-		return (NULL);
-
-	com = cut_all_commands(com, user_input, &i);
-	/*com = ft_strtrim_array(com, " ");*/
-	com = quote_preserving_split(user_input);
-	printf("Quotes preserving split :\n");
-	print_strarray(com);
-	com = expand_args(com, env);
-	printf("Split after expansion :\n");
-	print_strarray(com);
-	expanded = ft_join_null_terminated_str_array(com);
-	printf("Expanded string : %s\n", expanded);
-	com = split_on_non_quoted_whitespace(expanded);
-
-
-	set_input_pattern(com);
-	head = get_commands_list(com, env);
-	i = 0;
-	while (com && com[i])
-		free(com[i++]);
-	free(com);
-	return (head);
-	//Where is user_input freed ?
-}
-=======
 t_command	*parse(char *user_input, t_strlist *env)
 {
 	t_command	*head;
@@ -164,4 +118,3 @@ t_command	*parse(char *user_input, t_strlist *env)
 	return (head);
 	//Where is user_input freed ?
 }
->>>>>>> new_parse
