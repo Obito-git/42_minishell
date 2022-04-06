@@ -1,15 +1,18 @@
-Expansion
-Why clear_history function in subject?
-Look at the readline functions
+Why clear_history function in subject ? (Not needed apparently)
 Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
 Fix command > file1 > file 2. (need to create file1, but write result in the last one)
 Fix extra newline in prompt. (you add it for fix ctrl^c i think)
-Anton: my bash do nothing in the case when cd with no args, owr print a promp
-Anton: unset dont working for me :( . if "unset $PATH" do nothing, if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
-Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You are cheking arg len caracters, possible error is "unset test" will work for $test123 if $test not existing
-input/output file without permissons
-Check for NULL return in prepare commands ?
 
+Anton: my bash do nothing in the case when cd with no args, owr print a promp
+	--> That's ok we don't have to handle that
+
+Anton: unset dont working for me :( . if "unset $PATH" do nothing, 
+		if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
+
+Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You are cheking arg len caracters, possible error is "unset test" will work for $test123 if $test not existing
+--> Did I fix that last time ?
+
+input/output file without permissons
 
 Anton
 ============
@@ -27,9 +30,13 @@ Fixed many of valgrind errors and no memory leaks were detected
 
 Tom
 ===========
-Signal handling : Prompt still not doing ok
+Expansion :stop handling of special variables
 
-Implemet ft_strndup and remove strndup
+Check returning of NULL and freeing everything in case of expansion errors
+
+Signal handling : Prompt still not ok --> Launch cat and ctrl+\
+
+Implement ft_strndup and remove strndup --> DONE
 
 check for redir symbol at beginning of the output (may not work)
 
@@ -41,17 +48,11 @@ Implement all built ins :
 	unset : done
 	exit : What about history ?
 	env : done
-(Do we need to copy env and carry our own copy around ?)
 
-Replace printf with dprintf -> STDERR
+Replace printf with dprintf -> Done
 
-Pipeline returns last pid : should work
+Pipeline returns last pid : ?
 
-If necessary maybe make a t_cmd_list struct {
-	t_command *head;
-	t_command *curr_cmd;
-	int		remaining;
-} 
-
-If there's just one command, no forking because built-ins do not have lasting effect whem piped but do on their own (done)
+If there's just one command, no forking because built-ins do not have lasting 
+effect whem piped but do on their own. Still OK ?
 
