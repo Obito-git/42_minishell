@@ -7,14 +7,15 @@
 bool	is_special_var_start_char(int c)
 {
 	if (c == '?'
-		|| c == '$'
-		|| c == '@'
-		|| c == '#'
-		|| c == '!'
-		|| c == '-'
-		|| c == '*'
-		|| c == '_'
-		|| ft_isdigit(c))
+		/*|| c == '$'*/
+		/*|| c == '@'*/
+		/*|| c == '#'*/
+		/*|| c == '!'*/
+		/*|| c == '-'*/
+		/*|| c == '*'*/
+		/*|| c == '_'*/
+		/*|| ft_isdigit(c)*/
+		)
 		return (true);
 	return (false);
 }
