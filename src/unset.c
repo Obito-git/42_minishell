@@ -23,5 +23,5 @@ int	unset(t_command *cmd, t_strlist *env)
 		}
 		arg++;
 	}
-	return (update_strlist_envp(env));
+	return (update_strlist_strarr_value(env));
 }

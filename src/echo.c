@@ -6,7 +6,7 @@ int	echo(t_command *cmd, t_strlist *env)
 	bool	newline;
 
 	(void) env;
-	newline = true;
+	newline =true;
 	args = (char **)cmd->args;
 	if (!*args)
 		return (0);

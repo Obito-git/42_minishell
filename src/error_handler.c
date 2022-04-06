@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_bool	check_unexpected_token(t_command *head, char **msg)
+ bool	check_unexpected_token(t_command *head, char **msg)
 {
 	while (head)
 	{
@@ -10,14 +10,14 @@ t_bool	check_unexpected_token(t_command *head, char **msg)
 				*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'newline\'\n");
 			else
 				*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'|\'\n");
-			return (TRUE);
+			return ( true);
 		}
 		head = head->next;
 	}
-	return (FALSE);
+	return (false);
 }
 
-t_bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
+ bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 {
 	t_command	*last;
 	char		*tmp;
@@ -25,7 +25,7 @@ t_bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 	if (ft_strlen(head->command) == 0 && head->pipe)
 	{
 		*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'|\'\n");
-		return (TRUE);
+		return ( true);
 	}
 	last = get_last_cmd(head);
 	if (last->prev && last->prev->pipe
@@ -35,12 +35,12 @@ t_bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 		*msg = ft_str_threejoin(HEADER, tmp, "command not found\n");
 		free(tmp);
 		env->ret = 127;
-		return (TRUE);
+		return ( true);
 	}
-	return (FALSE);
+	return (false);
 }
 
-t_bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
+ bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
 {
 	*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'newline\'\n");
 	while (head)
@@ -50,21 +50,23 @@ t_bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
 			free(*msg);
 			*msg = ft_str_threejoin(head->command, ": ", "command not found\n");
 			env->ret = 127;
-			return (TRUE);
+			return ( true);
 		}
 		if (ft_strlen(head->command) == 0 && !head->pipe
 			&& !head->in_mode && !head->out_mode)
-			return (TRUE);
+			return ( true);
 		head = head->next;
 	}
 	free(*msg);
-	return (FALSE);
+	return (false);
 }
 
 t_command   *find_syntax_errors(t_command *head, t_strlist *env)
 {
 	char		*msg;
 
+	if (!head)
+		return (NULL);
 	msg = NULL;
 	env->ret = 2;
 	if (check_command_syntax(head, &msg, env)

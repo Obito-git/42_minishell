@@ -24,7 +24,7 @@ int	try_to_execute(t_command *c, t_strlist *env)
 		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
 	}
 	else
-		return (execve(c->path_to_bin, c->args, env->envp));
+		return (execve(c->path_to_bin, c->args, env->strarr_value));
 	return (EXIT_UNK_CMD);
 }
 

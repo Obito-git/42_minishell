@@ -40,7 +40,7 @@ void	reset_signals()
 void	sigint_handler(int signal)
 {
 	(void) signal;
-	write(1, PROMPT, sizeof(PROMPT) - 1);
+	write(1, REPROMPT, sizeof(REPROMPT) - 1);
 }
 
 /*void	sigquit_handler(int signal)*/

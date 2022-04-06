@@ -1,65 +1,82 @@
 #include "minishell.h"
-#include "libft.h"
 
-//returns next argument. working with ft_minishell_split
-char	*get_next_arg(char *s, int *i, int *z)
+void	print_strarray(char **com)
 {
-	char	*res;
-	char	*tmp;
-
-	tmp = ft_substr(s, *z, *i - *z + 1);
-	if (!tmp)
-		return (NULL);
-	while (s[*i] && s[*i + 1] && s[*i + 1] == ' ')
-		*i += 1;
-	res = ft_strtrim(tmp, " ");
-	free(tmp);
-	/*
-	while (res && ft_strlen(res) > 0
-			&& ((res[0] == '\"' && res[ft_strlen(res) - 1] == '\"')
-			|| (res[0] == '\'' && res[ft_strlen(res) - 1] == '\'')))
+	//delete of smthing
+	if (com)
 	{
-		if (res[0] == '\"')
-			tmp = ft_strtrim(res, "\"");
-		else
-			tmp = ft_strtrim(res, "\'");
-		free(res);
-		if (!tmp)
-			return (NULL);
-		res = tmp;
-	} */
-	return (res);
+		while (*com)
+		{
+			printf("%s\n", *com);
+			com++;
+		}
+	}
 }
 
-//working like split but not touching the content inside quotes;
-//used for not touch delimiter (space) inside quotes
-//also deleting all external quotes for execev (it takes args without ""'')
-char	**ft_minishell_split(char **res, char *s, int z, int i)
+bool	ft_is_in_set(char c, char *set)
 {
-	int		y;
-	bool	q;
-	bool	dq;
-
-	res = (char **) malloc(sizeof(char *) * (z + 1));
-	q = false;
-	dq = false;
-	z = 0;
-	i = 0;
-	y = 0;
-	while (res && s[i])
+	if (set)
 	{
-		set_quotes(s[i], &q, &dq);
-		if ((s[i] == ' ' && !q && !dq) || !s[i + 1])
+		while (*set)
 		{
-			res[y++] = get_next_arg(s, &i, &z);
-			if (!res[y - 1])
-				return (free_strarray(res));
-			z = i;
+			if (c == *set)
+				return (true);
+			set++;
 		}
-		res[y] = NULL;
+	}
+	return (false);
+}
+
+/* This function will always null terminate past n bytes so make sure you
+ * allocate for the null byte at the end or it will overflow 				*/
+char	*ft_strcat_slice(char *dest, const char *src, int n)
+{
+	size_t		i;
+	size_t		y;
+	const char	*end;
+
+	if (dest && src && n > 0)
+	{
+		i = 0;
+		y = ft_strlen(dest);
+		end = src + n;
+		while (src[i] && &src[i] != end)
+		{
+			dest[y] = src[i];
+			i++;
+			y++;
+		}
+		dest[y] = '\0';
+	}
+	return (dest);
+}
+
+char	*ft_join_null_terminated_str_array(char **str_array)
+{
+	char	*ret;
+	size_t	total_len;
+	int		i;
+
+	if (!str_array)
+		return (NULL);
+	total_len = 0;
+	i = 0;
+	while (str_array[i])
+	{
+		total_len += ft_strlen(str_array[i]);
 		i++;
 	}
-	return (res);
+	ret = malloc(total_len + 1);
+	if (!ret)
+		return (NULL);
+	ret[0] = 0;
+	i = 0;
+	while (str_array[i])
+	{
+		ft_strcat(ret, str_array[i]);
+		i++;
+	}
+	return (ret);
 }
 
 //applies ft_strtrim on every string of the array
