@@ -36,10 +36,10 @@ CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3
 #CFLAGS			+=	-fanalyzer
 
 #Get sources from src/ directory
-SRC/SOURCES		=	$(wildcard src/*.c)
+#SRC/SOURCES		=	$(wildcard src/*.c)
 #SRC/SOURCES	+=	$(wildcard src/*/*.c)
-#SHELL			=	zsh
-#SRC/SOURCES	=	$(shell ls src/**/*.c)
+SHELL			=	zsh
+SRC/SOURCES	=	$(shell ls src/**/*.c)
 
 INC/HEADERS		=	$(wildcard inc/*.h)
 
