@@ -9,9 +9,9 @@
 /*   Updated: 2022/01/24 09:02:59 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
-t_bool	ft_isspace(char c)
+bool	ft_isspace(char c)
 {
 	return (c == '\f' || c == '\t' || c == ' '
 		|| c == '\n' || c == '\r' || c == '\v');

@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/23 11:51:36 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 static size_t	get_str_count(char const *str, char delim)
 {

@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/24 10:42:43 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 long	ft_pow(long nb, int power)
 {

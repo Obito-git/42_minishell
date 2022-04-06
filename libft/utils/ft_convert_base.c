@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/24 09:06:39 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 static size_t	ft_resultlen(unsigned long nbr, char *base)
 {

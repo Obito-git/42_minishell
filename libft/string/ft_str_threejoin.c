@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/24 09:06:49 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 char	*ft_str_threejoin(char const *s1, char const *s2, char const *s3)
 {

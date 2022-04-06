@@ -9,11 +9,11 @@
 /*   Updated: 2021/11/23 11:55:15 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 void	ft_putnbr_fd(long n, int fd)
 {
-	if (n == LONG_MIN - 1)
+	if (n == LONG_MIN)
 	{
 		ft_putstr_fd("-9223372036854775808", fd);
 		return ;

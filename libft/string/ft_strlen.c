@@ -9,7 +9,7 @@
 /*   Updated: 2021/08/05 18:49:59 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 size_t	ft_strlen(const char *str)
 {

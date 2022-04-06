@@ -9,7 +9,7 @@
 /*   Updated: 2022/01/24 09:05:14 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../libft.h"
+#include "libft.h"
 
 static int	ft_base_check(char	*base)
 {
