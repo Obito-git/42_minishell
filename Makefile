@@ -16,10 +16,10 @@
 
 NAME			=	minishell
 
-CC			  	=	gcc-11
-#CC			  	=	clang
+#CC			  	=	gcc-11
+CC			  	=	clang
 
-INCLUDE_FLAGS	=	-Iinc -Ilibft
+INCLUDE_FLAGS	=	-Iinc -I libft/includes
 ifeq ($(shell uname -s),Darwin)
 INCLUDE_FLAGS	+=	-I/opt/homebrew/Cellar/readline/8.1.2/include
 endif
@@ -28,9 +28,9 @@ endif
 CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 
 
 #Our beloved address sanitizer
-asan			=	-fsanitize=address	
-CFLAGS			+=	$(asan)	
-LDFLAGS			+=	$(asan)	
+#asan			=	-fsanitize=address	
+#CFLAGS			+=	$(asan)	
+#LDFLAGS			+=	$(asan)	
 
 #Works with gcc version 10 and 11
 #CFLAGS			+=	-fanalyzer
