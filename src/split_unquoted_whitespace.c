@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static void	free_dir_and_set_to_null(char ***dir, long i)
+static void	free_strarray_and_set_to_null(char ***dir, long i)
 {
 	while (i-- >= 0)
 		free((*dir)[i]);
@@ -8,7 +8,7 @@ static void	free_dir_and_set_to_null(char ***dir, long i)
 	*dir = NULL;
 }
 
-static void	set_quote_mode(const char c, bool *q)
+static void	set_quote_mode(const char c, bool q[2])
 {
 	const int	sq = 0;
 	const int	dq = 1;
@@ -52,7 +52,7 @@ static const char	*next_word(const char *str, char *set, bool quotes[2])
 	return (str);
 }
 
-static char	**diralloc(const char *s, char *set)
+static char	**strarray_alloc(const char *s, char *set)
 {
 	size_t	size;
 	char	**ret;
@@ -73,32 +73,31 @@ static char	**diralloc(const char *s, char *set)
 	return (ret);
 }
 
-#include <string.h> //Replace strndup !
 char	**split_on_unquoted_whitespace(char const *s, char *set)
 {
-	char		**dir;
+	char		**str_array;
 	const char	*follower;
 	long		i;
 	bool		quotes[2];
 
 	ft_bzero(quotes, 2 * sizeof(bool));
-	dir = diralloc(s, set);
+	str_array = strarray_alloc(s, set);
 	s = next_word(s, set, quotes);
 	follower = s;
 	i = 0;
-	if (!dir)
+	if (!str_array)
 		return (NULL);
 	if (!*s)
-		dir[i++] = ft_strdup("");
-	while (dir && *s)
+		str_array[i++] = ft_strdup("");
+	while (str_array && *s)
 	{
 		s = next_sep(s, set, quotes);
-		dir[i] = ft_strndup(follower, s - follower);
-		if (!dir[i])
-			free_dir_and_set_to_null(&dir, i);
+		str_array[i] = ft_strndup(follower, s - follower);
+		if (!str_array[i])
+			free_strarray_and_set_to_null(&str_array, i);
 		s = next_word(s, set, quotes);
 		follower = s;
 		i++;
 	}
-	return (dir);
+	return (str_array);
 }
