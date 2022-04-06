@@ -6,11 +6,11 @@ char	*remove_first_and_last_quote(char *str)
 	char *ret;
 
 	len = ft_strlen(str);
-	ret = malloc(len + 1);
+	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
 		return (NULL);
 	if (ft_strcmp(str, "\"\"") == 0 || ft_strcmp(str, "\'\'") == 0)
-			return (ft_strdup(""));
+			return (ft_strcat(ret, ""));
 	if (ft_is_in_set(str[0], "\'\""))
 	{
 		ft_strcpy(ret, str + 1);
