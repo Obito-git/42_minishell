@@ -58,6 +58,7 @@ int		ft_vdprintf_str(int fd, const char *str, va_list ap);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strdup(const char *src);
+char	*ft_strndup(const char *s, size_t n);
 char	*ft_strrev(char *str);
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(char *s1, char *s2);
