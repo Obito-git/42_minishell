@@ -97,7 +97,7 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	while (str_array && *s)
 	{
 		s = next_sep(s, set, quotes);
-		str_array[i] = strndup(follower, s - follower);
+		str_array[i] = ft_strndup(follower, s - follower);
 		follower = s;
 		if (!str_array[i])
 			free_str_array_and_set_to_null(&str_array, i);
@@ -105,7 +105,7 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 		if (*s)
 		{
 			s = next_word(s, set, quotes);
-			str_array[i] = strndup(follower, s - follower);
+			str_array[i] = ft_strndup(follower, s - follower);
 			if (!str_array[i])
 				free_str_array_and_set_to_null(&str_array, i);
 			follower = s;

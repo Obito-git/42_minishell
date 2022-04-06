@@ -200,7 +200,7 @@ char	**quote_preserving_split_splitter(char *str, int *idx_table)
 	while (strarray && idx_table[y] != 0)
 	{
 		//Use ft_strndup instead !
-		strarray[z] = strndup(&str[idx_table[i]], idx_table[y] - idx_table[i]);
+		strarray[z] = ft_strndup(&str[idx_table[i]], idx_table[y] - idx_table[i]);
 		if (strarray[z] == NULL)
 			free_strarray_and_set_to_null(&strarray, y);
 		i++;

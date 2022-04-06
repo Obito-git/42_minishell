@@ -75,7 +75,7 @@ char	**split_when_unquote(char const *s, char *set)
 	while (dir && *s)
 	{
 		s = next_sep(s, set);
-		dir[i] = strndup(follower, s - follower);
+		dir[i] = ft_strndup(follower, s - follower);
 		if (!dir[i])
 			free_dir_and_set_to_null(&dir, i);
 		s = next_word(s, set);
