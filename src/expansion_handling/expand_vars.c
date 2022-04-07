@@ -34,7 +34,8 @@ static int	get_expanded_len(t_strlist *exp_list, int *indexes)
 	return (total_len);
 }
 
-static t_strlist	*get_expansions_list(char *to_exp, int *indexes, t_strlist *env)
+static t_strlist	*get_expansions_list(
+		char *to_exp, int *indexes, t_strlist *env)
 {
 	t_strlist	*exp_list;
 	char		*var;
@@ -59,13 +60,14 @@ static t_strlist	*get_expansions_list(char *to_exp, int *indexes, t_strlist *env
 	return (exp_list);
 }
 
-/*Receives an index array following a certain format then and uses to create */
+/*Receives an index array following a certain format then and uses to create*/
 /*a string. The format is the following. Each index marks the (including)*/
-/*start of a token and the (excluding) end of the one that came before. */
-/*If the index is -1 it means that instead of copying the slice defined by the */
-/*index before and after it, the function must the value of an evironment */
+/*start of a token and the (excluding) end of the one that came before.*/
+/*If the index is -1 it means that instead of copying the slice defined by*/
+/*the index before and after it, the function must the value of an evironment*/
 /*variable*/
-static char	*expand_str_from_index_table(char *to_exp, int *idxs, t_strlist *env)
+static char	*expand_str_from_index_table(
+		char *to_exp, int *idxs, t_strlist *env)
 {
 	char		*exp_str;
 	t_strlist	*exp;
@@ -73,10 +75,9 @@ static char	*expand_str_from_index_table(char *to_exp, int *idxs, t_strlist *env
 	int			i;
 
 	exp = get_expansions_list(to_exp, idxs, env);
-	exp_str = malloc(get_expanded_len(exp, idxs) + 1);
+	exp_str = ft_calloc(get_expanded_len(exp, idxs) + 1, sizeof(char));
 	if (exp_str == NULL)
 		return (NULL);
-	exp_str[0] = 0;
 	i = 0;
 	y = 1;
 	while (idxs[y] != 0)
