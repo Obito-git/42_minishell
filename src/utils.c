@@ -2,6 +2,7 @@
 
 void	print_strarray(char **com)
 {
+	//FIXME (delete this func)
 	if (com)
 	{
 		while (*com)
@@ -10,20 +11,6 @@ void	print_strarray(char **com)
 			com++;
 		}
 	}
-}
-
-bool	ft_is_in_set(char c, char *set)
-{
-	if (set)
-	{
-		while (*set)
-		{
-			if (c == *set)
-				return (true);
-			set++;
-		}
-	}
-	return (false);
 }
 
 /* This function will always null terminate past n bytes so make sure you

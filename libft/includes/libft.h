@@ -33,6 +33,7 @@ bool	ft_isprint(int c);
 bool	ft_isspace(char c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+bool	ft_is_in_set(char c, char *set);
 /* mem/ */
 void	*ft_memset(void *destination, int c, size_t n);
 void	ft_bzero(void *s, size_t n);

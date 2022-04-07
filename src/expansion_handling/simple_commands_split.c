@@ -16,7 +16,7 @@ static const char	*next_sep(const char *str, char *set, bool *quotes)
 	while (str && *str && ((quotes[sq] || quotes[dq])
 			|| (!ft_is_in_set(*str, set) && !quotes[sq] && !quotes[dq])))
 	{
-		set_quote_mode(str, quotes);
+		set_quote_mode(*str, quotes);
 		str++;
 	}
 	return (str);
