@@ -17,7 +17,9 @@
 # include "t_strlist.h"
 # include "expansion.h"
 # include "quote_splitting.h"
-# define PATH_MAX 4096
+# ifndef PATH_MAX
+	# define PATH_MAX 4096
+# endif
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
 # define IN_FILE 1
