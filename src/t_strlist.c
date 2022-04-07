@@ -61,11 +61,12 @@ void	deinit_strlist(t_strlist *list)
 	}
 }
 
-void	free_strlist(t_strlist *list)
+void	*free_strlist(t_strlist *list)
 {
 	deinit_strlist(list);
 	free(list);
 	list = NULL;
+	return (NULL);
 }
 
 void	append_node_to_strlist(t_strlist *list, t_strlist_node *node)
@@ -121,6 +122,7 @@ int	append_strarray_to_strlist(t_strlist *list, char **strarray)
 	return (0);
 }
 
+//After execution head->next becomes the head
 void	remove_node_from_strlist(t_strlist *list, t_strlist_node *node)
 {
 	t_strlist_node	*curr;
@@ -272,5 +274,14 @@ void	print_strlist(t_strlist list)
 	{
 		printf("%s\n", list.head->str);
 		list.head = list.head->next;
+	}
+}
+
+void	strlistcat(char *dst, t_strlist *list)
+{
+	if (list->head)
+	{
+		ft_strcat_slice(dst, list->head->str, list->head->len);
+		list->head = list->head->next;
 	}
 }

@@ -70,36 +70,29 @@ static char	*expand_str_from_index_table(
 		char *to_exp, int *idxs, t_strlist *env)
 {
 	char		*exp_str;
-	t_strlist	*exp;
+	t_strlist	*exp_list;
 	int			y;
 	int			i;
 
-	exp = get_expansions_list(to_exp, idxs, env);
-	exp_str = ft_calloc(get_expanded_len(exp, idxs) + 1, sizeof(char));
-	if (exp_str == NULL)
-		return (NULL);
+	exp_list = get_expansions_list(to_exp, idxs, env);
+	exp_str = ft_calloc(get_expanded_len(exp_list, idxs) + 1, sizeof(char));
+	if (exp_str == NULL || exp_list == NULL)
+		return (free_strlist(exp_list));
 	i = 0;
 	y = 1;
 	while (idxs[y] != 0)
 	{
 		if (idxs[y] == -1)
-		{
-			if (exp->head)
-			{
-				ft_strcat_slice(exp_str, exp->head->str, exp->head->len);
-				exp->head = exp->head->next;
-			}
-			y++;
-			i = y;
-		}
+			strlistcat(exp_str, exp_list);
 		else
-		{
 			ft_strcat_slice(exp_str, &to_exp[idxs[i]], idxs[y] - idxs[i]);
-			i = y;
+		if (idxs[y] == -1)
 			y++;
-		}
+		i = y;
+		if (idxs[y] != -1)
+			y++;
 	}
-	free_strlist(exp);
+	free_strlist(exp_list);
 	return (exp_str);
 }
 

@@ -22,7 +22,7 @@ t_strlist		*new_strlist();
 t_strlist_node	init_strlist_node();
 t_strlist_node *new_strlist_node();
 void			deinit_strlist(t_strlist *list);
-void			free_strlist(t_strlist *list);
+void			*free_strlist(t_strlist *list);
 void			append_node_to_strlist(t_strlist *list, t_strlist_node *node);
 int				append_str_to_strlist(t_strlist *list, char *str);
 int				append_strarray_to_strlist(t_strlist *list, char **strarray);
@@ -33,6 +33,7 @@ t_strlist		*make_strlist_from_null_terminated_str_array(char **envp);
 char			*find_strlist_node_varvalue(t_strlist *list, char *name);
 int				get_strlist_total_len(t_strlist strlist);
 void			print_strlist(t_strlist list);
+void			strlistcat(char *dst, t_strlist *list);
 
 #endif /* T_STRLIST_H */
 
