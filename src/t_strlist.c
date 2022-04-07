@@ -7,6 +7,7 @@ t_strlist	init_strlist()
 	new_strlist.head = NULL;
 	new_strlist.size = 0;
 	new_strlist.strarr_value = NULL;
+	new_strlist.current_path = NULL;
 	return (new_strlist);
 }
 
@@ -58,6 +59,7 @@ void	deinit_strlist(t_strlist *list)
 		}
 		list->head = NULL;
 		free(list->strarr_value);
+		free(list->current_path);
 	}
 }
 

@@ -15,6 +15,7 @@ typedef struct s_strlist {
 	size_t			size;
 	char			**strarr_value;
 	int				ret;
+	char			*current_path;
 } t_strlist;
 
 t_strlist		init_strlist();

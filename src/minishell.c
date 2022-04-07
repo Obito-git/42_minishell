@@ -66,6 +66,8 @@ void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env)
 /*Checks main arguments*/
 bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
 {
+	char	cwd[PATH_MAX];
+
 	if (ac != 1 || !av)
 	{
 		printf("You can't have args\n");
@@ -77,6 +79,7 @@ bool	check_main_args(int ac, char **av, char **envp, t_strlist **env)
 		perror("Unable to allocate for list of variables");
 		return (false);
 	}
+	(*env)->current_path = ft_strdup(getcwd(cwd, sizeof(cwd)));
 	printf("\e[1A");
 	return (true);
 }
