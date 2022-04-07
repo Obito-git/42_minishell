@@ -1,0 +1,201 @@
+TEST PARSING     = -> OK   / -> FAUX        * -> CORRIGE
+
+problemes:
+- "" ou '' entourees d'espaces compte comme un argument \0       ----semble fix
+- "" ou '' coller a une chaine = ignorer (compter les espaces apres)
+- "text" ou 'text' doit compter les espaces apres
+- $VAR "" ou '' met fin au nom de la VAR (echo $"" different de echo $)
+
+1. ec""ho test 
+Ok
+2. ""echo test
+Ok
+3. echo"" test
+Ok
+4. echo "" test
+Ok
+5. echo $USER
+Ok
+6. echo $USE""R
+Ok --> Not sure why it works though lol
+7. echo ""$USER
+Ok
+8. echo "$"USER
+Ok
+9. echo  $""USER
+
+FAIL :
+echo
+$USER
+
+INSTEAD OF :
+echo
+USER
+
+10. ec''ho test
+Ok
+
+11. ''echo test
+Ok
+
+12. echo'' test
+Ok
+
+13. echo '' test
+Ok
+
+14. echo $USER
+Ok. Already done
+
+15. echo $USE''R
+Ok
+
+16. echo ''$USER
+Ok
+
+17. echo '$'USER
+Ok
+
+18. echo  $''USER
+Fail. Same problem as above
+
+19. echo $   
+Ok
+
+20. echo $"" 
+Fail :
+echo
+$
+Instead of :
+echo
+
+21. echo "" "" "" 
+Ok
+
+22. echo """"""
+Ok
+
+23. ls ""
+Ok
+
+24. echo $USER"" '' 
+Ok
+
+25. ls '"    
+To see bash errror message --> unclosed quote then ctrl+d
+Unclosed quotes message with leaks after entering various commands!
+26. ls "'
+Ok
+
+27. ls "    " 
+Ok
+
+28. ls "  ' " 
+Ok
+
+29. "ls"
+Ok
+
+30. l"s" 
+Ok
+
+31. ls"" -la 
+Ok
+
+32. ls "" -la
+Ok
+
+33. ls """"-la
+Ok
+
+34. ls ""-la
+Ok
+
+35. echo test""test
+Ok
+
+36. echo test"" test
+Ok
+
+37. echo test ""test 
+Ok
+38. echo test "'"test 
+Ok
+39. echo $$$USER
+echo
+cassepipecassepipe 
+WTF????
+40. echo $$USER 
+Ok
+41. echo $USER$USER 
+Ok
+42. echo $USER""$USER
+Ok
+43. echo $USER" "$USER 
+Ok
+44. echo "|" ls 
+Ok
+45. echo test$1test 
+Technically it's a special variable and not an env one, info bash says a env var name can't start with a number
+So I say it's OK
+46. echo test$var_qui_nexiste_pas
+Ok
+47. echo "$USER>>" OK
+Ok
+48. echo "$USER11111fjfjfjf"
+Ok
+49. echo $\"echo 
+Should fail on unclosed quotes since we don't interpret \
+Ok
+50. echo "test$<test"
+Ok
+
+51. echo test$<test
+Ok
+52. echo "test$-r"
+Apparently this var exist for bash but it does not for us so it's Ok nothing special
+53. echo "test$-?" 
+Same. Who cares
+
+54. echo $-1$USER
+This one is not consistent. FAIL
+
+55. echo $1
+56. echo "$1" 
+Just like notexist for me. Ok
+
+57. echo  $"USER"
+58. echo  $'USER'
+Those two are my main failure 
+
+59. echo "$NULL" 
+Liele a notexist. Ok
+
+60. echo '"abc"'
+Ok
+
+61. echo $NULL
+Yes I know. Ok
+
+62. echo test |cat
+63. echo koala ||| cat
+Can't test those. Nees to go to a check_syntax_function()
+
+
+64. >minishell export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 
+>minishell echo "$A'$B"'$C"$D'$E'"$F"'"'$G'$H"
+1'2$C   5"$F"'7'8
+We don't handles multiple export yet
+
+'65. echo '  "abc" '
+Ok
+
+66. echo " $ " | cat -e
+Ok
+
+67. echo $:$= | cat -e
+Ok
+
+68. export FOO=' " '
+Can't test now
+69. echo " $FOO " | cat -e

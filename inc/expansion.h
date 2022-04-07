@@ -40,6 +40,7 @@ int							next_var(char *str, int i);
 int							next_non_env_var(char *str, int i);
 void						log_index(int i, int **table);
 int							*register_expansions(char* to_exp);
+int							*register_quotes(char *str);
 
 char						**expand_strings_depending_on_first_char(char **argv, t_strlist *env);
 char						**quote_preserving_split(char *str);
