@@ -11,7 +11,20 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-int	cd_errors (char *path)
+void	refresh_path(t_strlist *env)
+{
+	char	*tmp;
+	char	cwd[PATH_MAX];
+
+	tmp = getcwd(cwd, sizeof(cwd));
+	if (tmp)
+	{
+		free(env->current_path);
+		env->current_path = ft_strdup(tmp);
+	}
+}
+
+int	cd_errors (char *path, t_strlist *env)
 {
 	int		ret;
 	char	cwd[PATH_MAX];
@@ -20,6 +33,8 @@ int	cd_errors (char *path)
 	{
 		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
 		ret = chdir(path);
+		if (!ret)
+			refresh_path(env);
 		return (0);
 	}
 	ret = chdir(path);
@@ -29,6 +44,7 @@ int	cd_errors (char *path)
 			"minishell: cd: %s: No such file or directory\n", path);
 		return (1);
 	}
+	refresh_path(env);
 	return (ret);
 }
 
@@ -36,7 +52,6 @@ int	cd(t_command *cmd, t_strlist *env)
 {
 	char	**paths;
 
-	(void) env;
 	paths = cmd->args;
 	paths++;
 	if (!paths[0])
@@ -49,5 +64,5 @@ int	cd(t_command *cmd, t_strlist *env)
 		ft_dprintf_str(2, "minishell: cd: too many arguments\n");
 		return (1);
 	}
-	return (cd_errors(paths[0]));
+	return (cd_errors(paths[0], env));
 }
