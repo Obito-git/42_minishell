@@ -14,6 +14,8 @@ Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You a
 
 input/output file without permissons
 
+./file_withous_permission message
+
 Anton
 ============
 Handle input (done)
