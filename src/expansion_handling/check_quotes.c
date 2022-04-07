@@ -2,14 +2,16 @@
 
 static char	*_next_any_quote(char *str)
 {
-	//Verify that this is correct
-	while (*str && *str != '\'' && *str != '\"')
+	while (*str && !ft_is_in_set(*str, "\'\""))
 		str++;
 	return (str);
 }
 
+
+
 int	check_quotes(char *str)
 {
+	//Use set_quote_mode to save lines
 	char	quote;
 
 	if (*str == '\'' || *str == '\"')

@@ -66,6 +66,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char	*dest, const char	*src, size_t	size);
+char	*ft_strcat_slice(char *dest, const char *src, int n);
 char	*ft_strcpy(char *dest, const char *src);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strnstr(const char	*str, const char	*to_find, size_t len);
@@ -76,6 +77,11 @@ char	*ft_str_threejoin(char const *s1, char const *s2, char const *s3);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+/* strarray/ */
+char	**free_strarray(char **s);
+char	*ft_join_null_terminated_str_array(char **str_array);
+void	ft_print_strarray(char **com);
+char	**ft_strtrim_strarray(char **s, char *set);
 /* utils/ */
 int		ft_atoi( const char *s);
 long	ft_atol_sample(char *numb);

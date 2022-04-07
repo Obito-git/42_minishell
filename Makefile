@@ -61,7 +61,7 @@ OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
 
 all:			$(NAME)
 
-$(NAME):		${OBJ/OBJECTS} libft/libft.a
+$(NAME):		libft/libft.a ${OBJ/OBJECTS}
 				@echo "Linking..."
 				@# LDFLAGS (-L) always come before oject files !
 				${CC} -o $@ ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
@@ -78,7 +78,6 @@ obj:
 
 clean:			
 				$(MAKE) -C libft clean
-				rm -rf obj/expansion_handling
 				rm -rf obj
 				$(MAKE) -C libft clean
 
