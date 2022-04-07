@@ -19,6 +19,7 @@ int	cd_errors (char *path)
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
 		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+		ret = chdir(path);
 		return (0);
 	}
 	ret = chdir(path);
