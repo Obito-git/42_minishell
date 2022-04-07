@@ -60,15 +60,17 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	long		i;
 	bool		quotes[2];
 
+	i = 0;
 	ft_bzero(quotes, 2 * sizeof(bool));
 	str_array = strarray_alloc(s, set);
-	s = next_word(s, set, quotes);
-	follower = s;
-	i = 0;
 	if (!str_array)
 		return (NULL);
 	if (!*s)
 		str_array[i++] = ft_strdup("");
+	follower = s;
+	s = next_word(s, set, quotes);
+	str_array[i++] = ft_strndup(follower, s - follower);
+	follower = s;
 	while (str_array && *s)
 	{
 		s = next_sep(s, set, quotes);

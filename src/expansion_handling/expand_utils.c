@@ -16,3 +16,23 @@ int	next_non_env_var(char *str, int i)
 	return (i);
 }
 
+int	next_any_quote(char *str, int i)
+{
+	while (str[i] && !ft_is_in_set(str[i], "\'\""))
+		i++;
+	return (i);
+}
+
+int	next_double_quote(char *str, int i)
+{
+	while (str[i] && str[i] != '\"')
+		i++;
+	return (i);
+}
+
+int	next_single_quote(char *str, int i)
+{
+	while (str[i] && str[i] != '\'')
+		i++;
+	return (i);
+}

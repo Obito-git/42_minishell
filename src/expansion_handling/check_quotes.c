@@ -7,13 +7,11 @@ static char	*_next_any_quote(char *str)
 	return (str);
 }
 
-
-
 int	check_quotes(char *str)
 {
-	//Use set_quote_mode to save lines
 	char	quote;
 
+	//Use set_quote_mode to save lines
 	if (*str == '\'' || *str == '\"')
 		quote = *str;
 	else

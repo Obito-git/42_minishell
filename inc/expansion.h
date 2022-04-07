@@ -38,6 +38,10 @@ enum e_expand_state			in_var_mode(char *str, int *i, int **indexes);
 
 int							next_var(char *str, int i);
 int							next_non_env_var(char *str, int i);
+int							next_any_quote(char *str, int i);
+int							next_double_quote(char *str, int i);
+int							next_single_quote(char *str, int i);
+
 void						log_index(int i, int **table);
 int							*register_expansions(char* to_exp);
 int							*register_quotes(char *str);

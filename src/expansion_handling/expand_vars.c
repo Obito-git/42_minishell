@@ -113,9 +113,9 @@ char	**expand_strings_depending_on_first_char(char **argv, t_strlist *env)
 			free(indexes);
 			if (argv[i] == NULL)
 			{
-				//Risks of double-free
-				/*while (--i)*/
-				/*    free (argv[i]);*/
+				while (--i)
+					free (argv[i]);
+				free(argv);
 				return (NULL);
 			}
 			free(to_free);

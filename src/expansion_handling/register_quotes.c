@@ -13,27 +13,6 @@ static enum e_quote_state	(*g_quote_func_table[])(char *, int*, int**) = {
 	&dq_mode,
 };
 
-int	next_any_quote(char *str, int i)
-{
-	while (str[i] && !ft_is_in_set(str[i], "\'\""))
-		i++;
-	return (i);
-}
-
-int	next_double_quote(char *str, int i)
-{
-	while (str[i] && str[i] != '\"')
-		i++;
-	return (i);
-}
-
-int	next_single_quote(char *str, int i)
-{
-	while (str[i] && str[i] != '\'')
-		i++;
-	return (i);
-}
-
 enum e_quote_state	not_in_quote_mode(char *str, int *i, int **table)
 {
 	(*i)++;
