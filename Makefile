@@ -51,7 +51,7 @@ LDFLAGS			+=	-L./libft
 LDLIBS			=	-lreadline -lft 
 
 #Use if sources are in src/ directory
-OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
+OBJ/OBJECTS		=	$(addprefix obj/ $(notdir $(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))))
 
 ##############
 ##	RULES	##
