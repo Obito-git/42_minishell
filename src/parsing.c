@@ -41,8 +41,13 @@ t_command	*parse(char *user_input, t_strlist *env)
 	t_strlist	*list;
 
 	list = expand_pipeline(user_input, env);
-	if (!list || !list->head) //prot !list->head, list free
+	if (!list) //prot !list->head, list free
 		return (NULL);
+	if (!list->head)
+	{
+		free(list);
+		return (NULL);
+	}
 	update_strlist_strarr_value(list);
 	head = get_commands_list(list->strarr_value, env);
 	free_strlist(list);

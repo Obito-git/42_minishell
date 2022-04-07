@@ -1,60 +1,5 @@
 #include "minishell.h"
 
-//returns args (array of strings) deleting multiple spaces and external quotes
-/*
-char	**parse_command_args(char *command)
-{
-	char	**res;
-	int		i;
-	int		size;
-
-	i = 0;
-	size = 1;
-	res = NULL;
-	if (ft_strlen(command) == 0)
-	{
-		res = (char **) malloc(sizeof(char *) * 2);
-		if (!res)
-			return (NULL);
-		res[0] = NULL;
-		return (res);
-	}
-	while (command[i])
-	{
-		if (i > 0 && command[i] == ' ' && command[i - 1] != ' ')
-			size++;
-		i++;
-	}
-	res = ft_minishell_split(res, command, size, i);
-	return (res);
-}
-
-//set redir/pipe value inside struct and delete character from the string
-void	set_command_args(t_command *c, char *s, int y)
-{
-	bool	inside_quotes;
-	bool	inside_double_quotes;
-	char	*tmp;
-
-	inside_quotes = false;
-	inside_double_quotes = false;
-	if (!c || !s)
-		return ;
-	while(s[y])
-	{
-		set_quotes(s[y], &inside_quotes, &inside_double_quotes);
-		if (!inside_quotes && !inside_double_quotes && is_pipe_redir(s[y]))
-			break ;
-		y++;
-	}
-	set_command_redir(c, &s[y]);
-	tmp = ft_strtrim(s, " ");
-	if (!tmp)
-		return ;
-	c->args = parse_command_args(tmp);
-	free(tmp);
-} */
-
 char	**get_com_args(char **c, int *pos)
 {
 	int		y;
@@ -100,8 +45,6 @@ void	set_struct_pipes_redirections(t_command *com, char *c)
 			com->in_mode = IN_FILE;
 		else if (!ft_strcmp(c, "<<"))
 			com->in_mode = IN_HEREDOC;
-		else
-			printf("UNKNOWN DELEMITER\n");
 	}
 }
 
