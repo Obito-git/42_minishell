@@ -10,3 +10,4 @@ compile_commands.json
 .*.swp
 src/.*.swp
 brk
+backtrace

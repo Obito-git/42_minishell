@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "t_strlist.h"
 # include "expansion.h"
-# include "quote_splitting.h"
 # define PATH_MAX 4096
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
@@ -109,4 +108,7 @@ void	sigquit_handler(int signal);
 void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
+//expand API
+t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
+char		**expand_simple_command(char *simple_command, t_strlist *env);
 #endif

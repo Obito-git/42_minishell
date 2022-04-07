@@ -8,30 +8,6 @@ static void	free_str_array_and_set_to_null(char ***dir, long i)
 	*dir = NULL;
 }
 
-static void	set_quote_mode(const char *c, bool *q)
-{
-	const int	sq = 0;
-	const int	dq = 1;
-
-	if (c)
-	{
-		if (*c == '\'')
-		{
-			if (q[sq])
-				q[sq] = false;
-			else
-				q[sq] = true;
-		}
-		else if (*c == '\"')
-		{
-			if (q[dq])
-				q[dq] = false;
-			else
-				q[dq] = true;
-		}
-	}
-}
-
 static const char	*next_sep(const char *str, char *set, bool *quotes)
 {
 	const int	sq = 0;
@@ -77,7 +53,6 @@ static char	**strarray_alloc(const char *s, char *set)
 	return (ret);
 }
 
-#include <string.h> //Replace strndup !
 char	**split_on_unquoted_redir(char const *s, char *set)
 {
 	char		**str_array;
