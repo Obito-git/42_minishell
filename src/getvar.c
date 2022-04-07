@@ -42,11 +42,13 @@ char	*get_env_var_val(char *var, char **envp)
 	return (NULL);
 }
 
-char	*get_env_var_val_from_slice(char *var, char *var_end, char **envp)
+char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env)
 {
 	int	vlen;
+	char	**envp;
 
 	var++;
+	envp = env->strarr_value;
 	vlen = var_end - var;
 	if (envp)
 	{
@@ -54,11 +56,11 @@ char	*get_env_var_val_from_slice(char *var, char *var_end, char **envp)
 		{
 			if (ft_strncmp(*envp, var, vlen) == 0
 				&& *(*envp + vlen) == '=' )
-			{
-				return (*envp + vlen + 1);
-			}
+				return ft_strdup(*envp + vlen + 1);
 			envp++;
 		}
 	}
+	if (!ft_strcmp("?", var))
+		return ft_itoa(env->ret);
 	return (NULL);
 }

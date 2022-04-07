@@ -102,7 +102,7 @@ char	*get_env_var_start(char *var, char **envp);
 char	*get_env_var_val(char *var, char **envp);
 ssize_t	writevar(int fd, char *var, char **envp);
 //vars
-char	*get_env_var_val_from_slice(char *var, char *var_end, char **envp);
+char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env);
 // signal handling
 void	set_signal_handling();
 void	sigint_handler(int signal);
