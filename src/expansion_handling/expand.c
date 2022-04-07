@@ -95,11 +95,9 @@ t_strlist	*get_expansions_list(char *to_exp, int *indexes, t_strlist *env)
 		if (indexes[y] == 0)
 			break ;
 		var = get_env_var_val_from_slice(&to_exp[indexes[i]],
-				&to_exp[indexes[y]], env->strarr_value);
-		if (var == NULL)
-			append_str_to_strlist(exp_list, "");
-		else
-			append_str_to_strlist(exp_list, var);
+				&to_exp[indexes[y]], env);
+		append_str_to_strlist(exp_list, var);
+		free(var);
 		i = y;
 		y++;
 	}

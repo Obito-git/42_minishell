@@ -95,7 +95,7 @@ t_command	*parse(char *user_input, t_strlist *env)
 	t_strlist	*list;
 
 	list = expand_pipeline(user_input, env);
-	if (!list) //prot !list->head, list free
+	if (!list)
 		return (NULL);
 	if (!list->head)
 	{

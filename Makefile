@@ -51,7 +51,7 @@ LDFLAGS			+=	-L./libft
 LDLIBS			=	-lreadline -lft 
 
 #Use if sources are in src/ directory
-OBJ/OBJECTS		=	$(addprefix obj/ $(notdir $(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))))
+OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
 
 ##############
 ##	RULES	##
@@ -72,9 +72,11 @@ libft/libft.a:
 
 obj:			
 				mkdir obj
+				mkdir obj/expansion_handling
 
 clean:			
 				$(MAKE) -C libft clean
+				rm -rf obj/expansion_handling
 				rm -rf obj
 				$(MAKE) -C libft clean
 
