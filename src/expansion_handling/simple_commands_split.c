@@ -53,11 +53,32 @@ static char	**strarray_alloc(const char *s, char *set)
 	return (ret);
 }
 
+static const char *split_next(char **str_array, const char *s, int *i, char *set, const char *follower, bool quotes[2])
+{
+		s = next_sep(s, set, quotes);
+		str_array[*i] = ft_strndup(follower, s - follower);
+		follower = s;
+		if (!str_array[*i])
+			free_str_array_and_set_to_null(&str_array, *i);
+		(*i)++;
+		if (*s)
+		{
+			s = next_word(s, set, quotes);
+			str_array[*i] = ft_strndup(follower, s - follower);
+			if (!str_array[*i])
+				free_str_array_and_set_to_null(&str_array, *i);
+			follower = s;
+			(*i)++;
+		}
+		return (s);
+}
+
+
 char	**split_on_unquoted_redir(char const *s, char *set)
 {
 	char		**str_array;
 	const char	*follower;
-	long		i;
+	int			i;
 	bool		quotes[2];
 
 	i = 0;
@@ -72,23 +93,9 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	if (s - follower > 0)
 		str_array[i++] = ft_strndup(follower, s - follower);
 	follower = s;
-	while (str_array && *s)
+	while (*s)
 	{
-		s = next_sep(s, set, quotes);
-		str_array[i] = ft_strndup(follower, s - follower);
-		follower = s;
-		if (!str_array[i])
-			free_str_array_and_set_to_null(&str_array, i);
-		i++;
-		if (*s)
-		{
-			s = next_word(s, set, quotes);
-			str_array[i] = ft_strndup(follower, s - follower);
-			if (!str_array[i])
-				free_str_array_and_set_to_null(&str_array, i);
-			follower = s;
-			i++;
-		}
+		split_next(str_array, s, &i, set, follower, quotes);
 	}
 	return (str_array);
 }
