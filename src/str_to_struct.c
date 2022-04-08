@@ -56,7 +56,10 @@ t_command	*get_command(char **c, int *pos, t_strlist *env)
 	res = command_init();
 	if (!res)
 		return (NULL);
-	res->command = ft_strdup(c[*pos]);
+	if (!ft_strcmp(c[*pos], "<") || !ft_strcmp(c[*pos], "<<"))
+		res->command = ft_strdup("");
+	else
+		res->command = ft_strdup(c[*pos]);
 	if (!res->command)
 		return (NULL);
 	res->args = get_com_args(c, pos);

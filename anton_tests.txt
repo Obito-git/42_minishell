@@ -1,0 +1,67 @@
+wc -l << test 
+res: like bash
+OK
+
+wc -l <<
+res: minishell: syntax error near unexpected token 'newline'
+OK
+
+In heredoc ctrl+d they are warning in bash
+FAIL
+
+<< test
+res: like bash
+OK
+
+<< test wc -l
+res: like bash
+OK
+
+<<
+res: bash: syntax error near unexpected token `newline'
+OK
+
+< existing_file
+res: like bash do nothing
+OK
+
+< not_existing_file
+res: like bash "minishell: file: No such file or directory"
+OK
+
+< without_read_permission_file
+res: like bash "minishell: file: Permission denied"
+OK
+
+< file wc -l
+res: like bash
+OK
+
+< not_existing_file wc -l
+res: like bash "minishell: file: No such file or directory"
+OK
+
+< without_read_permission_file wc -l
+res: like bash "minishell: file: Permission denied"
+OK
+
+wc -l < file
+res: like bash
+OK
+
+wc -l < not_existing_file
+res: like bash "minishell: file: No such file or directory"
+OK
+
+wc -l < without_read_permission_file
+res: like bash "minishell: file: Permission denied"
+OK
+
+command < file some another args
+res: ignoring all after file, but need try to open another files (FUCKING BASH)
+possible solution: all after filename parse like command args
+FAIL
+
+mkdir -p a/b; cd a/b; rm -rf ../../a; pwd and cd test
+res: like BASH
+OK

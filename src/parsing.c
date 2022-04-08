@@ -1,5 +1,37 @@
 #include "minishell.h"
 
+/*
+*	Modifies [< 'input file' 'command'] to ['command' < 'input file']
+*	Used to execute 2 patterns by the same executor function
+*/
+void	set_input_pattern(char **s)
+{
+	char	*filename;
+	char	*redir;
+	size_t	i;
+
+	i = 0;
+	if (!s || !s[0] || !s[1] || !s[2])
+		return ;
+	if (!ft_strcmp(s[0], "<") || !ft_strcmp(s[0], "<<"))
+	{
+		redir = s[0];
+		filename = s[1];
+		while (s[i + 2] && (ft_strcmp(s[i + 2], "|")
+				|| ft_strcmp(s[i + 2], ">") || ft_strcmp(s[i + 2], ">>")))
+		{
+			s[i] = s[i + 2];
+			i++;
+		}
+		i = 0;
+		while(s[i] && (ft_strcmp(s[i], "|")
+				|| ft_strcmp(s[i], ">") || ft_strcmp(s[i], ">>")))
+			i++;
+		s[i - 2] = redir;
+		s[i - 1] = filename;
+	}
+}
+
 //Tries to find the command
 char	*find_command(char **envp, t_command *c)
 {
@@ -49,6 +81,7 @@ t_command	*parse(char *user_input, t_strlist *env)
 		return (NULL);
 	}
 	update_strlist_strarr_value(list);
+	set_input_pattern(list->strarr_value);
 	head = get_commands_list(list->strarr_value, env);
 	free_strlist(list);
 	return (head);
