@@ -69,7 +69,8 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 		str_array[i++] = ft_strdup("");
 	follower = s;
 	s = next_word(s, set, quotes);
-	str_array[i++] = ft_strndup(follower, s - follower);
+	if (s - follower > 0)
+		str_array[i++] = ft_strndup(follower, s - follower);
 	follower = s;
 	while (str_array && *s)
 	{
