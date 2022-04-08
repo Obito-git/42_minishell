@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_quotes.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/08 13:23:17 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/08 13:23:17 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "expansion.h"
 
 static char	*_next_any_quote(char *str)
@@ -7,15 +19,22 @@ static char	*_next_any_quote(char *str)
 	return (str);
 }
 
+static char	_set_quote_mode(char c)
+{
+	char	quote;
+
+	if (c == '\'' || c == '\"')
+		quote = c;
+	else
+		quote = 0;
+	return (quote);
+}
+
 int	check_quotes(char *str)
 {
 	char	quote;
 
-	//Use set_quote_mode to save lines
-	if (*str == '\'' || *str == '\"')
-		quote = *str;
-	else
-		quote = 0;
+	quote = _set_quote_mode(*str);
 	while (*str)
 	{
 		if (quote == 0)

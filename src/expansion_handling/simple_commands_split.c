@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simple_commands_split.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/08 13:23:17 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/08 13:23:17 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static const char	*next_sep(const char *str, const char *set, bool *quotes)

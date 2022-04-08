@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_preserving_split.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/08 13:23:17 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/08 13:23:17 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	free_strarray_and_set_to_null(char ***strarray, long i)
@@ -59,7 +71,9 @@ char	**quote_preserving_split(char *str)
 		return (NULL);
 	if (check_quotes(str) == -1)
 	{
-		ft_dprintf_str(STDERR_FILENO, "\e[31mYou have unclosed quotes$\e[0m\n");
+		ft_dprintf_str(STDERR_FILENO,
+				"minishell: unexpected EOF while looking for matching \"\'\n"
+				"minishell: syntax error: unexpected end of file\n");
 		return (NULL);
 	}
 	index_table = register_quotes(str);
