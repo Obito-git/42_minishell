@@ -13,24 +13,17 @@ Ok
 3. echo"" test
 Ok
 4. echo "" test
-Ok
+FAIL
 5. echo $USER
 Ok
 6. echo $USE""R
-Ok --> Not sure why it works though lol
+Ok 
 7. echo ""$USER
 Ok
 8. echo "$"USER
 Ok
 9. echo  $""USER
-
-FAIL :
-echo
-$USER
-
-INSTEAD OF :
-echo
-USER
+FAIL but it's fine $"" has a special meaning in bash (word translation)
 
 10. ec''ho test
 Ok
@@ -42,10 +35,7 @@ Ok
 Ok
 
 13. echo '' test
-Ok
-
-14. echo $USER
-Ok. Already done
+FAIL
 
 15. echo $USE''R
 Ok
@@ -57,23 +47,24 @@ Ok
 Ok
 
 18. echo  $''USER
-Fail. Same problem as above
+Fail but it is fine $'' has a special meaning in bash (word translation) 
 
 19. echo $   
 Ok
 
 20. echo $"" 
-Fail :
-echo
-$
-Instead of :
-echo
+Fail for same reason as 9 and 18
 
 21. echo "" "" "" 
-Ok
+Fail to print a three spaces ? Wtf ?
+
+21.2 
+"" "" ""
+""""""
+Fail at the parsing level
 
 22. echo """"""
-Ok
+Fail to print two spaces ? Wtf ?
 
 23. ls ""
 Ok
@@ -83,9 +74,10 @@ Ok
 
 25. ls '"    
 To see bash errror message --> unclosed quote then ctrl+d
-Unclosed quotes message with leaks after entering various commands!
+OK
+
 26. ls "'
-Ok
+OK
 
 27. ls "    " 
 Ok
@@ -122,64 +114,76 @@ Ok
 38. echo test "'"test 
 Ok
 39. echo $$$USER
-echo
-cassepipecassepipe 
-WTF????
+Ok
+
+39.1 $USER$notexist$$notexist$HOME
+Fail.Leaks
+
 40. echo $$USER 
 Ok
+
 41. echo $USER$USER 
 Ok
+
 42. echo $USER""$USER
 Ok
+
 43. echo $USER" "$USER 
 Ok
+
 44. echo "|" ls 
-Ok
+FAIL
+
 45. echo test$1test 
-Technically it's a special variable and not an env one, info bash says a env var name can't start with a number
-So I say it's OK
+45.1 echo $1$USER
+Technically it's a special variable and not an env one
+`info bash` says a env var name can't start with a number
+So what we do is  OK, $1 is interpreted just like $:
+
 46. echo test$var_qui_nexiste_pas
 Ok
+
 47. echo "$USER>>" OK
 Ok
+
 48. echo "$USER11111fjfjfjf"
 Ok
+
 49. echo $\"echo 
 Should fail on unclosed quotes since we don't interpret \
 Ok
+
 50. echo "test$<test"
 Ok
 
 51. echo test$<test
-Ok
+Fail. Leaks
+
 52. echo "test$-r"
 Apparently this var exist for bash but it does not for us so it's Ok nothing special
 53. echo "test$-?" 
 Same. Who cares
 
 54. echo $-1$USER
-This one is not consistent. FAIL
+OK
 
 55. echo $1
 56. echo "$1" 
-Just like notexist for me. Ok
+Ok. We don't handle special variables (parameters ?)
 
 57. echo  $"USER"
 58. echo  $'USER'
-Those two are my main failure 
-
-59. echo "$NULL" 
-Liele a notexist. Ok
+$"" and $''  is special case we don't have to handle it.
+Ok
 
 60. echo '"abc"'
 Ok
 
-61. echo $NULL
-Yes I know. Ok
-
 62. echo test |cat
+Fail. Leaks
+
 63. echo koala ||| cat
-Can't test those. Nees to go to a check_syntax_function()
+Fail. Leaks
 
 
 64. >minishell export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 
@@ -199,3 +203,12 @@ Ok
 68. export FOO=' " '
 Can't test now
 69. echo " $FOO " | cat -e
+
+70. ./printargv "" "" "" 
+Fails.Leaks
+
+71. ehco $
+Leaks
+
+72. <test wc -l
+Fail

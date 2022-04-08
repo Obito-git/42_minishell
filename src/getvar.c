@@ -56,7 +56,7 @@ char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env)
 		{
 			if (ft_strncmp(*envp, var, vlen) == 0
 				&& *(*envp + vlen) == '=' )
-				return ft_strdup(*envp + vlen + 1);
+				return (ft_strdup(*envp + vlen + 1));
 			envp++;
 		}
 	}

@@ -68,6 +68,7 @@ static t_strlist	*get_expansions_list(
 		append_str_to_strlist(exp_list, var);
 		i = y;
 		y++;
+		free(var);
 	}
 	return (exp_list);
 }
