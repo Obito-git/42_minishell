@@ -58,3 +58,5 @@ Pipeline returns last pid : ?
 If there's just one command, no forking because built-ins do not have lasting 
 effect whem piped but do on their own. Still OK ?
 
+test "" "" ""
+

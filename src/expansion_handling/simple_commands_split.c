@@ -1,13 +1,5 @@
 #include "minishell.h"
 
-static void	free_str_array_and_set_to_null(char ***dir, long i)
-{
-	while (i-- >= 0)
-		free((*dir)[i]);
-	free(*dir);
-	*dir = NULL;
-}
-
 static const char	*next_sep(const char *str, const char *set, bool *quotes)
 {
 	const int	sq = 0;
@@ -67,7 +59,7 @@ static const char	*split_next(
 	s = next_sep(s, set, quotes);
 	str_array[*i] = ft_strndup(follower, s - follower);
 	if (!str_array[*i])
-		free_str_array_and_set_to_null(&str_array, *i);
+		return (NULL);
 	(*i)++;
 	if (*s)
 	{
@@ -75,7 +67,7 @@ static const char	*split_next(
 		s = next_word(s, set, quotes);
 		str_array[*i] = ft_strndup(follower, s - follower);
 		if (!str_array[*i])
-			free_str_array_and_set_to_null(&str_array, *i);
+			return (NULL);
 		(*i)++;
 	}
 	return (s);
@@ -90,20 +82,22 @@ char	**split_on_unquoted_redir(char const *s)
 	const char	*set = ">|<";
 
 	i = 0;
-	quotes[0] = false;
-	quotes[1] = false;
+	ft_bzero(quotes, sizeof(quotes));
 	str_array = strarray_alloc(s, set);
 	if (!str_array)
 		return (NULL);
-	if (!*s)
+	if (*s == 0)
 		str_array[i++] = ft_strdup("");
 	follower = s;
 	s = next_word(s, set, quotes);
 	if (s - follower > 0)
 		str_array[i++] = ft_strndup(follower, s - follower);
-	while (*s)
-	{
+	while (s && *s)
 		s = split_next(str_array, s, &i, quotes);
-	}
-	return (str_array);
+	if (s)
+		return (str_array);
+	while (i-- >= 0)
+		free(str_array[i]);
+	free(str_array);
+	return (NULL);
 }
