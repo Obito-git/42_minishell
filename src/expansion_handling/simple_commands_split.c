@@ -53,24 +53,30 @@ static char	**strarray_alloc(const char *s, char *set)
 	return (ret);
 }
 
-static const char *split_next(char **str_array, const char *s, int *i, char *set, const char *follower, bool quotes[2])
+/*Splitting pattern goes like this :*/
+/*1. Set following cursor to cursor*/
+/*2. Cursor goes to next sep in set or word*/
+/*3. Copy the slice[follower, s] into str_array*/
+static const char *split_next(char **str_array, const char *s, int *i, char *set, bool quotes[2])
 {
-		s = next_sep(s, set, quotes);
-		str_array[*i] = ft_strndup(follower, s - follower);
+	const char *follower;
+
+	follower = s;
+	s = next_sep(s, set, quotes);
+	str_array[*i] = ft_strndup(follower, s - follower);
+	if (!str_array[*i])
+		free_str_array_and_set_to_null(&str_array, *i);
+	(*i)++;
+	if (*s)
+	{
 		follower = s;
+		s = next_word(s, set, quotes);
+		str_array[*i] = ft_strndup(follower, s - follower);
 		if (!str_array[*i])
 			free_str_array_and_set_to_null(&str_array, *i);
 		(*i)++;
-		if (*s)
-		{
-			s = next_word(s, set, quotes);
-			str_array[*i] = ft_strndup(follower, s - follower);
-			if (!str_array[*i])
-				free_str_array_and_set_to_null(&str_array, *i);
-			follower = s;
-			(*i)++;
-		}
-		return (s);
+	}
+	return (s);
 }
 
 
@@ -92,10 +98,9 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	s = next_word(s, set, quotes);
 	if (s - follower > 0)
 		str_array[i++] = ft_strndup(follower, s - follower);
-	follower = s;
 	while (*s)
 	{
-		s = split_next(str_array, s, &i, set, follower, quotes);
+		s = split_next(str_array, s, &i, set, quotes);
 	}
 	return (str_array);
 }
