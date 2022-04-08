@@ -95,7 +95,7 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 	follower = s;
 	while (*s)
 	{
-		split_next(str_array, s, &i, set, follower, quotes);
+		s = split_next(str_array, s, &i, set, follower, quotes);
 	}
 	return (str_array);
 }
