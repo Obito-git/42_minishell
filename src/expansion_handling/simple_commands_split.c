@@ -8,7 +8,7 @@ static void	free_str_array_and_set_to_null(char ***dir, long i)
 	*dir = NULL;
 }
 
-static const char	*next_sep(const char *str, char *set, bool *quotes)
+static const char	*next_sep(const char *str, const char *set, bool *quotes)
 {
 	const int	sq = 0;
 	const int	dq = 1;
@@ -22,7 +22,7 @@ static const char	*next_sep(const char *str, char *set, bool *quotes)
 	return (str);
 }
 
-static const char	*next_word(const char *str, char *set, bool quotes[2])
+static const char	*next_word(const char *str, const char *set, bool quotes[2])
 {
 	(void)quotes;
 	while (str && *str && !ft_is_in_set(*str, "\'\"") && ft_is_in_set(*str, set))
@@ -30,7 +30,7 @@ static const char	*next_word(const char *str, char *set, bool quotes[2])
 	return (str);
 }
 
-static char	**strarray_alloc(const char *s, char *set)
+static char	**strarray_alloc(const char *s, const char *set)
 {
 	size_t	size;
 	char	**ret;
@@ -57,9 +57,11 @@ static char	**strarray_alloc(const char *s, char *set)
 /*1. Set following cursor to cursor*/
 /*2. Cursor goes to next sep in set or word*/
 /*3. Copy the slice[follower, s] into str_array*/
-static const char *split_next(char **str_array, const char *s, int *i, char *set, bool quotes[2])
+static const char	*split_next(
+		char **str_array, const char *s, int *i, bool quotes[2])
 {
-	const char *follower;
+	const char	*follower;
+	const char	*set = "|<>";
 
 	follower = s;
 	s = next_sep(s, set, quotes);
@@ -79,16 +81,17 @@ static const char *split_next(char **str_array, const char *s, int *i, char *set
 	return (s);
 }
 
-
-char	**split_on_unquoted_redir(char const *s, char *set)
+char	**split_on_unquoted_redir(char const *s)
 {
 	char		**str_array;
 	const char	*follower;
 	int			i;
 	bool		quotes[2];
+	const char	*set = ">|<";
 
 	i = 0;
-	ft_bzero(quotes, 2 * sizeof(bool));
+	quotes[0] = false;
+	quotes[1] = false;
 	str_array = strarray_alloc(s, set);
 	if (!str_array)
 		return (NULL);
@@ -100,7 +103,7 @@ char	**split_on_unquoted_redir(char const *s, char *set)
 		str_array[i++] = ft_strndup(follower, s - follower);
 	while (*s)
 	{
-		s = split_next(str_array, s, &i, set, quotes);
+		s = split_next(str_array, s, &i, quotes);
 	}
 	return (str_array);
 }

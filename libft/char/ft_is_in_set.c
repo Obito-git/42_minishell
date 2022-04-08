@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-bool	ft_is_in_set(char c, char *set)
+bool	ft_is_in_set(char c, const char *set)
 {
 	if (set)
 	{

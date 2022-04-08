@@ -11,7 +11,7 @@ t_strlist	*expand_pipeline(char *user_input, t_strlist *env)
 	arg_list = new_strlist();
 	if (!arg_list)
 		return (NULL);
-	pipeline = split_on_unquoted_redir(user_input, ">|<");
+	pipeline = split_on_unquoted_redir(user_input);
 	i = 0;
 	while (pipeline && pipeline[i])
 	{

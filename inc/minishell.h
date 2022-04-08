@@ -69,13 +69,7 @@ t_command	*parse(char *user_input, t_strlist *env);
 //	str_to_struct.c
 t_command *get_commands_list(char **c, t_strlist *env);
 //	utils.c
-char		**free_strarray(char **s);
-char		**ft_strtrim_array(char **s, char *set);
-char	*ft_join_null_terminated_str_array(char **str_array);
-void	print_strarray(char **com);
-bool	ft_is_in_set(char c, char *set);
-char	*ft_strcat_slice(char *dest, const char *src, int n);
-char	**split_on_unquoted_redir(char const *s, char *set);
+char	**split_on_unquoted_redir(char const *s);
 //	executor.c
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
