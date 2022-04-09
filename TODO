@@ -32,33 +32,23 @@ Fixed many of valgrind errors and no memory leaks were detected
 
 Tom
 ===========
-Expansion :stop handling of special variables
-
-Check returning of NULL and freeing everything in case of expansion errors
 
 Signal handling : Prompt still not ok --> Launch cat and ctrl+\
+Prompt hack overwriting output is a BAD idea
 
-Implement ft_strndup and remove strndup --> DONE
-
-check for redir symbol at beginning of the output (may not work)
+Check for multiple redir such as <<< of ||
 
 Implement all built ins :
 	echo : 
-		echo "" "" "" has a newline problem, check debugger
+		prompt hack has a problem with echo -n, overwrites output
 	pwd : done
 	cd :
 	export : check if valid  input after = ?
 	unset : done
-	exit : What about history ?
+	exit : done
 	env : done
 
-Replace printf with dprintf -> Done
-
-Pipeline returns last pid : ?
-
-If there's just one command, no forking because built-ins do not have lasting 
-effect whem piped but do on their own. Still OK ?
-
+Print no such file or directory if command contains a "/"
 test "" "" ""
 test 
 env -i ./minishell

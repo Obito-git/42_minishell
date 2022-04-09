@@ -107,4 +107,10 @@ void	reset_sigquit();
 //expand API
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
 char		**expand_simple_command(char *simple_command, t_strlist *env);
+//Main functions
+void command_print(t_command *c);
+void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env);
+bool	check_main_args(int ac, char **av, char **envp, t_strlist **env);
+void	execute_userinput(t_strlist *env, char *user_input);
+
 #endif

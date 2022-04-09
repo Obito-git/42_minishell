@@ -38,8 +38,9 @@ LDFLAGS			+=	$(asan)
 #Get sources from src/ directory
 #SRC/SOURCES		=	$(wildcard src/*.c)
 #SRC/SOURCES	+=	$(wildcard src/*/*.c)
+MAINS			=	src/main.c src/main_noenv.c
 SHELL			=	zsh
-SRC/SOURCES	=	$(shell ls src/**/*.c)
+SRC/SOURCES	=	$(filter-out $(MAINS), $(shell ls src/**/*.c))
 
 INC/HEADERS		=	$(wildcard inc/*.h)
 
@@ -61,13 +62,18 @@ OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
 
 all:			$(NAME)
 
-$(NAME):		libft/libft.a ${OBJ/OBJECTS}
+$(NAME):		libft/libft.a obj/main.o ${OBJ/OBJECTS}
 				@echo "Linking..."
 				@# LDFLAGS (-L) always come before oject files !
-				${CC} -o $@ ${LDFLAGS} ${OBJ/OBJECTS} ${LDLIBS}
+				${CC} -o $@ ${LDFLAGS} $^ ${LDLIBS}
 
 obj/%.o:		src/%.c ${INC/HEADERS} Makefile | obj
 				${CC} ${CFLAGS} -c $< -o $@
+
+noenv:			libft/libft.a obj/main_noenv.o ${OBJ/OBJECTS}
+				@echo "Linking..."
+				@# LDFLAGS (-L) always come before oject files !
+				${CC} -o $@ ${LDFLAGS} $^ ${LDLIBS}
 
 libft/libft.a:
 				$(MAKE) -C libft
@@ -79,7 +85,6 @@ obj:
 clean:			
 				$(MAKE) -C libft clean
 				rm -rf obj
-				$(MAKE) -C libft clean
 
 fclean:			clean
 				$(MAKE) -C libft fclean
