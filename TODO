@@ -43,7 +43,8 @@ Implement ft_strndup and remove strndup --> DONE
 check for redir symbol at beginning of the output (may not work)
 
 Implement all built ins :
-	echo : done
+	echo : 
+		echo "" "" "" has a newline problem, check debugger
 	pwd : done
 	cd :
 	export : check if valid  input after = ?

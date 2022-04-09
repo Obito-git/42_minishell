@@ -23,7 +23,7 @@ int	echo(t_command *cmd, t_strlist *env)
 	if (!*args)
 		return (0);
 	args++;
-	if (*args && !ft_strncmp(*args, "-n", ft_strlen(*args)))
+	if (*args && ft_strlen(*args) == 2 && ft_strncmp(*args, "-n", 2) == 0)
 	{
 		newline = false;
 		args++;

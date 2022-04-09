@@ -6,6 +6,9 @@ problemes:
 - "text" ou 'text' doit compter les espaces apres
 - $VAR "" ou '' met fin au nom de la VAR (echo $"" different de echo $)
 
+0. If the first contains a /, we must print a "No such file or directory
+instead of "command not found"
+
 1. ec""ho test 
 Ok
 2. ""echo test
@@ -23,7 +26,8 @@ Ok
 8. echo "$"USER
 Ok
 9. echo  $""USER
-FAIL but it's fine $"" has a special meaning in bash (word translation)
+it's fine $"" has a special meaning in bash (word translation) this is not var expansion
+Ok
 
 10. ec''ho test
 Ok
@@ -117,7 +121,7 @@ Ok
 Ok
 
 39.1 $USER$notexist$$notexist$HOME
-Fail.Leaks
+Ok
 
 40. echo $$USER 
 Ok
@@ -157,12 +161,12 @@ Ok
 Ok
 
 51. echo test$<test
-Fail. Leaks
+Fail because of message, we should print "minishell:" at start of error message
+else works OK
 
 52. echo "test$-r"
-Apparently this var exist for bash but it does not for us so it's Ok nothing special
 53. echo "test$-?" 
-Same. Who cares
+Special var. We don't handle. OK
 
 54. echo $-1$USER
 OK
@@ -180,16 +184,17 @@ Ok
 Ok
 
 62. echo test |cat
-Fail. Leaks
+Ok
 
 63. echo koala ||| cat
-Fail. Leaks
-
+Fail. prompt never returns if not C^c
+bash prints : "bash: syntax error near unexpected token `|'"
+We need a function that check for >>>, <<<, || etc.
 
 64. >minishell export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 
 >minishell echo "$A'$B"'$C"$D'$E'"$F"'"'$G'$H"
 1'2$C   5"$F"'7'8
-We don't handles multiple export yet
+We don't handles multiple export yet do we ?
 
 '65. echo '  "abc" '
 Ok
@@ -207,8 +212,6 @@ Can't test now
 70. ./printargv "" "" "" 
 Fails.Leaks
 
-71. ehco $
-Leaks
-
 72. <test wc -l
 Fail
+We must handle redir eveywhere on the command line
