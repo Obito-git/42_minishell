@@ -44,7 +44,7 @@ int	set_out_path(t_command *c, int old_fd)
 // -1 will be returned if no need to open file, -2 in error case
 int	set_in_path(t_command *head, t_command *c, int old_fd)
 {
-	int	fd;
+	int		fd;
 
 	fd = -1;
 	if (c->in_mode)
@@ -57,6 +57,7 @@ int	set_in_path(t_command *head, t_command *c, int old_fd)
 			close(old_fd);
 		if (fd == -1)
 		{
+			ft_dprintf_str(2, "%s", HEADER);
 			perror(c->next->command);
 			return (-2);
 		}
