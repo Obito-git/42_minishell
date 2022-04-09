@@ -5,7 +5,8 @@ int	main(int ac, char **av, char **envp)
 	char		*user_input;
 	t_strlist	*env;
 
-	*envp = NULL;
+	envp[0] = NULL;
+	/*envp = NULL;*/
 	env = NULL;
 	if (!check_main_args(ac, av, envp, &env))
 		return (1);
