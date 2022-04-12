@@ -127,3 +127,19 @@ res: like BASH bit valgrind errors
 OK / mini FAIL
 
 ================ EXIT STATUS ===========================
+
+cd random_cmd ; echo $?
+res: err code 1
+OK
+
+./normal_file
+res: 0
+OK and same for absolut path
+
+./file_no_permission
+res: error + 126
+OK and same for absolut path
+
+./not_existing_file
+res error + 127
+OK and same for absolut path
