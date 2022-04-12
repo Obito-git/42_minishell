@@ -17,15 +17,21 @@ void	close_extra_tubes(t_command *head, t_command *current)
 
 int	try_to_execute(t_command *c, t_strlist *env)
 {
-	reset_sigquit(); //is it good place for this function?
-	if (!c->path_to_bin)
+	int	ret;
+
+	ret = check_pathname_access(c);
+	if (!c->path_to_bin && ret == 0)
 	{
 		ft_dprintf_str(STDERR_FILENO, "%s", HEADER);
 		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
+		ret = EXIT_UNK_CMD;
 	}
-	else
-		return (execve(c->path_to_bin, c->args, env->strarr_value));
-	return (EXIT_UNK_CMD);
+	if (c->path_to_bin && execve(c->path_to_bin, c->args, env->strarr_value) == -1)
+	{
+		perror(HEADER);
+		ret = EXIT_FAILURE;
+	}
+	return (ret);
 }
 
 //Tries to execute built-in if possible, if not tries to execute a binary file;
@@ -43,7 +49,10 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	if (inout && built_in)
 		ret = built_in(c, env);
 	else if (inout)
+	{
+		reset_sigquit(); //is it good place for this function?
 		ret = try_to_execute(c, env);
+	}
 	if (!inout)
 		ret = EXIT_FAILURE;
 	close_fds(inout);

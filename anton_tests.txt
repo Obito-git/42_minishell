@@ -65,3 +65,81 @@ FAIL
 mkdir -p a/b; cd a/b; rm -rf ../../a; pwd and cd test
 res: like BASH
 OK
+
+cat < Makefile | wc -l
+res: like BASH
+OK
+
+cat < file1 | sort | uniq >> file2
+res: like BASH
+OK
+
+< file1 cat | sort | uniq >> file2
+res: like bash
+OK
+
+ls > file1 > file2 > file3
+res: like bash
+OK
+
+ls >> file3 > file2 > file1
+res: like bash
+OK
+
+ls > file_no_permission > file1
+res: minishell: test: Permission denied
+OK
+
+ls > file_no_permission | ls
+res: res: minishell: test: Permission denied + after pipe normal execution
+OK
+
+cd ../../../../../..
+res: pwd : /
+OK
+
+cd /home/user42/ (chemin absolu)
+OK
+
+
+cd $HOME/folder_name (variable in pathname)
+OK
+
+cd too many arguments
+res: minishell: cd: too many arguments
+OK
+
+cd ./path_not_found
+minishell: cd: ./path_not_found: No such file or directory
+OK
+
+echo -n "test"
+res: do nothing
+possible solution: fix promtp bug
+FAIL
+
+env; export $TEST_VAR=test; env
+res: like BASH, adds a new var
+OK
+
+echo $?
+res: like BASH bit valgrind errors
+OK / mini FAIL
+
+================ EXIT STATUS ===========================
+
+cd random_cmd ; echo $?
+res: err code 1
+OK
+
+./normal_file
+res: 0
+OK and same for absolut path
+
+./file_no_permission
+res: error + 126
+OK and same for absolut path
+
+./not_existing_file
+res error + 127
+OK and same for absolut path
