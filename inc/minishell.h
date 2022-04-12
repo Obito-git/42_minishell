@@ -66,6 +66,7 @@ t_command	*get_last_cmd(t_command *head);
 bool		is_pipe_redir(char c);
 char		*find_command(char **envp, t_command *c);
 t_command	*parse(char *user_input, t_strlist *env);
+int	check_pathname_access(t_command *c);
 //	str_to_struct.c
 t_command *get_commands_list(char **c, t_strlist *env);
 //	utils.c

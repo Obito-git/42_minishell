@@ -18,18 +18,40 @@ void	set_input_pattern(char **s)
 		redir = s[0];
 		filename = s[1];
 		while (s[i + 2] && (ft_strcmp(s[i + 2], "|")
-				|| ft_strcmp(s[i + 2], ">") || ft_strcmp(s[i + 2], ">>")))
+				&& ft_strcmp(s[i + 2], ">") && ft_strcmp(s[i + 2], ">>")))
 		{
 			s[i] = s[i + 2];
 			i++;
 		}
 		i = 0;
 		while(s[i] && (ft_strcmp(s[i], "|")
-				|| ft_strcmp(s[i], ">") || ft_strcmp(s[i], ">>")))
+				&& ft_strcmp(s[i], ">") && ft_strcmp(s[i], ">>")))
 			i++;
 		s[i - 2] = redir;
 		s[i - 1] = filename;
 	}
+}
+
+int	check_pathname_access(t_command *c)
+{
+	if (!c->path_to_bin && !ft_strncmp("./", c->command, 2))
+	{
+		if (access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
+		{
+			ft_dprintf_str(2, "%s", HEADER);
+			perror(c->command);
+			return (126);
+		}
+		else if (access(c->command, F_OK) == -1)
+		{
+			ft_dprintf_str(2, "%s", HEADER);
+			perror(c->command);
+			return (127);
+		}
+		else
+			c->path_to_bin = ft_strdup(c->command);
+	}
+	return (0);
 }
 
 //Tries to find the command
@@ -40,8 +62,8 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
-	if (access(c->command, X_OK) == 0)
-		return (ft_strdup(c->command));
+	if (!ft_strncmp("./", c->command, 2))
+		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
 	if (!*envp || !ft_strlen(c->command))
