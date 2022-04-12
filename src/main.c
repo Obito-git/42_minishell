@@ -13,6 +13,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		set_signal_handling();
 		user_input = readline(PROMPT);
+		/*reset_sigint();*/
 		if (!user_input)
 		{
 			ft_dprintf_str(STDERR_FILENO, "exit\n");

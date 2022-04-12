@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "expansion.h"
 
 //Expansion covers quote handling and variable replacement
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env)

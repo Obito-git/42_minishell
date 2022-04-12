@@ -28,8 +28,9 @@
 
 # define RED   "\e[31m"
 # define ENDCOLOR   "\e[0m "
-# define PROMPT   "\e[2K\e[G" RED "minishell$" ENDCOLOR
-# define REPROMPT   "\n\e[31mminishell$\e[0m "
+//# define PROMPT   "\e[2K\e[G" RED "minishell$" ENDCOLOR
+# define PROMPT   "minishell$ "
+# define REPROMPT   RED "\nminishell$ " ENDCOLOR
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
@@ -68,8 +69,6 @@ char		*find_command(char **envp, t_command *c);
 t_command	*parse(char *user_input, t_strlist *env);
 //	str_to_struct.c
 t_command *get_commands_list(char **c, t_strlist *env);
-//	utils.c
-char	**split_on_unquoted_redir(char const *s);
 //	executor.c
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
@@ -104,6 +103,7 @@ void	sigquit_handler(int signal);
 void	reset_signals();
 void	reset_sigint();
 void	reset_sigquit();
+void	ignore_siquit(void);
 //expand API
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
 char		**expand_simple_command(char *simple_command, t_strlist *env);
@@ -112,5 +112,6 @@ void command_print(t_command *c);
 void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env);
 bool	check_main_args(int ac, char **av, char **envp, t_strlist **env);
 void	execute_userinput(t_strlist *env, char *user_input);
-
+//utils
+int	child_status(int wstatus);
 #endif
