@@ -39,7 +39,7 @@ Prompt hack overwriting output is a BAD idea
 Check for multiple redir such as <<< of ||
 
 Implement all built ins :
-	echo : 
+	echo : handle echo -n -n hello
 		prompt hack has a problem with echo -n, overwrites output
 	pwd : done
 	cd :

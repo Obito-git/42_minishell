@@ -99,5 +99,5 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 	close_extra_tubes(head, NULL);
 	while (waitpid(-1, &wstatus, 0) != -1 || errno != ECHILD)
 		;
-	return (WEXITSTATUS(wstatus));
+	return (child_status(wstatus));
 }

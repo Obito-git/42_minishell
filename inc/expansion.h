@@ -50,6 +50,8 @@ char						**expand_strings_depending_on_first_char(char **argv, t_strlist *env);
 char						**quote_preserving_split(char *str);
 char						*ft_join_null_terminated_str_array(char **str_array);
 char						**split_on_unquoted_whitespace(char const *s, char *set);
+char						**split_on_unquoted_redir(char const *s);
+char						**expand_simple_command(char *simple_command, t_strlist *env);
 
 int							check_quotes(char *str);
 char						**handle_quotes(char **strarray);

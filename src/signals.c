@@ -1,12 +1,34 @@
 #include "minishell.h"
 
-void	set_signal_handling(void)
+void	set_sigint_handling(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = &sigint_handler;
 	sigaction(SIGINT, &sa, NULL);
+}
+
+void	set_sigquit_handling(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = &sigquit_handler;
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	set_signal_handling(void)
+{
+	set_sigint_handling();
+	/*set_sigquit_handling();*/
+	ignore_siquit();
+}
+
+void	ignore_siquit(void)
+{
+	struct sigaction	sa;
+
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
@@ -42,8 +64,8 @@ void	sigint_handler(int signal)
 	write(1, REPROMPT, sizeof(REPROMPT) - 1);
 }
 
-/*void	sigquit_handler(int signal)*/
-/*{*/
-/*    (void) signal;*/
-/*    write(1, PROMPT, sizeof(PROMPT) - 1);*/
-/*}*/
+void	sigquit_handler(int signal)
+{
+	(void) signal;
+	write(1, "\n", 1);
+}
