@@ -61,7 +61,11 @@ void	reset_signals(void)
 void	sigint_handler(int signal)
 {
 	(void) signal;
+	/*rl_done = 1;*/
 	write(1, "\n" PROMPT, sizeof("\n" PROMPT) - 1);
+	/*rl_on_new_line();*/
+	rl_replace_line("", 1);
+	rl_redisplay();
 }
 
 void	sigquit_handler(int signal)
