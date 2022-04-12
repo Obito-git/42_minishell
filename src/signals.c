@@ -21,7 +21,8 @@ void	set_sigquit_handling(void)
 void	set_signal_handling(void)
 {
 	set_sigint_handling();
-	set_sigquit_handling();
+	/*set_sigquit_handling();*/
+	ignore_siquit();
 }
 
 void	ignore_siquit(void)
@@ -60,11 +61,7 @@ void	reset_signals(void)
 void	sigint_handler(int signal)
 {
 	(void) signal;
-	/*write(1, REPROMPT, sizeof(REPROMPT) - 1);*/
-	/*write(0, "\n\xFF", sizeof("\n\xFF") - 1);*/
-	/*write(0, "\n\x04", sizeof("\n\x03") - 1);*/
-	write(0, "\n\0\0\0\0", 3);
-	/*close(0);*/
+	write(1, REPROMPT, sizeof(REPROMPT) - 1);
 }
 
 void	sigquit_handler(int signal)
