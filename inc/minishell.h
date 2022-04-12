@@ -27,10 +27,8 @@
 # define EXIT_UNK_CMD 127
 
 # define RED   "\e[31m"
-# define ENDCOLOR   "\e[0m "
-//# define PROMPT   "\e[2K\e[G" RED "minishell$" ENDCOLOR
-# define PROMPT   "minishell$ "
-# define REPROMPT   RED "\nminishell$ " ENDCOLOR
+# define ENDCOLOR   "\e[0m"
+# define PROMPT   RED "minishell$ " ENDCOLOR
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
