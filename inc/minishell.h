@@ -32,6 +32,7 @@
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
+# define ERROR_HEREDOC "minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n"
 
 #define DOLLAR '$'
 #define DOUBLE_QUOTE '\"'

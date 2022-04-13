@@ -34,24 +34,28 @@ void	set_input_pattern(char **s)
 
 int	check_pathname_access(t_command *c)
 {
+	char	*msg;
+	int		ret;
+
+	ret = 0;
+	msg = ft_strjoin(HEADER, c->command);
 	if (!c->path_to_bin && !ft_strncmp("./", c->command, 2))
 	{
 		if (access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
 		{
-			ft_dprintf_str(2, "%s", HEADER);
-			perror(c->command);
-			return (126);
+			perror(msg);
+			ret = 126;
 		}
 		else if (access(c->command, F_OK) == -1)
 		{
-			ft_dprintf_str(2, "%s", HEADER);
-			perror(c->command);
-			return (127);
+			perror(msg);
+			ret = 127;
 		}
 		else
 			c->path_to_bin = ft_strdup(c->command);
 	}
-	return (0);
+	free(msg);
+	return (ret);
 }
 
 //Tries to find the command

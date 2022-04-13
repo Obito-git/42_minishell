@@ -29,7 +29,8 @@ bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 	}
 	last = get_last_cmd(head);
 	if (last->prev && last->prev->pipe
-		&& (!last->path_to_bin && ft_strlen(last->command)))
+		&& (!last->path_to_bin && (ft_strlen(last->command)
+		&& ft_strncmp("./", last->command, 2))))
 	{
 		tmp = ft_strjoin(last->command, ": ");
 		*msg = ft_str_threejoin(HEADER, tmp, "command not found\n");

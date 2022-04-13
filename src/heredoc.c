@@ -1,33 +1,46 @@
 #include "minishell.h"
 
-//heredoc readline funtion.
-char	*read_heredoc_mode(char *delim)
+char	*read_heredoc_mode_lopped(char *s, char *delim)
 {
-	char	*res;
 	char	*current_line;
 	char	*tmp;
+	int		i;
 
-	res = readline("> ");
-	if (!res || !ft_strcmp(res, delim))
-	{
-		free(res);
-		return (NULL);
-	}
-	while (res)
+	i = 2;
+	while (s)
 	{
 		current_line = readline("> ");
-		tmp = ft_strjoin(res, "\n");
-		free(res);
+		tmp = ft_strjoin(s, "\n");
+		free(s);
 		if (!current_line || !ft_strcmp(current_line, delim))
 		{
+			if (!current_line)
+				ft_dprintf_str(2, ERROR_HEREDOC, i, delim);
 			free(current_line);
 			return (tmp);
 		}
-		res = ft_strjoin(tmp, current_line);
+		s = ft_strjoin(tmp, current_line);
 		free(current_line);
 		free(tmp);
+		i++;
 	}
-	return (res);
+	return (s);
+}
+
+//heredoc readline funtion.
+char	*read_heredoc_mode(char *delim)
+{
+	char	*first_line;
+	
+	first_line = readline("> ");
+	if (!first_line || !ft_strcmp(first_line, delim))
+	{
+		if (!first_line)
+			ft_dprintf_str(2, ERROR_HEREDOC, 1, delim);
+		free(first_line);
+		return (NULL);
+	}
+	return(read_heredoc_mode_lopped(first_line, delim));
 }
 
 /*Generate name for tmp file depending on the position of the structure in the
