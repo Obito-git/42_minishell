@@ -6,8 +6,8 @@ int	child_status(int wstatus)
 
 	status = wstatus;
 	if (WIFEXITED(wstatus))
-		status = WIFEXITED(wstatus);
-	if (WIFSIGNALED(status))
+		status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(status))
 		status = 128 + WTERMSIG(wstatus);
 	return (status);
 }
