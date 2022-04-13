@@ -32,11 +32,11 @@ static size_t	find_pattern(t_arg	*ar)
 	return (0);
 }
 
-size_t	print_pattern(char type, void *var_content)
+size_t	print_pattern(int fd, char type, void *var_content)
 {
 	t_arg	*ar;
 
-	ar = get_init_arg();
+	ar = get_init_arg(fd);
 	if (ar == NULL)
 		return (0);
 	ar->type = type;
@@ -71,7 +71,7 @@ void	*parse_content(va_list *ar, char type)
 	return (NULL);
 }
 
-size_t	parse(va_list	*ar, char *str)
+size_t	parse_and_execute_printf(int fd, va_list *ar, char *str)
 {
 	size_t	i;
 	size_t	printed_chars;
@@ -82,14 +82,14 @@ size_t	parse(va_list	*ar, char *str)
 	{
 		if (str[i] == '%' && ispattern(str[i + 1]))
 		{
-			printed_chars += print_pattern(str[i + 1],
+			printed_chars += print_pattern(fd, str[i + 1],
 					parse_content(ar, str[i + 1]));
 			i += 2;
 			continue ;
 		}
 		if (str[i] == '%' && str[i + 1] == '%')
 			i++;
-		ft_putchar(str[i]);
+		ft_putchar_fd(str[i], fd);
 		printed_chars++;
 		i++;
 	}

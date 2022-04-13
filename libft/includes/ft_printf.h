@@ -18,18 +18,19 @@
 typedef struct s_arg
 {
 	int		isnull;
+	int		fd;
 	char	type;
 	void	*content;
 }				t_arg;
 
 int		ft_printf(const char *s, ...);
-size_t	parse(va_list	*ar, char *str);
-size_t	print_pattern(char type, void *var_content);
+size_t	parse_and_execute_printf(int fd, va_list *ar, char *str);
+size_t	print_pattern(int fd, char type, void *var_content);
 size_t	d_pattern(t_arg *ar);
 size_t	s_pattern(t_arg *ar);
 size_t	p_pattern(t_arg *ar);
 size_t	u_pattern(t_arg *ar);
 size_t	xx_pattern(t_arg *ar);
-t_arg	*get_init_arg(void);
+t_arg	*get_init_arg(int fd);
 void	arg_del(t_arg *ar);
 #endif

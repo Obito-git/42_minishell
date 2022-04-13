@@ -32,16 +32,16 @@ size_t	p_pattern(t_arg *ar)
 	base = "0123456789abcdef";
 	if (cont == 0)
 	{
-		ft_putstr("0x0");
+		ft_putstr_fd("0x0", ar->fd);
 		len = 3;
 	}
 	else
 	{
-		ft_putstr("0x");
+		ft_putstr_fd("0x", ar->fd);
 		res = ft_convert_base(cont, base);
 		if (!res)
 			return (0);
-		ft_putstr(res);
+		ft_putstr_fd(res, ar->fd);
 		len = ft_strlen(res) + 2;
 		free(res);
 	}
@@ -55,18 +55,18 @@ size_t	s_pattern(t_arg *ar)
 
 	if (ar->type == 'c')
 	{
-		ft_putchar((char) *(int *)ar->content);
+		ft_putchar_fd((char) *(int *)ar->content, ar->fd);
 		arg_del(ar);
 		return (1);
 	}
 	if ((char *)ar->content == NULL)
 	{
-		ft_putstr("(null)");
+		ft_putstr_fd("(null)", ar->fd);
 		len = 6;
 	}
 	else
 	{
-		ft_putstr((char *)ar->content);
+		ft_putstr_fd((char *)ar->content, ar->fd);
 		len = ft_strlen((char *)ar->content);
 	}
 	arg_del(ar);
@@ -79,7 +79,7 @@ size_t	u_pattern(t_arg *ar)
 	size_t			len;
 
 	n = *(unsigned int *) ar->content;
-	ft_putnbr(n);
+	ft_putnbr_fd(n, ar->fd);
 	len = ft_numblen(n);
 	arg_del(ar);
 	return (len);
@@ -98,7 +98,7 @@ size_t	xx_pattern(t_arg *ar)
 	else
 		base = "0123456789ABCDEF";
 	res = ft_convert_base(cont, base);
-	ft_putstr(res);
+	ft_putstr_fd(res, ar->fd);
 	len = ft_strlen(res);
 	free(res);
 	arg_del(ar);
