@@ -30,7 +30,8 @@ bool	check_pipe_syntax(t_command *head, char **msg, t_strlist *env)
 	last = get_last_cmd(head);
 	if (last->prev && last->prev->pipe
 		&& (!last->path_to_bin && (ft_strlen(last->command)
-		&& ft_strncmp("./", last->command, 2))))
+		&& ft_strncmp("./", last->command, 2)
+		&& last->command[0] != '/')))
 	{
 		tmp = ft_strjoin(last->command, ": ");
 		*msg = ft_str_threejoin(HEADER, tmp, "command not found\n");
@@ -46,7 +47,8 @@ bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
 	*msg = ft_str_threejoin(HEADER, ERROR_SYNTAX, "\'newline\'\n");
 	while (head)
 	{
-		if (ft_strlen(head->command) && head->in_mode && !head->path_to_bin)
+		if (ft_strlen(head->command) && head->in_mode && !head->path_to_bin
+			&& head->command[0] != '/')
 		{
 			free(*msg);
 			*msg = ft_str_threejoin(head->command, ": ", "command not found\n");
