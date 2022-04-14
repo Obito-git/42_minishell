@@ -123,4 +123,5 @@ void	execute_userinput(t_strlist *env, char *user_input);
 int	child_status(int wstatus);
 bool is_pipe_redir(char *s);
 int isDirectory(const char *path);
+bool    contains_only(char *s, char c);
 #endif

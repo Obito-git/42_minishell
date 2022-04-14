@@ -45,10 +45,10 @@ int	check_pathname_access(t_command *c)
 		if ((access(c->command, X_OK) == -1 || access(c->command, F_OK) == -1)
 			&& !isDirectory(c->command))
 			perror(msg);
-		else if (isDirectory(c->command))
+		else if (isDirectory(c->command) || contains_only(c->command, '/'))
 			ft_dprintf_str(2, "%s%s: is a directory\n", HEADER, c->command);
 		if ((access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
-			|| isDirectory(c->command))
+			|| isDirectory(c->command) || contains_only(c->command, '/'))
 			ret = 126;
 		else if (access(c->command, F_OK) == -1)
 			ret = 127;
@@ -67,7 +67,7 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
-	if (!ft_strncmp("./", c->command, 2))
+	if (!ft_strncmp("./", c->command, 2) || ft_strchr(c->command, '/'))
 		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
