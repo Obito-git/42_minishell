@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2021/09/15 14:36:55 by bajaba           ###   ########.fr        #
+#    Updated: 2022/04/14 14:58:19 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 
 
 #Our beloved address sanitizer
-asan			=	-fsanitize=address	
+#asan			=	-fsanitize=address	
 CFLAGS			+=	$(asan)	
 LDFLAGS			+=	$(asan)	
 

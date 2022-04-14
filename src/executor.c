@@ -49,10 +49,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	if (inout && built_in)
 		ret = built_in(c, env);
 	else if (inout)
-	{
-		/*reset_signals();*/ //Not necessary in current signal handling
 		ret = try_to_execute(c, env);
-	}
 	if (!inout)
 		ret = EXIT_FAILURE;
 	close_fds(inout);

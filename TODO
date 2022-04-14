@@ -43,6 +43,7 @@ Implement all built ins :
 	pwd : done
 	cd :
 	export : check if valid  input after = ? Check for valid identifiers
+			export LOL=lol ?HELLO=hello does not work
 	unset : done
 	exit : done
 	env : done
