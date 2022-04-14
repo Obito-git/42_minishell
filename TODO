@@ -32,28 +32,13 @@ Fixed many of valgrind errors and no memory leaks were detected
 
 Tom
 ===========
-
-Signal handling : Prompt still not ok --> Launch cat and ctrl+\
-Prompt hack overwriting output is a BAD idea
-
-Check for multiple redir such as <<< of ||
-
 Implement all built ins :
 	echo : done
 	pwd : done
-	cd :
-	export : check if valid  input after = ? Check for valid identifiers
-			export LOL=lol ?HELLO=hello does not work
-	unset : check for valid identifier
+	cd : done
+	export : done
+	unset : done
 	exit : done
 	env : done
 
 Print no such file or directory if command contains a "/"
-test "" "" ""
-test 
-env -i ./minishell
-then
-export LOL=lolbash
-then
-bash
-

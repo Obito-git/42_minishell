@@ -37,14 +37,15 @@ static void	remove_var(char *full_var, t_strlist *env)
 	}
 }
 
-int	xport(t_command *cmd, t_strlist *env)
+int	xport(t_command *cmd, t_strlist *envlist)
 {
 	char	**args;
 	int		i;
 
 	args = cmd->args;
-	i = 0;
-	args++;
+	i = 1;
+	if (args[i] == NULL)
+		return (env(cmd, envlist));
 	while (args[i])
 	{
 		if (invalid_var_id(args[i]))
@@ -55,11 +56,11 @@ int	xport(t_command *cmd, t_strlist *env)
 		}
 		else if (ft_strchr(args[i], '='))
 		{
-			remove_var(args[i], env);
-			append_str_to_strlist(env, args[i]);
+			remove_var(args[i], envlist);
+			append_str_to_strlist(envlist, args[i]);
 		}
 		i++;
 	}
-	return (update_strlist_strarr_value(env));
+	return (update_strlist_strarr_value(envlist));
 }
 
