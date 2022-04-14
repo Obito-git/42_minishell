@@ -42,16 +42,16 @@ int	check_pathname_access(t_command *c)
 	if (!c->path_to_bin && (!ft_strncmp("./", c->command, 2)
 		|| ft_strchr(c->command, '/')))
 	{
-		if (access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
-		{
+		if ((access(c->command, X_OK) == -1 || access(c->command, F_OK) == -1)
+			&& !isDirectory(c->command))
 			perror(msg);
+		else if (isDirectory(c->command))
+			ft_dprintf_str(2, "%s%s: is a directory\n", HEADER, c->command);
+		if ((access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
+			|| isDirectory(c->command))
 			ret = 126;
-		}
 		else if (access(c->command, F_OK) == -1)
-		{
-			perror(msg);
 			ret = 127;
-		}
 		else
 			c->path_to_bin = ft_strdup(c->command);
 	}
