@@ -47,6 +47,8 @@ char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env)
 	int	vlen;
 	char	**envp;
 
+	if (var && *var == '$')
+		return (NULL);
 	var++;
 	envp = env->strarr_value;
 	vlen = var_end - var;
