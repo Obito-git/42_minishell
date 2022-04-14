@@ -52,13 +52,11 @@ int	xport(t_command *cmd, t_strlist *env)
 			ft_dprintf_str(STDERR_FILENO,
 				"minishell: export: `%s': not a valid identifier\n",
 				args[i]);
-			return (1);
 		}
-		if (ft_strchr(args[i], '='))
+		else if (ft_strchr(args[i], '='))
 		{
 			remove_var(args[i], env);
 			append_str_to_strlist(env, args[i]);
-			break ;
 		}
 		i++;
 	}
