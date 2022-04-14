@@ -44,7 +44,7 @@ Implement all built ins :
 	cd :
 	export : check if valid  input after = ? Check for valid identifiers
 			export LOL=lol ?HELLO=hello does not work
-	unset : done
+	unset : check for valid identifier
 	exit : done
 	env : done
 
