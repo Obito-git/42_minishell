@@ -6,7 +6,7 @@
 /*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:30:18 by amyroshn && t     #+#    #+#             */
-/*   Updated: 2022/04/06 16:30:18 by amyroshn && t    ###   ########.fr       */
+/*   Updated: 2022/04/14 11:46:40 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	echo(t_command *cmd, t_strlist *env)
 	if (!*args)
 		return (0);
 	args++;
-	if (*args && ft_strlen(*args) == 2 && ft_strncmp(*args, "-n", 2) == 0)
+	while (*args && ft_strlen(*args) == 2 && ft_strncmp(*args, "-n", 2) == 0)
 	{
 		newline = false;
 		args++;

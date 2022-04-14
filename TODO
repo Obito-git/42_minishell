@@ -40,7 +40,6 @@ Check for multiple redir such as <<< of ||
 
 Implement all built ins :
 	echo : handle echo -n -n hello
-		prompt hack has a problem with echo -n, overwrites output
 	pwd : done
 	cd :
 	export : check if valid  input after = ?
