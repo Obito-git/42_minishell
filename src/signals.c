@@ -1,28 +1,53 @@
 #include "minishell.h"
 
-void	set_sigint_handling(void)
+/*HANDLERS*/
+
+static void	print_newline(int signal)
+{
+	(void) signal;
+	write(1, "\n", 1);
+}
+
+void	interactive_sigint_handler(int signal)
+{
+	(void) signal;
+
+	write(1, "\n", 1); // Move to a new line
+    rl_on_new_line(); // Regenerate the prompt on a newline
+    rl_replace_line("", 0); // Clear the previous text
+    rl_redisplay();
+}
+
+/*SETTERS*/
+
+void	set_interactive_sigint_handling(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = &sigint_handler;
+	sa.sa_handler = &interactive_sigint_handler;
 	sigaction(SIGINT, &sa, NULL);
 }
 
-void	set_sigquit_handling(void)
+void	set_noninteractive_signal_handling(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = &sigquit_handler;
+	sa.sa_handler = &print_newline;
+	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void	set_signal_handling(void)
+/*IGNORE*/
+
+void	ignore_sigint(void)
 {
-	set_sigint_handling();
-	/*set_sigquit_handling();*/
-	ignore_siquit();
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa, NULL);
 }
 
 void	ignore_siquit(void)
@@ -33,6 +58,8 @@ void	ignore_siquit(void)
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
 }
+
+/*RESET*/
 
 void	reset_sigint(void)
 {
@@ -58,18 +85,3 @@ void	reset_signals(void)
 	reset_sigquit();
 }
 
-void	sigint_handler(int signal)
-{
-	(void) signal;
-	/*rl_done = 1;*/
-	write(1, "\n" PROMPT, sizeof("\n" PROMPT) - 1);
-	/*rl_on_new_line();*/
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
-
-void	sigquit_handler(int signal)
-{
-	(void) signal;
-	write(1, "\n", 1);
-}

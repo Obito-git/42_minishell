@@ -28,10 +28,11 @@
 
 # define RED   "\e[31m"
 # define ENDCOLOR   "\e[0m"
-# define PROMPT   RED "minishell$ " ENDCOLOR
+# define PROMPT  RED "minishell$ " ENDCOLOR
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
+# define ERROR_HEREDOC "minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n"
 
 #define DOLLAR '$'
 #define DOUBLE_QUOTE '\"'
@@ -96,13 +97,19 @@ ssize_t	writevar(int fd, char *var, char **envp);
 //vars
 char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env);
 // signal handling
-void	set_signal_handling();
-void	sigint_handler(int signal);
-void	sigquit_handler(int signal);
-void	reset_signals();
-void	reset_sigint();
-void	reset_sigquit();
+void	set_interactive_sigint_handling(void);
+void	set_noninteractive_sigint_handling(void);
+void	set_sigquit_handling(void);
+void	set_signal_handling(void);
+void	ignore_sigint(void);
 void	ignore_siquit(void);
+void	reset_sigint(void);
+void	reset_sigquit();
+void	reset_signals(void);
+void	interactive_sigint_handler(int signal);
+void	noninteractive_sigint_handler(int signal);
+void	sigquit_handler(int signal);
+void	set_noninteractive_signal_handling(void);
 //expand API
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
 char		**expand_simple_command(char *simple_command, t_strlist *env);

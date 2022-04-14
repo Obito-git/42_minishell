@@ -6,7 +6,7 @@ Fix extra newline in prompt. (you add it for fix ctrl^c i think)
 Anton: my bash do nothing in the case when cd with no args, owr print a promp
 	--> That's ok we don't have to handle that
 
-Anton: unset dont working for me :( . if "unset $PATH" do nothing, 
+Anton: unset dont working for me :( . if "unset $PATH" do nothing, -> this is normal
 		if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
 
 Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You are cheking arg len caracters, possible error is "unset test" will work for $test123 if $test not existing
@@ -39,11 +39,10 @@ Prompt hack overwriting output is a BAD idea
 Check for multiple redir such as <<< of ||
 
 Implement all built ins :
-	echo : handle echo -n -n hello
-		prompt hack has a problem with echo -n, overwrites output
+	echo : done
 	pwd : done
 	cd :
-	export : check if valid  input after = ?
+	export : check if valid  input after = ? Check for valid identifiers
 	unset : done
 	exit : done
 	env : done

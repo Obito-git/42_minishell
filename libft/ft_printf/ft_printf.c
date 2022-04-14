@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-t_arg	*get_init_arg(void)
+t_arg	*get_init_arg(int fd)
 {
 	t_arg	*ar;
 
@@ -20,6 +20,7 @@ t_arg	*get_init_arg(void)
 		return (NULL);
 	ar->type = 'c';
 	ar->isnull = 0;
+	ar->fd = fd;
 	ar->content = NULL;
 	return (ar);
 }
@@ -38,10 +39,12 @@ int	ft_printf(const char *s, ...)
 	va_list	args;
 	size_t	len;
 	char	*cpy;
+	int		fd;
 
+	fd = STDOUT_FILENO;
 	cpy = ft_strdup(s);
 	va_start(args, s);
-	len = parse(&args, cpy);
+	len = parse_and_execute_printf(fd, &args, cpy);
 	va_end(args);
 	free(cpy);
 	return (len);
