@@ -6,6 +6,7 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -121,4 +122,5 @@ void	execute_userinput(t_strlist *env, char *user_input);
 //utils
 int	child_status(int wstatus);
 bool is_pipe_redir(char *s);
+int isDirectory(const char *path);
 #endif
