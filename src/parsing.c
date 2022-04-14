@@ -40,7 +40,7 @@ int	check_pathname_access(t_command *c)
 	ret = 0;
 	msg = ft_strjoin(HEADER, c->command);
 	if (!c->path_to_bin && (!ft_strncmp("./", c->command, 2)
-		|| c->command[0] == '/'))
+		|| ft_strchr(c->command, '/')))
 	{
 		if (access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
 		{
