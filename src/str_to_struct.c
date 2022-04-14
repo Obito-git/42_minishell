@@ -6,13 +6,13 @@ char	**get_com_args(char **c, int *pos)
 	char	**args;
 
 	y = 0;
-	while (c[*pos + y] && !is_pipe_redir(c[*pos + y][0]))
+	while (c[*pos + y] && !is_pipe_redir_char(c[*pos + y][0]))
 		y++;
 	args = (char **) malloc(sizeof(char *) * (y + 2));
 	if (!args)
 		return (NULL);
 	y = 0;
-	while (c[*pos] && !is_pipe_redir(c[*pos][0]))
+	while (c[*pos] && !is_pipe_redir_char(c[*pos][0]))
 	{
 		args[y] = ft_strdup(c[*pos]);
 		if (!args[y++])
@@ -64,13 +64,12 @@ t_command	*get_command(char **c, int *pos, t_strlist *env)
 		return (NULL);
 	res->args = get_com_args(c, pos);
 	if (!res->args)
-	{
-		free(res->command);
-		free(res);
-		return (NULL);
-	}
+		return (free_commands(res));
 	set_struct_pipes_redirections(res, c[*pos]);
 	res->path_to_bin = find_command(env->strarr_value, res);
+	if (c[*pos] && is_pipe_redir_char(c[*pos][0]) && !is_pipe_redir(c[*pos])
+		&& ft_strcmp(c[*pos], res->command))
+		return (res);
 	if (c[*pos])
 		*pos += 1;
 	return (res);

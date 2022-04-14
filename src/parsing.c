@@ -84,7 +84,7 @@ char	*find_command(char **envp, t_command *c)
 	return (test_path);
 }
 
-bool	is_pipe_redir(char c)
+bool	is_pipe_redir_char(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }

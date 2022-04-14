@@ -61,6 +61,25 @@ bool	check_command_syntax(t_command *head, char **msg, t_strlist *env)
 	return (false);
 }
 
+bool	check_pipes_redir(t_command *head)
+{
+	int	i;
+
+	while (head)
+	{
+		i = 0;
+		while (is_pipe_redir_char(head->command[i]))
+			i++;
+		if (!head->command[i])
+		{
+			ft_dprintf_str(2, "%ssyntax error near unexpected token \n", HEADER);
+			return (true);
+		}
+		head = head->next;
+	}
+	return (false);
+}
+
 t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 {
 	char		*msg;
@@ -69,7 +88,8 @@ t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 		return (NULL);
 	msg = NULL;
 	env->ret = 2;
-	if (check_command_syntax(head, &msg, env)
+	if (check_pipes_redir(head)
+		|| check_command_syntax(head, &msg, env)
 		|| check_pipe_syntax(head, &msg, env)
 		|| check_unexpected_token(head, &msg))
 		;

@@ -62,7 +62,7 @@ t_command	*command_init(void);
 t_command	*free_commands(t_command *c);
 t_command	*get_last_cmd(t_command *head);
 //	parsing
-bool		is_pipe_redir(char c);
+bool		is_pipe_redir_char(char c);
 char		*find_command(char **envp, t_command *c);
 t_command	*parse(char *user_input, t_strlist *env);
 int	check_pathname_access(t_command *c);
@@ -113,4 +113,5 @@ bool	check_main_args(int ac, char **av, char **envp, t_strlist **env);
 void	execute_userinput(t_strlist *env, char *user_input);
 //utils
 int	child_status(int wstatus);
+bool is_pipe_redir(char *s);
 #endif
