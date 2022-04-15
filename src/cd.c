@@ -6,11 +6,12 @@
 /*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:28:19 by amyroshn && t     #+#    #+#             */
-/*   Updated: 2022/04/06 16:28:19 by amyroshn && t    ###   ########.fr       */
+/*   Updated: 2022/04/14 18:47:22 by tpouget          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void	refresh_path(t_strlist *env)
 {
 	char	*tmp;
@@ -24,14 +25,15 @@ void	refresh_path(t_strlist *env)
 	}
 }
 
-int	cd_errors (char *path, t_strlist *env)
+int	cd_errors(char *path, t_strlist *env)
 {
 	int		ret;
 	char	cwd[PATH_MAX];
 
 	if (!getcwd(cwd, sizeof(cwd)))
 	{
-		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+		perror("cd: error retrieving current directory: "
+			"getcwd: cannot access parent directories");
 		ret = chdir(path);
 		if (!ret)
 			refresh_path(env);

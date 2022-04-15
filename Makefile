@@ -6,7 +6,7 @@
 #    By: tpouget <cassepipe@ymail.com>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/23 16:37:33 by tpouget           #+#    #+#              #
-#    Updated: 2022/04/14 14:58:19 by tpouget          ###   ########.fr        #
+#    Updated: 2022/04/14 18:44:21 by tpouget          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INCLUDE_FLAGS	+=	-I/opt/homebrew/Cellar/readline/8.1.2/include
 endif
 
 #Add -Werror before correction 
-CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 
+CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 -Werror
 
 #Our beloved address sanitizer
 #asan			=	-fsanitize=address	

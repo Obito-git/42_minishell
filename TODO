@@ -1,5 +1,3 @@
-Why clear_history function in subject ? (Not needed apparently)
-Check for commands before executing them : echo hello | notexist -d l  --> notexist command not found
 Fix command > file1 > file 2. (need to create file1, but write result in the last one)
 Fix extra newline in prompt. (you add it for fix ctrl^c i think)
 
@@ -16,6 +14,15 @@ input/output file without permissons
 
 ./file_withous_permission message
 
+exit lol
+
+cat <<end >file1 > file2
+cat loop.sh > test notexist
+cat loop.sh > test printargv.c
+echo hi >test anton >test2 tom
+input spaces should do nothing
+look into current directory if not found in PATH
+
 Anton
 ============
 Handle input (done)
@@ -30,15 +37,9 @@ Added some preprocessor define for economise lines
 Fixed many of valgrind errors and no memory leaks were detected
 
 
-Tom
+TODO Tom
 ===========
-Implement all built ins :
-	echo : done
-	pwd : done
-	cd : done
-	export : done
-	unset : done
-	exit : done
-	env : done
 
-Print no such file or directory if command contains a "/"
+expr $? + $? : Invalid read ofsize 1
+history messes with input
+cat | cat | ls

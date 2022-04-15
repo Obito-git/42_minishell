@@ -26,7 +26,8 @@ int	try_to_execute(t_command *c, t_strlist *env)
 		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
 		ret = EXIT_UNK_CMD;
 	}
-	if (c->path_to_bin && execve(c->path_to_bin, c->args, env->strarr_value) == -1)
+	if (c->path_to_bin
+		&& execve(c->path_to_bin, c->args, env->strarr_value) == -1)
 	{
 		perror(HEADER);
 		ret = EXIT_FAILURE;
