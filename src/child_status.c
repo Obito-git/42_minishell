@@ -2,7 +2,7 @@
 
 int	child_status(int wstatus)
 {
-	int status;
+	int	status;
 
 	status = wstatus;
 	if (WIFEXITED(wstatus))
