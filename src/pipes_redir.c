@@ -111,5 +111,5 @@ void	set_tubes_path(t_command *head, t_command *c)
 		dup2(c->tube[1], STDOUT_FILENO);
 	if (c && c->prev && c->prev->pipe)
 		dup2(c->prev->tube[0], STDIN_FILENO);
-	close_extra_tubes(head, c);
+	close_extra_tubes(head, NULL);
 }
