@@ -1,6 +1,6 @@
 NAME = libft.a
 CC = gcc
-CFLAGS = -Iincludes -Wall -Werror -Wextra -g3
+CFLAGS = ${ASAN} -Iincludes -Wall -Werror -Wextra -g3
 
 #colors:
 RED="\e[31m"
