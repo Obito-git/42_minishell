@@ -41,5 +41,6 @@ TODO Tom
 ===========
 
 expr $? + $? : Invalid read ofsize 1
+expr $? + $?<spaces> :invalid token
+car $? + $? : Invalid read ofsize 1
 history messes with input
-cat | cat | ls
