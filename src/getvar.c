@@ -50,6 +50,8 @@ char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env)
 	if (var && *var != '$')
 		return (NULL);
 	var++;
+	if (ft_strncmp("?", var, 1) == 0)
+		return ft_itoa(env->ret);
 	envp = env->strarr_value;
 	vlen = var_end - var;
 	if (envp)
@@ -62,7 +64,5 @@ char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env)
 			envp++;
 		}
 	}
-	if (!ft_strcmp("?", var))
-		return ft_itoa(env->ret);
 	return (NULL);
 }
