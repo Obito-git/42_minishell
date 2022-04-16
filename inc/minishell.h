@@ -124,4 +124,5 @@ int	child_status(int wstatus);
 bool is_pipe_redir(char *s);
 int isDirectory(const char *path);
 bool    contains_only(char *s, char c);
+t_command	*free_commands_strlist(t_command *c, t_strlist *l);
 #endif

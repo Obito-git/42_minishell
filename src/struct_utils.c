@@ -83,3 +83,10 @@ t_command	*get_last_cmd(t_command *head)
 		tmp = tmp->next;
 	return (tmp);
 }
+
+t_command	*free_commands_strlist(t_command *c, t_strlist *l)
+{
+	free_strlist(l);
+	free_commands(c);
+	return (NULL);
+}

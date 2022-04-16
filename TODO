@@ -19,7 +19,7 @@ exit lol // done
 cat <<end >file1 > file2
 cat loop.sh > test notexist
 cat loop.sh > test printargv.c
-echo hi >test anton >test2 tom
+echo hi >test anton >test2 tom // done (normalement)
 input spaces should do nothing
 look into current directory if not found in PATH // done
 
