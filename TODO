@@ -21,7 +21,7 @@ cat loop.sh > test notexist
 cat loop.sh > test printargv.c
 echo hi >test anton >test2 tom
 input spaces should do nothing
-look into current directory if not found in PATH
+look into current directory if not found in PATH // done
 
 Anton
 ============
