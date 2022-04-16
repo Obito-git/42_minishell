@@ -14,7 +14,7 @@ input/output file without permissons
 
 ./file_withous_permission message
 
-exit lol
+exit lol // done
 
 cat <<end >file1 > file2
 cat loop.sh > test notexist
