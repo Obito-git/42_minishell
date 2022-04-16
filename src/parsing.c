@@ -71,6 +71,8 @@ char	*find_command(char **envp, t_command *c)
 		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
+	if (!*envp && access(c->command, X_OK) == 0)
+		return (ft_strdup(c->command));
 	if (!*envp || !ft_strlen(c->command))
 		return (NULL);
 	splited = ft_split(*envp, ':');
@@ -82,10 +84,7 @@ char	*find_command(char **envp, t_command *c)
 		free(test_path);
 		test_path = NULL;
 	}
-	i = 0;
-	while (splited && splited[i])
-		free(splited[i++]);
-	free(splited);
+	free_strarray(splited);
 	return (test_path);
 }
 
