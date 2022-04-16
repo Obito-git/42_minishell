@@ -78,6 +78,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 bool	isnumeric_str(char *s);
+char	**ft_strarr_cpy(char **s);
 /* strarray/ */
 char	**free_strarray(char **s);
 char	*ft_join_null_terminated_str_array(char **str_array);
