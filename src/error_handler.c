@@ -89,6 +89,9 @@ t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 
 	if (!head)
 		return (NULL);
+	if (ft_strlen(head->command) == 0 && !head->in_mode && !head->out_mode
+		&& !head->pipe)
+		return (free_commands(head));
 	msg = NULL;
 	env->ret = 2;
 	if (check_pipes_redir(head)

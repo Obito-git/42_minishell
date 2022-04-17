@@ -16,11 +16,11 @@ input/output file without permissons
 
 exit lol // done
 
-cat <<end >file1 > file2
-cat loop.sh > test notexist
-cat loop.sh > test printargv.c
+cat <<end >file1 > file2 //done
+cat loop.sh > test notexist //done
+cat loop.sh > test printargv.c //done
 echo hi >test anton >test2 tom // done (normalement)
-input spaces should do nothing
+input spaces should do nothing // done
 look into current directory if not found in PATH // done
 
 Anton
