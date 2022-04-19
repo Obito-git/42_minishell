@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 15:07:33 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 15:07:33 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -24,7 +36,7 @@ void	set_input_pattern(char **s)
 			i++;
 		}
 		i = 0;
-		while(s[i] && (ft_strcmp(s[i], "|")
+		while (s[i] && (ft_strcmp(s[i], "|")
 				&& ft_strcmp(s[i], ">") && ft_strcmp(s[i], ">>")))
 			i++;
 		s[i - 2] = redir;
@@ -40,7 +52,7 @@ int	check_pathname_access(t_command *c)
 	ret = 0;
 	msg = ft_strjoin(HEADER, c->command);
 	if (!c->path_to_bin && (!ft_strncmp("./", c->command, 2)
-		|| ft_strchr(c->command, '/')))
+			|| ft_strchr(c->command, '/')))
 	{
 		if ((access(c->command, X_OK) == -1 || access(c->command, F_OK) == -1)
 			&& !is_directory(c->command))
@@ -97,7 +109,7 @@ t_command	*check_files_args(t_command *head)
 		err = append_strarray_to_strlist(arg, i->args);
 		i = i->next;
 		while (err != -1 && i && i->prev
-				&& (i->prev->out_mode || i->prev->in_mode))
+			&& (i->prev->out_mode || i->prev->in_mode))
 		{
 			err = append_strarray_to_strlist(arg, &i->args[1]);
 			i = i->next;
@@ -128,5 +140,4 @@ t_command	*parse(char *user_input, t_strlist *env)
 		head = check_files_args(head);
 	free_strlist(list);
 	return (head);
-	//Where is user_input freed ?
 }

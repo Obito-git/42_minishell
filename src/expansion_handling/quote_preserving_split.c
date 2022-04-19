@@ -72,8 +72,8 @@ char	**quote_preserving_split(char *str)
 	if (check_quotes(str) == -1)
 	{
 		ft_dprintf_str(STDERR_FILENO,
-				"minishell: unexpected EOF while looking for matching \"\'\n"
-				"minishell: syntax error: unexpected end of file\n");
+			"minishell: unexpected EOF while looking for matching \"\'\n"
+			"minishell: syntax error: unexpected end of file\n");
 		return (NULL);
 	}
 	index_table = register_quotes(str);

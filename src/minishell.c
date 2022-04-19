@@ -1,14 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 15:08:25 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 15:08:25 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void command_print(t_command *c)
+void	command_print(t_command *c)
 {
+	int	i;
+
 	if (!c)
 		printf("Command is null\n");
 	else
 	{
 		while (c)
 		{
-			int i = 0;
+			i = 0;
 			printf("Command: %s\n", c->command);
 			printf("Args: ");
 			if (!c->args)

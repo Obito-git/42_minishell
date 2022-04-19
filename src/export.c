@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 15:09:47 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 15:09:47 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static bool invalid_var_id(char *str)
+static bool	invalid_var_id(char *str)
 {
 	if (!(ft_isalpha(*str) || *str == '_'))
 		return (true);
@@ -63,4 +75,3 @@ int	xport(t_command *cmd, t_strlist *envlist)
 	}
 	return (update_strlist_strarr_value(envlist));
 }
-
