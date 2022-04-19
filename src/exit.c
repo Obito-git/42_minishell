@@ -3,6 +3,8 @@ int	check_errors(char *arg, long ret)
 {
 	bool	sign;
 
+	if (!arg)
+		return (0);
 	sign = false;
 	if (ret < 0)
 		sign = true;
