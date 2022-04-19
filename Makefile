@@ -16,8 +16,8 @@
 
 NAME			=	minishell
 
-#CC			  	=	gcc-11
 CC				=	clang
+CC			  	=	gcc-11
 
 INCLUDE_FLAGS	=	-Iinc -I libft/includes
 ifeq ($(shell uname -s),Darwin)
@@ -29,6 +29,7 @@ CFLAGS			=	${INCLUDE_FLAGS} -Wall -Wextra -g3 -Werror
 
 #Our beloved address sanitizer
 #ASAN			=	-fsanitize=address	
+CFLAGS			+=	$(GCC_ANALYZER)	
 CFLAGS			+=	$(ASAN)	
 LDFLAGS			+=	$(ASAN)	
 
@@ -38,9 +39,8 @@ LDFLAGS			+=	$(ASAN)
 #Get sources from src/ directory
 #SRC/SOURCES		=	$(wildcard src/*.c)
 #SRC/SOURCES	+=	$(wildcard src/*/*.c)
-MAINS			=	src/main.c src/main_noenv.c
 SHELL			=	zsh
-SRC/SOURCES	=	$(filter-out $(MAINS), $(shell ls src/**/*.c))
+SRC/SOURCES		=	$(shell ls src/**/*.c)
 
 INC/HEADERS		=	$(wildcard inc/*.h)
 
@@ -59,10 +59,9 @@ OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
 ##	RULES	##
 ##############
 
-
 all:			$(NAME)
 
-$(NAME):		obj/main.o ${OBJ/OBJECTS}
+$(NAME):		${OBJ/OBJECTS}
 				$(MAKE) -C libft
 				@echo "Linking..."
 				@# LDFLAGS (-L) always come before oject files !
@@ -71,10 +70,6 @@ $(NAME):		obj/main.o ${OBJ/OBJECTS}
 obj/%.o:		src/%.c ${INC/HEADERS} Makefile | obj
 				${CC} ${CFLAGS} -c $< -o $@
 
-noenv:			libft/libft.a obj/main_noenv.o ${OBJ/OBJECTS}
-				@echo "Linking..."
-				@# LDFLAGS (-L) always come before oject files !
-				${CC} -o $@ ${LDFLAGS} $^ ${LDLIBS}
 obj:			
 				mkdir obj
 				mkdir obj/expansion_handling
