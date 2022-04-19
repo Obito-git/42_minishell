@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 11:37:43 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 11:37:43 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*read_heredoc_mode_lopped(char *s, char *delim)
@@ -15,7 +27,7 @@ char	*read_heredoc_mode_lopped(char *s, char *delim)
 		if (!current_line || !ft_strcmp(current_line, delim))
 		{
 			if (!current_line)
-				ft_dprintf_str(2, ERROR_HEREDOC, i, delim);
+				ft_dprintf_str(2, ERROR_HEREDOC1 ERROR_HEREDOC2, i, delim);
 			free(current_line);
 			return (tmp);
 		}
@@ -31,16 +43,16 @@ char	*read_heredoc_mode_lopped(char *s, char *delim)
 char	*read_heredoc_mode(char *delim)
 {
 	char	*first_line;
-	
+
 	first_line = readline("> ");
 	if (!first_line || !ft_strcmp(first_line, delim))
 	{
 		if (!first_line)
-			ft_dprintf_str(2, ERROR_HEREDOC, 1, delim);
+			ft_dprintf_str(2, ERROR_HEREDOC1 ERROR_HEREDOC2, 1, delim);
 		free(first_line);
 		return (NULL);
 	}
-	return(read_heredoc_mode_lopped(first_line, delim));
+	return (read_heredoc_mode_lopped(first_line, delim));
 }
 
 /*Generate name for tmp file depending on the position of the structure in the

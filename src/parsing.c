@@ -43,12 +43,12 @@ int	check_pathname_access(t_command *c)
 		|| ft_strchr(c->command, '/')))
 	{
 		if ((access(c->command, X_OK) == -1 || access(c->command, F_OK) == -1)
-			&& !isDirectory(c->command))
+			&& !is_directory(c->command))
 			perror(msg);
-		else if (isDirectory(c->command) || contains_only(c->command, '/'))
+		else if (is_directory(c->command) || contains_only(c->command, '/'))
 			ft_dprintf_str(2, "%s%s: is a directory\n", HEADER, c->command);
 		if ((access(c->command, F_OK) == 0 && access(c->command, X_OK) == -1)
-			|| isDirectory(c->command) || contains_only(c->command, '/'))
+			|| is_directory(c->command) || contains_only(c->command, '/'))
 			ret = 126;
 		else if (access(c->command, F_OK) == -1)
 			ret = 127;
@@ -65,7 +65,7 @@ bool	update_args(t_strlist **arg, t_command **i, t_command **tmp)
 	{
 		free_strarray((*tmp)->args);
 		update_strlist_strarr_value(*arg);
-		(*tmp)->args = ft_strarr_cpy((*arg)->strarr_value); 
+		(*tmp)->args = ft_strarr_cpy((*arg)->strarr_value);
 		if (!(*tmp)->args)
 			return (false);
 		if (*i && (*i)->prev)

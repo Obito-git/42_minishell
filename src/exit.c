@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 11:02:21 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 11:02:21 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
 int	check_errors(char *arg, long ret)
 {
 	bool	sign;
@@ -6,13 +19,16 @@ int	check_errors(char *arg, long ret)
 	sign = false;
 	if (ret < 0)
 		sign = true;
-	if (ret == 0 && (!isnumeric_str(&arg[sign]) || ft_strlen(&arg[sign]) > 19
-		|| ((ft_strlen(arg) == 20 && ft_strcmp("-9223372036854775808", arg) < 0))
-		|| (ft_strlen(arg) == 19 && ft_strcmp("9223372036854775807", arg) < 0)))
+	if (ret == 0 && (!isnumeric_str(&arg[sign])
+			|| ft_strlen(&arg[sign]) > 19
+			|| ((ft_strlen(arg) == 20
+					&& ft_strcmp("-9223372036854775808", arg) < 0))
+			|| (ft_strlen(arg) == 19
+				&& ft_strcmp("9223372036854775807", arg) < 0)))
 	{
 		ft_dprintf_str(2, HEADER "exit: %s: numeric argument required\n", arg);
 		return (2);
-	} 
+	}
 	if (ret < 0 && ret >= -256)
 		ret -= 256;
 	return (ret % 256);

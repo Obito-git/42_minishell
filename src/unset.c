@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 11:06:15 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 11:06:15 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static bool valid_var_id(char *str)
+static bool	valid_var_id(char *str)
 {
 	if (!(ft_isalpha(*str) || *str == '_'))
 		return (false);
@@ -43,7 +55,7 @@ int	unset(t_command *cmd, t_strlist *env)
 			remove_var_from_stem(*arg, env);
 		else
 			ft_dprintf_str(2, "%s: unset: `%s': not a valid identifier\n",
-					HEADER, *arg);
+				HEADER, *arg);
 		arg++;
 	}
 	return (update_strlist_strarr_value(env));

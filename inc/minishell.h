@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/19 11:16:05 by amyroshn && t     #+#    #+#             */
+/*   Updated: 2022/04/19 11:16:05 by amyroshn && t    ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -17,9 +29,11 @@
 # include "libft.h"
 # include "t_strlist.h"
 # include "expansion.h"
+
 # ifndef PATH_MAX
-	# define PATH_MAX 4096
+#  define PATH_MAX 4096
 # endif
+
 # define OUT_REWRITE 1
 # define OUT_APPEND 2
 # define IN_FILE 1
@@ -28,36 +42,36 @@
 # define EXIT_UNK_CMD 127
 
 # define RED   "\e[31m"
-# define ENDCOLOR   "\e[0m"
-# define PROMPT  RED "minishell$ " ENDCOLOR
+# define ENDCOLOR  "\e[0m"
+# define PROMPT "\e[31mminishell$\e[0m "
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
-# define ERROR_HEREDOC "minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n"
+# define ERROR_HEREDOC1 "minishell: warning: here-document at line %d "
+# define ERROR_HEREDOC2 "delimited by end-of-file (wanted `%s')\n"
 
-#define DOLLAR '$'
-#define DOUBLE_QUOTE '\"'
-
-typedef struct sigaction t_sigaction;
+typedef struct sigaction	t_sigaction;
 
 typedef struct s_command
 {
-	char	*command;
-	char	*path_to_bin;
-	char	**args;
-	bool	pipe;
-	char	in_mode;
-	char	out_mode;
-	int		*tube;
-	struct s_command *next;
-	struct s_command *prev;
+	char				*command;
+	char				*path_to_bin;
+	char				**args;
+	bool				pipe;
+	char				in_mode;
+	char				out_mode;
+	int					*tube;
+	struct s_command	*next;
+	struct s_command	*prev;
 }	t_command;
 
 typedef struct s_inout_fd
 {
 	int	in_fd;
-	int out_fd;
+	int	out_fd;
 }	t_inout_fd;
+
+typedef int					(*t_built_in)(t_command*, t_strlist*);
 
 //	struct_utils.c
 t_command	*command_init(void);
@@ -67,62 +81,65 @@ t_command	*get_last_cmd(t_command *head);
 bool		is_pipe_redir_char(char c);
 char		*find_command(char **envp, t_command *c);
 t_command	*parse(char *user_input, t_strlist *env);
-int	check_pathname_access(t_command *c);
+int			check_pathname_access(t_command *c);
 //	str_to_struct.c
-t_command *get_commands_list(char **c, t_strlist *env);
+t_command	*get_commands_list(char **c, t_strlist *env);
 //	executor.c
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
-t_inout_fd *set_redirections(t_command *c, t_command *head, t_strlist *env);
+t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env);
 void		set_tubes_path(t_command *head, t_command *c);
 void		close_fds(t_inout_fd *fds);
 //	error_handler.c
-t_command   *find_syntax_errors(t_command *head, t_strlist *env);
+t_command	*find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
-int		get_heredoc_fd(char *delim, t_command *head, t_command *current);
-char	*get_heredoc_tmpname(t_command *head, t_command *current);
+int			get_heredoc_fd(char *delim, t_command *head, t_command *current);
+char		*get_heredoc_tmpname(t_command *head, t_command *current);
 //built-ins
-int	(*get_built_in(t_command *cmd))(t_command *cmd, t_strlist *env);
-int	echo(t_command *cmd, t_strlist *env);
-int	pwd(t_command *cmd, t_strlist *env);
-int	unset(t_command *cmd, t_strlist *env);
-int	xport(t_command *cmd, t_strlist *env);
-int	xit(t_command *cmd, t_strlist *env);
-int	env(t_command *cmd, t_strlist *env);
-int	cd(t_command *cmd, t_strlist *env);
+
+t_built_in	get_built_in(t_command *cmd);
+int			echo(t_command *cmd, t_strlist *env);
+int			pwd(t_command *cmd, t_strlist *env);
+int			unset(t_command *cmd, t_strlist *env);
+int			xport(t_command *cmd, t_strlist *env);
+int			xit(t_command *cmd, t_strlist *env);
+int			env(t_command *cmd, t_strlist *env);
+int			cd(t_command *cmd, t_strlist *env);
 //env
-char	*get_env_var_start(char *var, char **envp);
-char	*get_env_var_val(char *var, char **envp);
-ssize_t	writevar(int fd, char *var, char **envp);
+char		*get_env_var_start(char *var, char **envp);
+char		*get_env_var_val(char *var, char **envp);
+ssize_t		writevar(int fd, char *var, char **envp);
 //vars
-char	*get_env_var_val_from_slice(char *var, char *var_end, t_strlist *env);
+char		*get_env_var_val_from_slice(char *var,
+				char *var_end, t_strlist *env);
 // signal handling
-void	set_interactive_sigint_handling(void);
-void	set_noninteractive_sigint_handling(void);
-void	set_sigquit_handling(void);
-void	set_signal_handling(void);
-void	ignore_sigint(void);
-void	ignore_siquit(void);
-void	reset_sigint(void);
-void	reset_sigquit();
-void	reset_signals(void);
-void	interactive_sigint_handler(int signal);
-void	noninteractive_sigint_handler(int signal);
-void	sigquit_handler(int signal);
-void	set_noninteractive_signal_handling(void);
+void		set_interactive_sigint_handling(void);
+void		set_noninteractive_sigint_handling(void);
+void		set_sigquit_handling(void);
+void		set_signal_handling(void);
+void		ignore_sigint(void);
+void		ignore_siquit(void);
+void		reset_sigint(void);
+void		reset_sigquit(void);
+void		reset_signals(void);
+void		interactive_sigint_handler(int signal);
+void		noninteractive_sigint_handler(int signal);
+void		sigquit_handler(int signal);
+void		set_noninteractive_signal_handling(void);
 //expand API
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
 char		**expand_simple_command(char *simple_command, t_strlist *env);
 //Main functions
-void command_print(t_command *c);
-void	prepare_commands(char *in, t_command **head, char **h, t_strlist *env);
-bool	check_main_args(int ac, char **av, char **envp, t_strlist **env);
-void	execute_userinput(t_strlist *env, char *user_input);
+void		command_print(t_command *c);
+void		prepare_commands(char *in, t_command **head,
+				char **h, t_strlist *env);
+bool		check_main_args(int ac, char **av, char **envp, t_strlist **env);
+void		execute_userinput(t_strlist *env, char *user_input);
 //utils
-int	child_status(int wstatus);
-bool is_pipe_redir(char *s);
-int isDirectory(const char *path);
-bool    contains_only(char *s, char c);
+int			child_status(int wstatus);
+bool		is_pipe_redir(char *s);
+int			is_directory(const char *path);
+bool		contains_only(char *s, char c);
 t_command	*free_commands_strlist(t_command *c, t_strlist *l);
 #endif
