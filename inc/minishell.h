@@ -43,7 +43,7 @@
 
 # define RED   "\e[31m"
 # define ENDCOLOR  "\e[0m"
-# define PROMPT "\e[31mminishell$\e[0m "
+# define PROMPT "\001\e[31m\002minishell$ \001\e[0m\002"
 
 # define ERROR_SYNTAX "syntax error near unexpected token "
 # define HEADER "minishell: "
