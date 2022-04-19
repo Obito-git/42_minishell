@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strarr_cpy.c                                    :+:      :+:    :+:   */
+/*   ft_cpy_strarray.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amyroshn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**ft_strarr_cpy(char **s)
+char	**ft_cpy_strarray(char **s)
 {
 	char	**res;
 	size_t	i;
@@ -22,7 +22,7 @@ char	**ft_strarr_cpy(char **s)
 		return (NULL);
 	while (s[i])
 		i++;
-	res = (char **) malloc(sizeof(char *) * (i + 1));
+	res = (char **) malloc(sizeof(char *) * (i + 2));
 	if (!res)
 		return (NULL);
 	i = 0;

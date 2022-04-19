@@ -12,52 +12,28 @@
 
 #include "minishell.h"
 
-char	**get_com_args(char **c, int *pos)
+void	parse_redirections(t_command *com, char **s, int *pos)
 {
-	int		y;
-	char	**args;
+	char	*mode;
+	char	*name;
 
-	y = 0;
-	while (c[*pos + y] && !is_pipe_redir_char(c[*pos + y][0]))
-		y++;
-	args = (char **) malloc(sizeof(char *) * (y + 2));
-	if (!args)
-		return (NULL);
-	y = 0;
-	while (c[*pos] && !is_pipe_redir_char(c[*pos][0]))
-	{
-		args[y] = ft_strdup(c[*pos]);
-		if (!args[y++])
-		{
-			y = 0;
-			while (args[y])
-				free(args[y++]);
-			free(args);
-			return (NULL);
-		}
+	mode = s[*pos];
+	name = s[*pos + 1];
+	if (!ft_strcmp(name, "|"))
+		name = NULL;
+	if (!ft_strcmp(mode, ">>") || !ft_strcmp(mode, ">"))
+		com->outfile = append_redir(com->outfile, mode, name);
+	else
+		com->infile = append_redir(com->infile, mode, name);
+	*pos += 1;
+	if (s[*pos] && ft_strcmp(s[*pos], "|"))
 		*pos += 1;
-	}
-	args[y] = NULL;
-	return (args);
 }
 
-void	set_struct_pipes_redirections(t_command *com, char *c)
+void	set_pipe_and_redir(t_command *com, int *pos)
 {
-	if (!c)
-		return ;
-	if (!ft_strcmp(c, "|"))
-		com->pipe = true;
-	else
-	{
-		if (!ft_strcmp(c, ">>"))
-			com->out_mode = OUT_APPEND;
-		else if (!ft_strcmp(c, ">"))
-			com->out_mode = OUT_REWRITE;
-		else if (!ft_strcmp(c, "<"))
-			com->in_mode = IN_FILE;
-		else if (!ft_strcmp(c, "<<"))
-			com->in_mode = IN_HEREDOC;
-	}
+	com->pipe = true;
+	*pos += 1;
 }
 
 //return parsed struct
@@ -68,22 +44,25 @@ t_command	*get_command(char **c, int *pos, t_strlist *env)
 	res = command_init();
 	if (!res)
 		return (NULL);
-	if (!ft_strcmp(c[*pos], "<") || !ft_strcmp(c[*pos], "<<"))
-		res->command = ft_strdup("");
-	else
-		res->command = ft_strdup(c[*pos]);
-	if (!res->command)
-		return (NULL);
-	res->args = get_com_args(c, pos);
-	if (!res->args)
-		return (free_commands(res));
-	set_struct_pipes_redirections(res, c[*pos]);
+	while (c[*pos] && ft_strcmp(c[*pos], "|"))
+	{
+		if (is_pipe_redir(c[*pos]))
+			parse_redirections(res, c, pos);
+		if (!res->command && !is_pipe_redir(c[*pos]) && c[*pos])
+		{
+			res->command = ft_strdup(c[*pos]);
+			res->args = ft_append_strarray(NULL, res->command);
+		}
+		else if (!is_pipe_redir(c[*pos]) && c[*pos])
+			res->args = ft_append_strarray(res->args, c[*pos]);
+		if ((!res->args || !res->command) && c[*pos])
+			return(free_commands(res));
+		if (!is_pipe_redir(c[*pos]) && c[*pos])
+			*pos += 1;
+	}
+	if (c[*pos] && !ft_strcmp(c[*pos], "|"))
+		set_pipe_and_redir(res, pos);
 	res->path_to_bin = find_command(env->strarr_value, res);
-	if (c[*pos] && is_pipe_redir_char(c[*pos][0]) && !is_pipe_redir(c[*pos])
-		&& ft_strcmp(c[*pos], res->command))
-		return (res);
-	if (c[*pos])
-		*pos += 1;
 	return (res);
 }
 

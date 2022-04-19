@@ -27,8 +27,8 @@ t_command	*command_init(void)
 	res->tube = NULL;
 	res->args = NULL;
 	res->pipe = false;
-	res->in_mode = false;
-	res->out_mode = false;
+	res->infile = NULL;
+	res->outfile = NULL;
 	res->next = NULL;
 	res->prev = NULL;
 	return (res);
@@ -38,21 +38,27 @@ t_command	*command_init(void)
 void	delete_tmpfiles(t_command *head)
 {
 	char		*filename;
-	t_command	*tmp;
+	t_command	*tmp_cmd;
+	t_redir		*tmp_red;
 
 	if (head)
 	{
-		tmp = head;
-		while (tmp)
+		tmp_cmd = head;
+		while (tmp_cmd)
 		{
-			if (tmp->in_mode == IN_HEREDOC)
+			tmp_red = tmp_cmd->infile;
+			while (tmp_red)
 			{
-				filename = get_heredoc_tmpname(head, tmp);
-				if (filename)
-					unlink(filename);
-				free(filename);
+				if (tmp_red->mode == IN_HEREDOC)
+				{
+					filename = get_heredoc_tmpname(head, tmp_cmd, tmp_red);
+					if (filename)
+						unlink(filename);
+					free(filename);
+				}
+				tmp_red = tmp_red->next;
 			}
-			tmp = tmp->next;
+			tmp_cmd = tmp_cmd->next;
 		}
 	}
 }
@@ -71,6 +77,8 @@ t_command	*free_commands(t_command *c)
 			free(c->command);
 			free(c->path_to_bin);
 			free(c->tube);
+			free_redir(c->infile);
+			free_redir(c->outfile);
 			i = 0;
 			while (c->args && c->args[i])
 			{

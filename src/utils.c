@@ -23,6 +23,8 @@ int	is_directory(const char *path)
 
 bool	is_pipe_redir(char *s)
 {
+	if (!s)
+		return (false);
 	return (!ft_strcmp(s, ">") || !ft_strcmp(s, ">>")
 		|| !ft_strcmp(s, "<") || !ft_strcmp(s, "<<")
 		|| !ft_strcmp(s, "|"));

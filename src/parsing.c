@@ -12,38 +12,6 @@
 
 #include "minishell.h"
 
-/*
-*	Modifies [< 'input file' 'command'] to ['command' < 'input file']
-*	Used to execute 2 patterns by the same executor function
-*/
-void	set_input_pattern(char **s)
-{
-	char	*filename;
-	char	*redir;
-	size_t	i;
-
-	i = 0;
-	if (!s || !s[0] || !s[1] || !s[2])
-		return ;
-	if (!ft_strcmp(s[0], "<") || !ft_strcmp(s[0], "<<"))
-	{
-		redir = s[0];
-		filename = s[1];
-		while (s[i + 2] && (ft_strcmp(s[i + 2], "|")
-				&& ft_strcmp(s[i + 2], ">") && ft_strcmp(s[i + 2], ">>")))
-		{
-			s[i] = s[i + 2];
-			i++;
-		}
-		i = 0;
-		while (s[i] && (ft_strcmp(s[i], "|")
-				&& ft_strcmp(s[i], ">") && ft_strcmp(s[i], ">>")))
-			i++;
-		s[i - 2] = redir;
-		s[i - 1] = filename;
-	}
-}
-
 int	check_pathname_access(t_command *c)
 {
 	char	*msg;
@@ -71,53 +39,28 @@ int	check_pathname_access(t_command *c)
 	return (ret);
 }
 
-bool	update_args(t_strlist **arg, t_command **i, t_command **tmp)
+bool	find_elementary_errors(char **s, t_strlist *env)
 {
-	if ((*arg)->size > 0)
-	{
-		free_strarray((*tmp)->args);
-		update_strlist_strarr_value(*arg);
-		(*tmp)->args = ft_strarr_cpy((*arg)->strarr_value);
-		if (!(*tmp)->args)
-			return (false);
-		if (*i && (*i)->prev)
-			*tmp = (*i)->prev;
-		else
-			*tmp = *i;
-	}
-	free_strlist(*arg);
-	*arg = NULL;
-	if (*tmp)
-		*tmp = (*tmp)->next;
-	return (true);
-}
+	size_t	i;
+	size_t	y;
 
-t_command	*check_files_args(t_command *head)
-{
-	t_command	*tmp;
-	t_command	*i;
-	t_strlist	*arg;
-	int			err;
-
-	tmp = head;
-	while (tmp)
+	i = 0;
+	if (!s)
+		return (true);
+	while (s[i])
 	{
-		arg = new_strlist();
-		if (!arg)
-			return (free_commands(head));
-		i = tmp;
-		err = append_strarray_to_strlist(arg, i->args);
-		i = i->next;
-		while (err != -1 && i && i->prev
-			&& (i->prev->out_mode || i->prev->in_mode))
+		y = 0;
+		while (s[i][y] && is_pipe_redir_char(s[i][y]))
+			y++;
+		if (!s[i][y] && !is_pipe_redir(s[i]))
 		{
-			err = append_strarray_to_strlist(arg, &i->args[1]);
-			i = i->next;
+			ft_dprintf_str(2, "%s%s\"%s\"\n", HEADER, ERROR_SYNTAX, s[i]);
+			env->ret = 2;
+			return (true);
 		}
-		if (!update_args(&arg, &i, &tmp) || err == -1)
-			return (free_commands_strlist(head, arg));
+		i++;
 	}
-	return (head);
+	return (false);
 }
 
 t_command	*parse(char *user_input, t_strlist *env)
@@ -125,6 +68,7 @@ t_command	*parse(char *user_input, t_strlist *env)
 	t_command	*head;
 	t_strlist	*list;
 
+	head = NULL;
 	list = expand_pipeline(user_input, env);
 	if (!list)
 		return (NULL);
@@ -134,10 +78,12 @@ t_command	*parse(char *user_input, t_strlist *env)
 		return (NULL);
 	}
 	update_strlist_strarr_value(list);
-	set_input_pattern(list->strarr_value);
+	if (find_elementary_errors(list->strarr_value, env))
+	{
+		free_strlist(list);
+		return (head);
+	}
 	head = get_commands_list(list->strarr_value, env);
-	if (head)
-		head = check_files_args(head);
 	free_strlist(list);
 	return (head);
 }

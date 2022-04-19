@@ -78,12 +78,13 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 bool	isnumeric_str(char *s);
-char	**ft_strarr_cpy(char **s);
 /* strarray/ */
 char	**free_strarray(char **s);
 char	*ft_join_null_terminated_str_array(char **str_array);
 void	ft_print_strarray(char **com);
 char	**ft_strtrim_strarray(char **s, char *set);
+char	**ft_append_strarray(char **arr, char *str);
+char	**ft_cpy_strarray(char **s);
 /* utils/ */
 int		ft_atoi( const char *s);
 long	ft_atol_sample(char *numb);

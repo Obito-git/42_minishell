@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_append_strarray.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amyroshn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/23 11:08:00 by amyroshn          #+#    #+#             */
-/*   Updated: 2021/11/23 11:08:02 by amyroshn         ###   ########.fr       */
+/*   Created: 2021/08/16 13:06:44 by amyroshn          #+#    #+#             */
+/*   Updated: 2021/11/24 09:06:49 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+char	**ft_append_strarray(char **arr, char *str)
 {
+	char	**new_arr;
 	size_t	i;
 
 	i = 0;
-	if (!str)
+	new_arr = ft_cpy_strarray(arr);
+	free_strarray(arr);
+	if (!new_arr)
+	{
+		new_arr = (char **) malloc(sizeof(char *) * (2));
+		if (new_arr)
+		{
+			new_arr[0] = NULL;
+			new_arr[1] = NULL;
+		}
+	}
+	if (!new_arr)
 		return (NULL);
-	while (str && str[i] && (unsigned char) str[i] != (unsigned char) c)
+	while (new_arr[i])
 		i++;
-	if ((unsigned char) str[i] == (unsigned char) c)
-		return ((char *) &str[i]);
-	return (NULL);
+	new_arr[i] = ft_strdup(str);
+	if (!new_arr[i])
+		return (free_strarray(new_arr));
+	new_arr[i + 1] = NULL;
+	return (new_arr);
 }

@@ -18,7 +18,7 @@ int	update_strlist_strarr_value(t_strlist *list)
 	char		**new_strarr_val;
 
 	tmp_list = *list;
-	new_strarr_val = malloc((list->size + 1) * sizeof(char **));
+	new_strarr_val = malloc((list->size + 2) * sizeof(char **));
 	if (!new_strarr_val)
 		return (-1);
 	free(list->strarr_value);

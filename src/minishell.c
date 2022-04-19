@@ -15,6 +15,7 @@
 void	command_print(t_command *c)
 {
 	int	i;
+	t_redir	*tmp;
 
 	if (!c)
 		printf("Command is null\n");
@@ -27,7 +28,7 @@ void	command_print(t_command *c)
 			printf("Args: ");
 			if (!c->args)
 				printf("Args null");
-			if (!c->args[i])
+			if (c->args && !c->args[i])
 				printf("No args");
 			while (c->args && c->args[i])
 			{
@@ -35,11 +36,31 @@ void	command_print(t_command *c)
 				i++;
 			}
 			printf("\nPipe: %s", c->pipe ? "YES\n" : "NO\n");
-			if (c->out_mode)
-				printf("OUT: %s", c->out_mode == 1 ? "REWRITE\n" : "APPEND\n");
-			if (c->in_mode)
-				printf("IN: %s", c->in_mode == 1 ? "SOLO\n" : "MULTU\n");
-			printf("PATH: %s\n", c->path_to_bin);
+			tmp = c->outfile;
+			while (tmp)
+			{
+				printf("\nout name: %s,", tmp->filename);
+				if (tmp->mode == 1)
+					printf(" rewrite\n");
+				else if (tmp->mode == 2)
+					printf(" append\n");
+				else
+					printf(" %d\n", tmp->mode);
+				tmp = tmp->next;
+			}
+			tmp = c->infile;
+			while (tmp)
+			{
+				printf("\nin name:%s", tmp->filename);
+				if (tmp->mode == 1)
+					printf(" infile\n");
+				else if (tmp->mode == 2)
+					printf(" heredoc\n");
+				else
+					printf(" %d\n", tmp->mode);
+				tmp = tmp->next;
+			}
+			printf("\nPATH: %s\n", c->path_to_bin);
 			printf("------------------\n");
 			c = c->next;
 		}
@@ -108,6 +129,7 @@ void	execute_userinput(t_strlist *env, char *user_input)
 	head = NULL;
 	prepare_commands(user_input, &head, &history, env);
 	head = find_syntax_errors(head, env);
+	//command_print(head);
 	if (history)
 		add_history(history);
 	free(history);

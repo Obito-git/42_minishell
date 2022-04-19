@@ -58,12 +58,19 @@ typedef struct s_command
 	char				*path_to_bin;
 	char				**args;
 	bool				pipe;
-	char				in_mode;
-	char				out_mode;
 	int					*tube;
+	struct s_redir		*infile;
+	struct s_redir		*outfile;
 	struct s_command	*next;
 	struct s_command	*prev;
 }	t_command;
+
+typedef struct s_redir
+{
+	char	*filename;
+	char	mode;
+	struct	s_redir *next;
+}	t_redir;
 
 typedef struct s_inout_fd
 {
@@ -94,10 +101,9 @@ void		close_fds(t_inout_fd *fds);
 //	error_handler.c
 t_command	*find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
-int			get_heredoc_fd(char *delim, t_command *head, t_command *current);
-char		*get_heredoc_tmpname(t_command *head, t_command *current);
-//built-ins
-
+int			get_heredoc_fd(char *delim, t_command *head, t_command *current, t_redir *red);
+char		*get_heredoc_tmpname(t_command *head, t_command *current, t_redir *redir);
+//	built-ins
 t_built_in	get_built_in(t_command *cmd);
 int			echo(t_command *cmd, t_strlist *env);
 int			pwd(t_command *cmd, t_strlist *env);
@@ -106,14 +112,14 @@ int			xport(t_command *cmd, t_strlist *env);
 int			xit(t_command *cmd, t_strlist *env);
 int			env(t_command *cmd, t_strlist *env);
 int			cd(t_command *cmd, t_strlist *env);
-//env
+//	env
 char		*get_env_var_start(char *var, char **envp);
 char		*get_env_var_val(char *var, char **envp);
 ssize_t		writevar(int fd, char *var, char **envp);
-//vars
+//	vars
 char		*get_env_var_val_from_slice(char *var,
 				char *var_end, t_strlist *env);
-// signal handling
+//	signal handling
 void		set_interactive_sigint_handling(void);
 void		set_noninteractive_sigint_handling(void);
 void		set_sigquit_handling(void);
@@ -127,19 +133,22 @@ void		interactive_sigint_handler(int signal);
 void		noninteractive_sigint_handler(int signal);
 void		sigquit_handler(int signal);
 void		set_noninteractive_signal_handling(void);
-//expand API
+//	expand API
 t_strlist	*expand_pipeline(char *user_input, t_strlist *env);
 char		**expand_simple_command(char *simple_command, t_strlist *env);
-//Main functions
+//	Main functions
 void		command_print(t_command *c);
 void		prepare_commands(char *in, t_command **head,
 				char **h, t_strlist *env);
 bool		check_main_args(int ac, char **av, char **envp, t_strlist **env);
 void		execute_userinput(t_strlist *env, char *user_input);
-//utils
+//	utils
 int			child_status(int wstatus);
 bool		is_pipe_redir(char *s);
 int			is_directory(const char *path);
 bool		contains_only(char *s, char c);
 t_command	*free_commands_strlist(t_command *c, t_strlist *l);
+//	t_redir
+t_redir		*free_redir(t_redir *head);
+t_redir		*append_redir(t_redir *head, char *mode, char *name);
 #endif

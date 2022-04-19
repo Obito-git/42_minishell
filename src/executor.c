@@ -87,9 +87,6 @@ void	run_childs(t_command *head, t_strlist *env)
 		else if (pid == 0)
 			exec_com(head, tmp, env);
 		tmp = tmp->next;
-		while (tmp
-			&& (tmp->prev && (tmp->prev->in_mode || tmp->prev->out_mode)))
-			tmp = tmp->next;
 	}
 }
 

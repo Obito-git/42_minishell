@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 //close opened fds if possible and frees struct
 void	close_fds(t_inout_fd *fds)
 {
@@ -27,53 +26,57 @@ void	close_fds(t_inout_fd *fds)
 //opens file or create file with append or rewrite mode.
 //returns file fd
 // -1 will be returned if no need to open file, -2 in error case
-int	set_out_path(t_command *c, int old_fd)
+int	set_out_path(t_command *c)
 {
 	int		fd;
-	char	*err_msg;
+	t_redir	*tmp;
 
 	fd = -1;
-	if (c->out_mode == OUT_APPEND)
-		fd = open(c->next->command, O_WRONLY | O_APPEND | O_CREAT, 0664);
-	if (c->out_mode == OUT_REWRITE)
-		fd = open(c->next->command, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (c->out_mode && old_fd != -1)
-		close(old_fd);
-	if (c->out_mode && fd == -1)
+	tmp = c->outfile;
+	while (tmp)
 	{
-		err_msg = ft_strjoin(HEADER, c->next->command);
-		if (!err_msg)
-			perror(c->next->command);
-		else
-			perror(err_msg);
-		free(err_msg);
-		return (-2);
+		if (fd != -1)
+			close(fd);
+		if (tmp->mode == OUT_APPEND)
+			fd = open(tmp->filename, O_WRONLY | O_APPEND | O_CREAT, 0664);
+		if (tmp->mode == OUT_REWRITE)
+			fd = open(tmp->filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (fd == -1)
+		{
+			ft_dprintf_str(2, "%s", HEADER);
+			perror(tmp->filename);
+			return (-2);
+		}
+		tmp = tmp->next;
 	}
 	return (fd);
 }
 
 //opens file or calls heredoc mode and returns fd of it
 // -1 will be returned if no need to open file, -2 in error case
-int	set_in_path(t_command *head, t_command *c, int old_fd)
+int	set_in_path(t_command *head, t_command *c)
 {
 	int		fd;
+	t_redir	*tmp;
 
 	fd = -1;
-	if (c->in_mode)
+	tmp = c->infile;
+	while (tmp)
 	{
-		if (c->in_mode == IN_FILE)
-			fd = open(c->next->command, O_RDONLY);
+		if (fd != -1)
+			close(fd);
+		if (tmp->mode == IN_FILE)
+			fd = open(tmp->filename, O_RDONLY);
 		else
-			fd = get_heredoc_fd(c->next->command, head, c);
-		if (old_fd != -1)
-			close(old_fd);
+			fd = get_heredoc_fd(tmp->filename, head, c, tmp);
 		if (fd == -1)
 		{
 			ft_dprintf_str(2, "%s", HEADER);
 			perror(c->next->command);
 			return (-2);
 		}
-		set_tubes_path(head, c->next);
+		//set_tubes_path(head, c->next);
+		tmp = tmp->next;
 	}
 	return (fd);
 }
@@ -93,18 +96,14 @@ t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
 		return (NULL);
 	fds->in_fd = -1;
 	fds->out_fd = -1;
-	while (c && (c->in_mode || c->out_mode))
+	fds->in_fd = set_in_path(head, c);
+	fds->out_fd = set_out_path(c);
+	if (fds->in_fd == -2 || fds->out_fd == -2)
 	{
-		fds->in_fd = set_in_path(head, c, fds->in_fd);
-		fds->out_fd = set_out_path(c, fds->out_fd);
-		if (fds->in_fd == -2 || fds->out_fd == -2)
-		{
-			close_fds(fds);
-			free_commands(head);
-			free_strlist(env);
-			exit(EXIT_FAILURE);
-		}
-		c = c->next;
+		close_fds(fds);
+		free_commands(head);
+		free_strlist(env);
+		exit(EXIT_FAILURE);
 	}
 	if (fds->out_fd != -1)
 		dup2(fds->out_fd, STDOUT_FILENO);

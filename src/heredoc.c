@@ -57,8 +57,9 @@ char	*read_heredoc_mode(char *delim)
 
 /*Generate name for tmp file depending on the position of the structure in the
  * list*/
-char	*get_heredoc_tmpname(t_command *head, t_command *current)
+char	*get_heredoc_tmpname(t_command *head, t_command *current, t_redir *redir)
 {
+	t_redir	*r;
 	char	*filename;
 	char	*numb;
 	char	*tmp;
@@ -71,6 +72,12 @@ char	*get_heredoc_tmpname(t_command *head, t_command *current)
 		id++;
 		head = head->next;
 	}
+	r = current->infile;
+	while (r && r != redir)
+	{
+		id += 10;
+		r = r->next;
+	}
 	tmp = filename;
 	numb = ft_itoa(id);
 	filename = ft_strjoin(filename, numb);
@@ -80,14 +87,14 @@ char	*get_heredoc_tmpname(t_command *head, t_command *current)
 }
 
 /*Reads content in heredoc mode and saves it in hidden tmp file.*/
-int	get_heredoc_fd(char *delim, t_command *head, t_command *current)
+int	get_heredoc_fd(char *delim, t_command *head, t_command *current, t_redir *red)
 {
 	char	*content;
 	char	*filename;
 	int		fd;
 
 	content = read_heredoc_mode(delim);
-	filename = get_heredoc_tmpname(head, current);
+	filename = get_heredoc_tmpname(head, current, red);
 	if (!filename)
 	{
 		free(content);
