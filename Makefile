@@ -62,7 +62,8 @@ OBJ/OBJECTS		=	$(patsubst src/%.c, obj/%.o, $(SRC/SOURCES))
 
 all:			$(NAME)
 
-$(NAME):		libft/libft.a obj/main.o ${OBJ/OBJECTS}
+$(NAME):		obj/main.o ${OBJ/OBJECTS}
+				$(MAKE) -C libft
 				@echo "Linking..."
 				@# LDFLAGS (-L) always come before oject files !
 				${CC} -o $@ ${LDFLAGS} $^ ${LDLIBS}
@@ -74,10 +75,6 @@ noenv:			libft/libft.a obj/main_noenv.o ${OBJ/OBJECTS}
 				@echo "Linking..."
 				@# LDFLAGS (-L) always come before oject files !
 				${CC} -o $@ ${LDFLAGS} $^ ${LDLIBS}
-
-libft/libft.a:
-				$(MAKE) -C libft
-
 obj:			
 				mkdir obj
 				mkdir obj/expansion_handling
