@@ -11,17 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-//close opened fds if possible and frees struct
-void	close_fds(t_inout_fd *fds)
-{
-	if (!fds)
-		return ;
-	if (fds->in_fd != -1)
-		close(fds->in_fd);
-	if (fds->out_fd != -1)
-		close(fds->out_fd);
-	free(fds);
-}
+
 
 //opens file or create file with append or rewrite mode.
 //returns file fd
@@ -105,6 +95,8 @@ t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
 		free_strlist(env);
 		exit(EXIT_FAILURE);
 	}
+	fds->backup_in = dup(STDIN_FILENO);
+	fds->backup_out = dup(STDOUT_FILENO);
 	if (fds->out_fd != -1)
 		dup2(fds->out_fd, STDOUT_FILENO);
 	if (fds->in_fd != -1)

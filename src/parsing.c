@@ -52,7 +52,7 @@ bool	find_elementary_errors(char **s, t_strlist *env)
 		y = 0;
 		while (s[i][y] && is_pipe_redir_char(s[i][y]))
 			y++;
-		if (!s[i][y] && !is_pipe_redir(s[i]))
+		if (ft_strlen(s[i]) > 0 && !s[i][y] && !is_pipe_redir(s[i]))
 		{
 			ft_dprintf_str(2, "%s%s\"%s\"\n", HEADER, ERROR_SYNTAX, s[i]);
 			env->ret = 2;

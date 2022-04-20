@@ -96,21 +96,23 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 {
 	int			wstatus;
 	int			(*built_in)(t_command*, t_strlist*);
+	int			built_ret;
+	t_inout_fd	*inout;
 
 	built_in = NULL;
-	if (!head->infile && !head->outfile)
-		built_in = get_built_in(head); // why run out
+	if (!head->next)
+		built_in = get_built_in(head);
 	if (built_in)
-		return (built_in(head, env));
+	{
+		inout = set_redirections(head, head, env);
+		built_ret = built_in(head, env);
+		reset_fds(inout);
+		close_fds(inout);
+		return (built_ret);
+	}
 	run_childs(head, env);
 	close_extra_tubes(head, NULL);
 	while (waitpid(-1, &wstatus, 0) != -1 || errno != ECHILD)
 		;
-	if (!ft_strcmp("exit", head->command))
-	{
-		built_in = get_built_in(head);
-		if (built_in)
-			return (built_in(head, env));
-	}
 	return (child_status(wstatus));
 }

@@ -76,6 +76,8 @@ typedef struct s_inout_fd
 {
 	int	in_fd;
 	int	out_fd;
+	int	backup_in;
+	int	backup_out;
 }	t_inout_fd;
 
 typedef int					(*t_built_in)(t_command*, t_strlist*);
@@ -97,7 +99,9 @@ int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
 t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env);
 void		set_tubes_path(t_command *head, t_command *c);
+//	t_fds
 void		close_fds(t_inout_fd *fds);
+void	    reset_fds(t_inout_fd *fds);
 //	error_handler.c
 t_command	*find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c

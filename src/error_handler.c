@@ -46,6 +46,8 @@ t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 {
 	if (!head)
 		return (NULL);
+	if (head->command && !ft_strlen(head->command))
+		return (free_commands(head));
 	env->ret = 2;
 	if (check_unexpected_token(head))
 		;
