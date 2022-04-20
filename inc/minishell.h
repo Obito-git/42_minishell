@@ -85,12 +85,13 @@ typedef int					(*t_built_in)(t_command*, t_strlist*);
 //	struct_utils.c
 t_command	*command_init(void);
 t_command	*free_commands(t_command *c);
+t_command	*delete_com_from_list(t_command *to_del);
 t_command	*get_last_cmd(t_command *head);
 //	parsing
 bool		is_pipe_redir_char(char c);
 char		*find_command(char **envp, t_command *c);
 t_command	*parse(char *user_input, t_strlist *env);
-int			check_pathname_access(t_command *c);
+int			check_pathname_access(t_command *c, t_strlist *env);
 //	str_to_struct.c
 t_command	*get_commands_list(char **c, t_strlist *env);
 //	executor.c

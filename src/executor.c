@@ -31,7 +31,7 @@ int	try_to_execute(t_command *c, t_strlist *env)
 {
 	int	ret;
 
-	ret = check_pathname_access(c);
+	ret = check_pathname_access(c, env);
 	if (!c->path_to_bin && ret == 0)
 	{
 		ft_dprintf_str(STDERR_FILENO, "%s", HEADER);

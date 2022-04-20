@@ -12,7 +12,19 @@
 
 #include "minishell.h"
 
-int	check_pathname_access(t_command *c)
+bool	find_path(t_strlist *env)
+{
+	char	**envp;
+
+	envp = env->strarr_value;
+	while (*envp && ft_strncmp("PATH", *envp, 4))
+		envp++;
+	if (!*envp || ft_strlen(*envp) == 5)
+		return (false);
+	return (true);
+}
+
+int	check_pathname_access(t_command *c, t_strlist *env)
 {
 	char	*msg;
 	int		ret;
@@ -20,7 +32,7 @@ int	check_pathname_access(t_command *c)
 	ret = 0;
 	msg = ft_strjoin(HEADER, c->command);
 	if (!c->path_to_bin && (!ft_strncmp("./", c->command, 2)
-			|| ft_strchr(c->command, '/')))
+			|| ft_strchr(c->command, '/') || !find_path(env)))
 	{
 		if ((access(c->command, X_OK) == -1 || access(c->command, F_OK) == -1)
 			&& !is_directory(c->command))

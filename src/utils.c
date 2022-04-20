@@ -61,16 +61,15 @@ char	*find_command(char **envp, t_command *c)
 	char	*test_path;
 
 	i = 0;
+	splited = NULL;
+	test_path = NULL;
 	if (!ft_strncmp("./", c->command, 2) || ft_strchr(c->command, '/'))
 		return (NULL);
 	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
-	if (!*envp && access(c->command, X_OK) == 0)
-		return (ft_strdup(c->command));
-	if (!*envp || !ft_strlen(c->command))
-		return (NULL);
-	splited = ft_split(*envp, ':');
-	while (splited && splited[i++])
+	if (*envp && ft_strlen(c->command))
+		splited = ft_split(*envp, ':');
+	while (*envp && splited && splited[i++])
 	{
 		test_path = ft_str_threejoin(splited[i], "/", c->command);
 		if (!test_path || access(test_path, X_OK) == 0)
@@ -79,5 +78,7 @@ char	*find_command(char **envp, t_command *c)
 		test_path = NULL;
 	}
 	free_strarray(splited);
+	if (!test_path && access(c->command, X_OK) == 0)
+		return (ft_strdup(c->command));
 	return (test_path);
 }

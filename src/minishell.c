@@ -130,6 +130,7 @@ void	execute_userinput(t_strlist *env, char *user_input)
 	prepare_commands(user_input, &head, &history, env);
 	head = find_syntax_errors(head, env);
 	//command_print(head);
+	//head = NULL;
 	if (history)
 		add_history(history);
 	free(history);

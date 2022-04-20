@@ -94,6 +94,35 @@ t_command	*free_commands(t_command *c)
 	return (NULL);
 }
 
+t_command	*delete_com_from_list(t_command *to_del)
+{
+	t_command	*tmp;
+
+	tmp = NULL;
+	if (to_del->prev && !to_del->next)
+		return (free_commands(to_del));
+	if (!to_del->next && to_del->prev)
+	{
+		tmp = to_del->prev;
+		tmp->next = NULL;
+		free_commands(to_del);
+	}
+	else if (to_del->next && to_del->prev)
+	{
+		tmp = to_del->prev;
+		tmp->next = to_del->next;
+		to_del->prev = tmp;
+		free_commands(to_del);
+	}
+	else if (to_del->next && !to_del->prev)
+	{
+		tmp = to_del->next;
+		free_commands(to_del);
+		tmp->prev = NULL;
+	}
+	return (tmp);
+}
+
 t_command	*get_last_cmd(t_command *head)
 {
 	t_command	*tmp;
@@ -102,11 +131,4 @@ t_command	*get_last_cmd(t_command *head)
 	while (tmp && tmp->next)
 		tmp = tmp->next;
 	return (tmp);
-}
-
-t_command	*free_commands_strlist(t_command *c, t_strlist *l)
-{
-	free_strlist(l);
-	free_commands(c);
-	return (NULL);
 }
