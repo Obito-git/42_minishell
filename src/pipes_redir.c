@@ -74,7 +74,7 @@ int	set_in_path(t_command *c)
 *	in this case file1, file2 and file3 will be created, STDOUT will be
 *	replaced by file3 fd. File descriptors of file1 and file2 will be closed.
 */
-t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
+t_inout_fd	*set_redirections(t_command *c)
 {
 	t_inout_fd	*fds;
 
@@ -88,9 +88,7 @@ t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
 	if (fds->in_fd == -2 || fds->out_fd == -2)
 	{
 		close_fds(fds);
-		free_commands(head);
-		free_strlist(env);
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	fds->backup_in = dup(STDIN_FILENO);
 	fds->backup_out = dup(STDOUT_FILENO);

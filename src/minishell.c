@@ -128,6 +128,7 @@ void	execute_userinput(t_strlist *env, char *user_input)
 	history = NULL;
 	head = NULL;
 	prepare_commands(user_input, &head, &history, env);
+	//command_print(head);
 	head = find_syntax_errors(head, env);
 	delete_com_from_list(&head);
 	if (history)

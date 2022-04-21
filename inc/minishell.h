@@ -100,7 +100,7 @@ t_command	*get_commands_list(char **c, t_strlist *env);
 void		close_extra_tubes(t_command *head, t_command *current);
 int			execute_pipeline(t_command *head, t_strlist *env);
 //	pipes_redir.c
-t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env);
+t_inout_fd	*set_redirections(t_command *c);
 void		set_tubes_path(t_command *head, t_command *c);
 //	t_fds
 void		close_fds(t_inout_fd *fds);

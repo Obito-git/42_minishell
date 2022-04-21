@@ -97,6 +97,12 @@ void	delete_com_from_list(t_command **head)
 	t_command	*iter;
 
 	tmp = NULL;
+	if (!get_last_cmd(*head)->to_execute)
+	{
+		free_commands(*head);
+		*head = NULL;
+		return ;
+	}
 	iter = *head;
 	tmp_func(head, tmp, iter);
 }

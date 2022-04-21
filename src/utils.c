@@ -78,7 +78,7 @@ char	*find_command(char **envp, t_command *c)
 		test_path = NULL;
 	}
 	free_strarray(splited);
-	if (!test_path && access(c->command, X_OK) == 0)
+	if (!*envp && !is_directory(c->command) && c->command && !test_path && access(c->command, X_OK) == 0)
 		return (ft_strdup(c->command));
 	return (test_path);
 }

@@ -56,8 +56,8 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 	int			ret;
 
 	ret = 0;
-	inout = set_redirections(c, head, env);
 	set_tubes_path(head, c);
+	inout = set_redirections(c);
 	built_in = get_built_in(c);
 	if (inout && built_in)
 		ret = built_in(c, env);
@@ -65,7 +65,8 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 		ret = try_to_execute(c, env);
 	if (!inout)
 		ret = EXIT_FAILURE;
-	close_fds(inout);
+	if (inout)
+		close_fds(inout);
 	free_commands(head);
 	free_strlist(env);
 	exit(ret);
@@ -104,7 +105,9 @@ int	execute_pipeline(t_command *head, t_strlist *env)
 		built_in = get_built_in(head);
 	if (built_in)
 	{
-		inout = set_redirections(head, head, env);
+		inout = set_redirections(head);
+		if (!inout)
+			return (1);
 		built_ret = built_in(head, env);
 		reset_fds(inout);
 		close_fds(inout);
