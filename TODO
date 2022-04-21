@@ -7,7 +7,6 @@ cat loop.sh > cant_write notexist --> OK. Works just like bash
 cat loop.sh > notexist cant_write --> ^
 cat loop.sh > notexist1 notexist2 notexist3 --> ^
 
-
 exit lol // OK
 
 cat <<end >file1 > file2 //OK
@@ -18,3 +17,31 @@ echo hi >test anton >test2 tom // OK
 <notexist <<end ls  --> SEGV in delete_com_from_list line 100  
 <cant_exec <<end ls --> ^
 input spaces should do nothing -> ^
+
+ulimit -n                                  # nombre de fd dispo max (pour expliquer le principe de fd leaks a l'evalué)
+ls /proc/self/fd                           # affiche le nombre fd utilisés par le process enfant il faut donc repeter cette commande plusieurs fois lors de la correction pour verifier les fd leaks
+ls | ls | ls /proc/self/fd                 # regarder le nombre de fd
+ls | ls | ls | ls | ls | ls /proc/self/fd  # le nombre de fd doit etre le meme que la ligne d'avant!
+# essayer aussi avec des redirections!
+	--> Fd leaks avec : <input ls | ls >> lol | ls >lol | ls >file1 >file2 | ls | ls /proc/self/fd
+
+env -i ./minishell
+
+# redirections:
+>test                        # doit creer test
+>>test                       # doit creer test
+<test                        # doit essayer d'ouvrir test
+cat <a <b >c >d              # input b output d
+
+# pipes
+ls | cat                     # affiche ls
+cat | ls                     # doit afficher ls puis doit exit apres un \n
+
+#   Les redirections doivent etre faites APRES les pipes, (donc sont prioritaires par ecrasement)
+cat a | < b cat | cat > c | cat # b doit etre copié dans c, rien ne doit etre ecrit dans stdout
+
+# Execution
+./non_executable             # permission denied exit code 126
+./directory
+non_executable               # avec non_executable dans un dossier du path, permission denied
+cat < directory
