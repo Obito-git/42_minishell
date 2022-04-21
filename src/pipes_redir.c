@@ -44,7 +44,7 @@ int	set_out_path(t_command *c)
 
 //opens file or calls heredoc mode and returns fd of it
 // -1 will be returned if no need to open file, -2 in error case
-int	set_in_path(t_command *head, t_command *c)
+int	set_in_path(t_command *c)
 {
 	int		fd;
 	t_redir	*tmp;
@@ -58,7 +58,7 @@ int	set_in_path(t_command *head, t_command *c)
 		if (tmp->mode == IN_FILE)
 			fd = open(tmp->filename, O_RDONLY);
 		else
-			fd = get_heredoc_fd(tmp->filename, head, c, tmp);
+			fd = tmp->heredoc_fd;
 		if (fd == -1)
 		{
 			ft_dprintf_str(2, "%s", HEADER);
@@ -86,7 +86,7 @@ t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env)
 		return (NULL);
 	fds->in_fd = -1;
 	fds->out_fd = -1;
-	fds->in_fd = set_in_path(head, c);
+	fds->in_fd = set_in_path(c);
 	fds->out_fd = set_out_path(c);
 	if (fds->in_fd == -2 || fds->out_fd == -2)
 	{

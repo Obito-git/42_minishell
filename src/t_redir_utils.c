@@ -9,6 +9,7 @@ t_redir	*new_redir()
 		return (NULL);
 	new->filename = NULL;
 	new->mode = false;
+	new->heredoc_fd = -1;
 	new->next = NULL;
 	return (new);
 }
@@ -20,6 +21,8 @@ t_redir	*free_redir(t_redir *head)
 	while (head)
 	{
 		free(head->filename);
+		if (head->heredoc_fd != -1)
+			close(head->heredoc_fd);
 		tmp = head;
 		head = head->next;
 		free(tmp);

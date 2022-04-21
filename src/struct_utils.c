@@ -24,6 +24,7 @@ t_command	*command_init(void)
 		return (NULL);
 	res->command = NULL;
 	res->path_to_bin = NULL;
+	res->to_execute = true;
 	res->tube = NULL;
 	res->args = NULL;
 	res->pipe = false;
@@ -93,34 +94,42 @@ t_command	*free_commands(t_command *c)
 	}
 	return (NULL);
 }
+void	tmp_func(t_command **head, t_command *tmp, t_command *iter)
+{
+	while (iter)
+	{
+		if (!iter->to_execute)
+		{
+			tmp = iter;
+			iter = tmp->next;
+			if (!tmp->prev)
+			{
+				*head = tmp->next;
+				if (*head)
+					(*head)->prev = NULL;
+			}
+			else
+			{
+				tmp->prev->next = tmp->next;
+				if (tmp->next)
+					tmp->next->prev = tmp->prev;
+			}
+			tmp->next = NULL;
+			free_commands(tmp);
+		}
+		else
+			iter = iter->next;
+	}
+}
 
-t_command	*delete_com_from_list(t_command *to_del)
+void	delete_com_from_list(t_command **head)
 {
 	t_command	*tmp;
+	t_command	*iter;
 
 	tmp = NULL;
-	if (to_del->prev && !to_del->next)
-		return (free_commands(to_del));
-	if (!to_del->next && to_del->prev)
-	{
-		tmp = to_del->prev;
-		tmp->next = NULL;
-		free_commands(to_del);
-	}
-	else if (to_del->next && to_del->prev)
-	{
-		tmp = to_del->prev;
-		tmp->next = to_del->next;
-		to_del->prev = tmp;
-		free_commands(to_del);
-	}
-	else if (to_del->next && !to_del->prev)
-	{
-		tmp = to_del->next;
-		free_commands(to_del);
-		tmp->prev = NULL;
-	}
-	return (tmp);
+	iter = *head;
+	tmp_func(head, tmp, iter);
 }
 
 t_command	*get_last_cmd(t_command *head)

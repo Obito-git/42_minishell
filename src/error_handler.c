@@ -42,15 +42,34 @@ bool	check_unexpected_token(t_command *head)
 	return (false);
 }
 
-char	*check_access(t_command *c)
+void	refresh_heredoc_fd(t_redir **red, t_command *head, t_command *c, bool iterate)
+{
+	if ((*red)->mode == IN_HEREDOC)
+	{
+		if ((*red)->heredoc_fd != -1)
+			close((*red)->heredoc_fd);
+		(*red)->heredoc_fd = get_heredoc_fd((*red)->filename, head, c, *red);
+	}
+	if (iterate)
+		*red = (*red)->next;	
+}
+
+char	*check_access(t_command *c, t_command *head)
 {
 	t_redir	*tmp;
+	t_redir	*iter;
 
 	tmp = c->infile;
 	while (tmp)
 	{
 		if (tmp->mode == IN_FILE && access(tmp->filename, R_OK) == -1)
+		{
+			iter = tmp;
+			while (iter)
+				refresh_heredoc_fd(&iter, head, c, true);
 			return (tmp->filename);
+		}
+		refresh_heredoc_fd(&tmp, head, c, false);
 		tmp = tmp->next;
 	}
 	tmp = c->outfile;
@@ -72,14 +91,14 @@ bool	check_filenames(t_command *head, t_strlist *env)
 	tmp = head;
 	while (tmp)
 	{
-		err = check_access(tmp);
+		err = check_access(tmp, head);
 		if (err)
 		{
+			access(err, R_OK);
 			ft_dprintf_str(2, "%s", HEADER);
 			perror(err);
 			env->ret = 1;
-			tmp = delete_com_from_list(tmp);
-			continue ;
+			tmp->to_execute = false;
 		}
 		tmp = tmp->next;
 	}

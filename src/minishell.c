@@ -129,8 +129,7 @@ void	execute_userinput(t_strlist *env, char *user_input)
 	head = NULL;
 	prepare_commands(user_input, &head, &history, env);
 	head = find_syntax_errors(head, env);
-	//command_print(head);
-	//head = NULL;
+	delete_com_from_list(&head);
 	if (history)
 		add_history(history);
 	free(history);

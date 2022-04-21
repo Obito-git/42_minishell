@@ -57,6 +57,7 @@ typedef struct s_command
 	char				*command;
 	char				*path_to_bin;
 	char				**args;
+	bool				to_execute;
 	bool				pipe;
 	int					*tube;
 	struct s_redir		*infile;
@@ -69,6 +70,7 @@ typedef struct s_redir
 {
 	char	*filename;
 	char	mode;
+	int		heredoc_fd;
 	struct	s_redir *next;
 }	t_redir;
 
@@ -85,7 +87,7 @@ typedef int					(*t_built_in)(t_command*, t_strlist*);
 //	struct_utils.c
 t_command	*command_init(void);
 t_command	*free_commands(t_command *c);
-t_command	*delete_com_from_list(t_command *to_del);
+void	delete_com_from_list(t_command **head);
 t_command	*get_last_cmd(t_command *head);
 //	parsing
 bool		is_pipe_redir_char(char c);
