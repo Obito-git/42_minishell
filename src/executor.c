@@ -32,13 +32,13 @@ int	try_to_execute(t_command *c, t_strlist *env)
 	int	ret;
 
 	ret = check_pathname_access(c, env);
-	if (!c->path_to_bin && ret == 0)
+	if (c->command && !c->path_to_bin && ret == 0)
 	{
 		ft_dprintf_str(STDERR_FILENO, "%s", HEADER);
 		ft_dprintf_str(STDERR_FILENO, "%s: command not found\n", c->command);
 		ret = EXIT_UNK_CMD;
 	}
-	if (c->path_to_bin
+	if (c->command && c->path_to_bin
 		&& execve(c->path_to_bin, c->args, env->strarr_value) == -1)
 	{
 		perror(HEADER);

@@ -4,8 +4,8 @@ Remaining
 ===========
 
 cat loop.sh > cant_write notexist --> OK. Works just like bash
-cat loop.sh > notexist cant_write --> ^
-cat loop.sh > notexist1 notexist2 notexist3 --> ^
+cat loop.sh > notexist cant_write --> OK.
+cat loop.sh > notexist1 notexist2 notexist3 --> OK
 
 exit lol // OK
 
@@ -17,6 +17,10 @@ echo hi >test anton >test2 tom // OK
 <notexist <<end ls  --> SEGV in delete_com_from_list line 100  
 <cant_exec <<end ls --> ^
 input spaces should do nothing -> ^
+
+<notexist <<end ls  --> FIXED
+<cant_exec <<end ls --> FIXED
+input spaces should do nothing -> like bash and not changind last code error
 
 ulimit -n                                  # nombre de fd dispo max (pour expliquer le principe de fd leaks a l'evalué)
 ls /proc/self/fd                           # affiche le nombre fd utilisés par le process enfant il faut donc repeter cette commande plusieurs fois lors de la correction pour verifier les fd leaks
@@ -45,3 +49,4 @@ cat a | < b cat | cat > c | cat # b doit etre copié dans c, rien ne doit etre e
 ./directory
 non_executable               # avec non_executable dans un dossier du path, permission denied
 cat < directory
+

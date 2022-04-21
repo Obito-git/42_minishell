@@ -72,14 +72,6 @@ char	*check_access(t_command *c, t_command *head)
 		tmp = tmp->next;
 	}
 	tmp = c->outfile;
-	/*
-	while (tmp)
-	{
-		if (access(tmp->filename, F_OK) == 0
-			&& access(tmp->filename, W_OK) == -1)
-			return (tmp->filename);
-		tmp = tmp->next;
-	} */
 	return (NULL);
 }
 

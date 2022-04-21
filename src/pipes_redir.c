@@ -60,7 +60,7 @@ int	set_in_path(t_command *c)
 		if (fd == -1)
 		{
 			ft_dprintf_str(2, "%s", HEADER);
-			perror(c->next->command);
+			perror(tmp->filename);
 			return (-2);
 		}
 		tmp = tmp->next;
