@@ -1,46 +1,20 @@
-Fix command > file1 > file 2. (need to create file1, but write result in the last one)
-Fix extra newline in prompt. (you add it for fix ctrl^c i think)
+LIST ALL SOURCES IN MAKEFILE
 
-Anton: my bash do nothing in the case when cd with no args, owr print a promp
-	--> That's ok we don't have to handle that
-
-Anton: unset dont working for me :( . if "unset $PATH" do nothing, -> this is normal
-		if "unset PATH" and then try to execut any command, we got segfault(maybe wrong node deleting)
-
-Anton: test in built-ins ft_strcmp possible error. In unset.c for example. You are cheking arg len caracters, possible error is "unset test" will work for $test123 if $test not existing
---> Did I fix that last time ?
-
-input/output file without permissons
-
-./file_withous_permission message
-
-exit lol // done
-
-cat <<end >file1 > file2 //done
-cat loop.sh > test notexist //done
-cat loop.sh > test printargv.c //done
-echo hi >test anton >test2 tom // done (normalement)
-input spaces should do nothing // done
-look into current directory if not found in PATH // done
-
-Anton
-============
-Handle input (done)
-Parsing Errors (in progress)
-Here-doc mode (normally done)
-Test behaviour when no env (normally done)
-Fixed and tested many return values for errors, can be checked by echo $?
-Fixed cases like "ls >|" "ls |||>" ">" "<" etc.
-Fixed some input bugs
-Added t_strlist->int ret variable to easily update the last returned value
-Added some preprocessor define for economise lines
-Fixed many of valgrind errors and no memory leaks were detected
-
-
-TODO Tom
+Remaining
 ===========
 
-expr $? + $? : Invalid read ofsize 1
-expr $? + $?<spaces> :invalid token
-car $? + $? : Invalid read ofsize 1
-history messes with input
+cat loop.sh > cant_write notexist --> OK. Works just like bash
+cat loop.sh > notexist cant_write --> ^
+cat loop.sh > notexist1 notexist2 notexist3 --> ^
+
+
+exit lol // OK
+
+cat <<end >file1 > file2 //OK
+
+cat loop.sh > test printargv.c // OK
+echo hi >test anton >test2 tom // OK 
+
+<notexist <<end ls  --> SEGV in delete_com_from_list line 100  
+<cant_exec <<end ls --> ^
+input spaces should do nothing -> ^
