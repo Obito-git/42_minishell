@@ -18,6 +18,9 @@ echo hi >test anton >test2 tom // OK
 <cant_exec <<end ls --> ^
 input spaces should do nothing -> ^
 
+<<end cat | <<end ls --> "end: command not found" KO
+cat | <Makefile wc -l --> Asks for input and then "input : command not found"
+
 <notexist <<end ls  --> FIXED
 <cant_exec <<end ls --> FIXED
 input spaces should do nothing -> like bash and not changind last code error
@@ -27,7 +30,7 @@ ls /proc/self/fd                           # affiche le nombre fd utilisés par 
 ls | ls | ls /proc/self/fd                 # regarder le nombre de fd
 ls | ls | ls | ls | ls | ls /proc/self/fd  # le nombre de fd doit etre le meme que la ligne d'avant!
 # essayer aussi avec des redirections!
-	--> Fd leaks avec : <input ls | ls >> lol | ls >lol | ls >file1 >file2 | ls | ls /proc/self/fd
+	--> Fd leaks avec : <notexist ls | ls |  ls /proc/self/fd
 
 env -i ./minishell
 
