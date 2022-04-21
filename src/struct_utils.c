@@ -35,35 +35,6 @@ t_command	*command_init(void)
 	return (res);
 }
 
-//tries to delete heredoc tmpfile
-void	delete_tmpfiles(t_command *head)
-{
-	char		*filename;
-	t_command	*tmp_cmd;
-	t_redir		*tmp_red;
-
-	if (head)
-	{
-		tmp_cmd = head;
-		while (tmp_cmd)
-		{
-			tmp_red = tmp_cmd->infile;
-			while (tmp_red)
-			{
-				if (tmp_red->mode == IN_HEREDOC)
-				{
-					filename = get_heredoc_tmpname(head, tmp_cmd, tmp_red);
-					if (filename)
-						unlink(filename);
-					free(filename);
-				}
-				tmp_red = tmp_red->next;
-			}
-			tmp_cmd = tmp_cmd->next;
-		}
-	}
-}
-
 //applies free on each element of an array list
 t_command	*free_commands(t_command *c)
 {
@@ -82,10 +53,7 @@ t_command	*free_commands(t_command *c)
 			free_redir(c->outfile);
 			i = 0;
 			while (c->args && c->args[i])
-			{
-				free(c->args[i]);
-				i++;
-			}
+				free(c->args[i++]);
 			free(c->args);
 			tmp = c->next;
 			free(c);
@@ -94,6 +62,7 @@ t_command	*free_commands(t_command *c)
 	}
 	return (NULL);
 }
+
 void	tmp_func(t_command **head, t_command *tmp, t_command *iter)
 {
 	while (iter)

@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   t_redir_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amyroshn && tpouget <norminet@42.fr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/21 10:30:58 by amyroshn          #+#    #+#             */
+/*   Updated: 2022/04/21 10:31:03 by amyroshn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "minishell.h"
 
-t_redir	*new_redir()
+t_redir	*new_redir(void)
 {
-	t_redir *new;
+	t_redir	*new;
 
 	new = (t_redir *) malloc(sizeof(t_redir));
 	if (!new)
@@ -45,7 +56,7 @@ t_redir	*append_redir(t_redir *head, char *mode, char *name)
 		new->mode = OUT_REWRITE;
 	else if (!ft_strcmp(mode, "<"))
 		new->mode = IN_FILE;
-	else if (!ft_strcmp(mode, "<<")) 
+	else if (!ft_strcmp(mode, "<<"))
 		new->mode = IN_HEREDOC;
 	if (!head)
 		return (new);

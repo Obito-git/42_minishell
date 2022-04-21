@@ -56,7 +56,7 @@ t_command	*get_command(char **c, int *pos, t_strlist *env)
 		else if (!is_pipe_redir(c[*pos]) && c[*pos])
 			res->args = ft_append_strarray(res->args, c[*pos]);
 		if ((!res->args || !res->command) && c[*pos])
-			return(free_commands(res));
+			return (free_commands(res));
 		if (!is_pipe_redir(c[*pos]) && c[*pos])
 			*pos += 1;
 	}

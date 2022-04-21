@@ -9,9 +9,7 @@
 /*   Updated: 2022/04/19 11:02:13 by amyroshn && t    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
-
 
 bool	check_unexpected_token(t_command *head)
 {
@@ -42,7 +40,8 @@ bool	check_unexpected_token(t_command *head)
 	return (false);
 }
 
-void	refresh_heredoc_fd(t_redir **red, t_command *head, t_command *c, bool iterate)
+void	refresh_heredoc_fd(t_redir **red, t_command *head,
+		t_command *c, bool iterate)
 {
 	if ((*red)->mode == IN_HEREDOC)
 	{
@@ -51,7 +50,7 @@ void	refresh_heredoc_fd(t_redir **red, t_command *head, t_command *c, bool itera
 		(*red)->heredoc_fd = get_heredoc_fd((*red)->filename, head, c, *red);
 	}
 	if (iterate)
-		*red = (*red)->next;	
+		*red = (*red)->next;
 }
 
 char	*check_access(t_command *c, t_command *head)
@@ -85,7 +84,7 @@ char	*check_access(t_command *c, t_command *head)
 
 bool	check_filenames(t_command *head, t_strlist *env)
 {
-	char	*err;
+	char		*err;
 	t_command	*tmp;
 
 	tmp = head;
@@ -104,7 +103,6 @@ bool	check_filenames(t_command *head, t_strlist *env)
 	}
 	return (env->ret == 1);
 }
-
 
 t_command	*find_syntax_errors(t_command *head, t_strlist *env)
 {

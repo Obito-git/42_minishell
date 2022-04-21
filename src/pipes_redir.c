@@ -9,9 +9,7 @@
 /*   Updated: 2022/04/19 15:06:21 by amyroshn && t    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
-
 
 //opens file or create file with append or rewrite mode.
 //returns file fd
@@ -65,7 +63,6 @@ int	set_in_path(t_command *c)
 			perror(c->next->command);
 			return (-2);
 		}
-		//set_tubes_path(head, c->next);
 		tmp = tmp->next;
 	}
 	return (fd);

@@ -9,8 +9,36 @@
 /*   Updated: 2022/04/19 11:37:43 by amyroshn && t    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
+
+//tries to delete heredoc tmpfile
+void	delete_tmpfiles(t_command *head)
+{
+	char		*filename;
+	t_command	*tmp_cmd;
+	t_redir		*tmp_red;
+
+	if (head)
+	{
+		tmp_cmd = head;
+		while (tmp_cmd)
+		{
+			tmp_red = tmp_cmd->infile;
+			while (tmp_red)
+			{
+				if (tmp_red->mode == IN_HEREDOC)
+				{
+					filename = get_heredoc_tmpname(head, tmp_cmd, tmp_red);
+					if (filename)
+						unlink(filename);
+					free(filename);
+				}
+				tmp_red = tmp_red->next;
+			}
+			tmp_cmd = tmp_cmd->next;
+		}
+	}
+}
 
 char	*read_heredoc_mode_lopped(char *s, char *delim)
 {
@@ -57,7 +85,8 @@ char	*read_heredoc_mode(char *delim)
 
 /*Generate name for tmp file depending on the position of the structure in the
  * list*/
-char	*get_heredoc_tmpname(t_command *head, t_command *current, t_redir *redir)
+char	*get_heredoc_tmpname(t_command *head,
+		t_command *current, t_redir *redir)
 {
 	t_redir	*r;
 	char	*filename;
@@ -87,7 +116,8 @@ char	*get_heredoc_tmpname(t_command *head, t_command *current, t_redir *redir)
 }
 
 /*Reads content in heredoc mode and saves it in hidden tmp file.*/
-int	get_heredoc_fd(char *delim, t_command *head, t_command *current, t_redir *red)
+int	get_heredoc_fd(char *delim, t_command *head,
+					t_command *current, t_redir *red)
 {
 	char	*content;
 	char	*filename;
