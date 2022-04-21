@@ -4,8 +4,8 @@ Remaining
 ===========
 
 cat loop.sh > cant_write notexist --> OK. Works just like bash
-cat loop.sh > notexist cant_write --> ^
-cat loop.sh > notexist1 notexist2 notexist3 --> ^
+cat loop.sh > notexist cant_write --> OK.
+cat loop.sh > notexist1 notexist2 notexist3 --> OK
 
 
 exit lol // OK
@@ -15,6 +15,6 @@ cat <<end >file1 > file2 //OK
 cat loop.sh > test printargv.c // OK
 echo hi >test anton >test2 tom // OK 
 
-<notexist <<end ls  --> SEGV in delete_com_from_list line 100  
-<cant_exec <<end ls --> ^
-input spaces should do nothing -> ^
+<notexist <<end ls  --> FIXED
+<cant_exec <<end ls --> FIXED
+input spaces should do nothing -> like bash and not changind last code error
