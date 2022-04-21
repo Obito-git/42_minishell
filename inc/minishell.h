@@ -68,10 +68,10 @@ typedef struct s_command
 
 typedef struct s_redir
 {
-	char	*filename;
-	char	mode;
-	int		heredoc_fd;
-	struct	s_redir *next;
+	char			*filename;
+	char			mode;
+	int				heredoc_fd;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_inout_fd
@@ -87,7 +87,7 @@ typedef int					(*t_built_in)(t_command*, t_strlist*);
 //	struct_utils.c
 t_command	*command_init(void);
 t_command	*free_commands(t_command *c);
-void	delete_com_from_list(t_command **head);
+void		delete_com_from_list(t_command **head);
 t_command	*get_last_cmd(t_command *head);
 //	parsing
 bool		is_pipe_redir_char(char c);
@@ -104,12 +104,15 @@ t_inout_fd	*set_redirections(t_command *c, t_command *head, t_strlist *env);
 void		set_tubes_path(t_command *head, t_command *c);
 //	t_fds
 void		close_fds(t_inout_fd *fds);
-void	    reset_fds(t_inout_fd *fds);
+void		reset_fds(t_inout_fd *fds);
 //	error_handler.c
 t_command	*find_syntax_errors(t_command *head, t_strlist *env);
 //	heredoc.c
-int			get_heredoc_fd(char *delim, t_command *head, t_command *current, t_redir *red);
-char		*get_heredoc_tmpname(t_command *head, t_command *current, t_redir *redir);
+int			get_heredoc_fd(char *delim, t_command *head,
+				t_command *current, t_redir *red);
+char		*get_heredoc_tmpname(t_command *head,
+				t_command *current, t_redir *redir);
+void		delete_tmpfiles(t_command *head);
 //	built-ins
 t_built_in	get_built_in(t_command *cmd);
 int			echo(t_command *cmd, t_strlist *env);
