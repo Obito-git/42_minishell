@@ -31,6 +31,7 @@ ls | ls | ls /proc/self/fd                 # regarder le nombre de fd
 ls | ls | ls | ls | ls | ls /proc/self/fd  # le nombre de fd doit etre le meme que la ligne d'avant!
 # essayer aussi avec des redirections!
 	--> Fd leaks avec : <notexist ls | ls |  ls /proc/self/fd
+	Il y a un pipe qui n'est pas fermé après chaque exécution ou il y un input qui n'existe pas
 
 env -i ./minishell
 
