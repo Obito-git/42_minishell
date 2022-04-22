@@ -46,20 +46,18 @@ t_command	*get_command(char **c, int *pos, t_strlist *env)
 		return (NULL);
 	while (c[*pos] && ft_strcmp(c[*pos], "|"))
 	{
-		while (is_pipe_redir(c[*pos]) && ft_strcmp(c[*pos], "|"))
+		while (ft_strlen(c[*pos]) && is_pipe_redir(c[*pos]) && ft_strcmp(c[*pos], "|"))
 			parse_redirections(res, c, pos);
-		if (!res->command && !is_pipe_redir(c[*pos]) && c[*pos])
+		if (!res->command && !is_pipe_redir(c[*pos]) && ft_strlen(c[*pos]))
 		{
 			res->command = ft_strdup(c[*pos]);
 			res->args = ft_append_strarray(NULL, res->command);
 		}
-		else if (!is_pipe_redir(c[*pos]) && c[*pos])
+		else if (!is_pipe_redir(c[*pos]) && ft_strlen(c[*pos]))
 			res->args = ft_append_strarray(res->args, c[*pos]);
-		/*
-		if ((!res->args || !res->command) && c[*pos])
-			return (free_commands(res));
-		*/
-		if (!is_pipe_redir(c[*pos]) && c[*pos])
+		if (!is_pipe_redir(c[*pos]) && c[*pos] && ft_strcmp(c[*pos], "|"))
+			*pos += 1;
+		while (c[*pos] && !ft_strlen(c[*pos]))
 			*pos += 1;
 	}
 	if (c[*pos] && !ft_strcmp(c[*pos], "|"))
@@ -104,7 +102,7 @@ t_command	*get_commands_list(char **c, t_strlist *env)
 	if (!head)
 		return (NULL);
 	current = head;
-	while (c[i] && ft_strlen(c[i]) != 0)
+	while (c[i])
 	{
 		tmp = get_command(c, &i, env);
 		if (!tmp)

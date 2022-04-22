@@ -67,6 +67,7 @@ void	exec_com(t_command *head, t_command *c, t_strlist *env)
 		ret = EXIT_FAILURE;
 	if (inout)
 		close_fds(inout);
+	close_extra_tubes(head, NULL);
 	free_commands(head);
 	free_strlist(env);
 	exit(ret);
